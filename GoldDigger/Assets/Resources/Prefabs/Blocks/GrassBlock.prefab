@@ -9,32 +9,32 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1762565366691972}
+  m_RootGameObject: {fileID: 1250169313814898}
   m_IsPrefabParent: 1
---- !u!1 &1762565366691972
+--- !u!1 &1250169313814898
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4369071936880796}
-  - component: {fileID: 212367275359645456}
-  - component: {fileID: 114266173578258656}
-  - component: {fileID: 61341249721691968}
+  - component: {fileID: 4652133070071026}
+  - component: {fileID: 212821691316521266}
+  - component: {fileID: 114615310481801608}
+  - component: {fileID: 61661469180867954}
   m_Layer: 0
-  m_Name: CopperBlock
+  m_Name: GrassBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4369071936880796
+--- !u!4 &4652133070071026
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762565366691972}
+  m_GameObject: {fileID: 1250169313814898}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -42,12 +42,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61341249721691968
+--- !u!61 &61661469180867954
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762565366691972}
+  m_GameObject: {fileID: 1250169313814898}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -67,28 +67,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114266173578258656
+--- !u!114 &114615310481801608
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762565366691972}
+  m_GameObject: {fileID: 1250169313814898}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0381e528fe0728d409c86350a08421c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockName: copperBlock
-  hardness: 5
-  health: 0
-  spawnrate: 3
+  blockName: grassBlock
+  hardness: 8
+  spawnrate: 0.01
   breakable: 1
---- !u!212 &212367275359645456
+--- !u!212 &212821691316521266
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1762565366691972}
+  m_GameObject: {fileID: 1250169313814898}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -117,7 +116,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 94bbb1ed5c9cf5f49bfc43dc64abcdc1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fb65b276a50b8a9478a8f8ef2492146a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
