@@ -2,11 +2,17 @@
 
 public class Ores : MonoBehaviour {
 
-  [SerializeField]
-  GameObject droppingItem;
+	void Start () {
+		
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
 
-  void OnDestroy()
+  void onDestroy()
   {
-    Instantiate(droppingItem, gameObject.transform.position, Quaternion.identity);
+    //DROP ERZE
   }
 }

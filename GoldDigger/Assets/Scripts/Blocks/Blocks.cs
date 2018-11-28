@@ -1,42 +1,20 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Blocks : MonoBehaviour
 {
-  [SerializeField]
-  string blockName;
+    public string blockName;
+    public int hardness;
+    public bool breakable = true;
 
-  [SerializeField]
-  int hardness;
-
-  [SerializeField]
-  float health;
-
-  [SerializeField]
-  float spawnrate;
-
-  [SerializeField]
-  bool breakable = true;
-
-  void breakBlock()
-  {
-    Destroy(gameObject);
-    //TODO: play break Animation
-  }
-
-  public float Hardness => hardness;
-
-  public float Spawnrate => spawnrate;
-
-  public void ReceiveDamage(float[] itemInfo)
-  {
-    if (itemInfo.Length != 2)
+    void Start()
     {
-      throw new System.Exception("ReceiveDamage not right amount of arguments");
+
     }
 
-    if(itemInfo[0] >= hardness)
+    void onBreak()
     {
-      health -= itemInfo[1];
+        Destroy(gameObject);
     }
-  }
 }
