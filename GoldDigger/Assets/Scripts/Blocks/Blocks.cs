@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor.IMGUI.Controls;
+using UnityEngine;
 
 public class Blocks : MonoBehaviour
 {
@@ -39,6 +40,11 @@ public class Blocks : MonoBehaviour
     if(itemInfo[0] >= hardness)
     {
       health -= itemInfo[1];
+
+      if (health <= 0)
+      {
+        Destroy(gameObject);
+      }
     }
   }
 }
