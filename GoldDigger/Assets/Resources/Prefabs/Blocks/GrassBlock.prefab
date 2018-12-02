@@ -80,6 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: grassBlock
   hardness: 8
+  health: 0
   spawnrate: 0.01
   breakable: 1
 --- !u!212 &212821691316521266
@@ -113,8 +114,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1530184771
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fb65b276a50b8a9478a8f8ef2492146a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

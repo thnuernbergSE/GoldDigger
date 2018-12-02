@@ -41,3 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 66984571
+    locked: 0
+  - name: WorldBackground
+    uniqueID: 3516541585
+    locked: 0
+  - name: Blocks
+    uniqueID: 1530184771
+    locked: 0
+  - name: Items
+    uniqueID: 3680013693
+    locked: 0

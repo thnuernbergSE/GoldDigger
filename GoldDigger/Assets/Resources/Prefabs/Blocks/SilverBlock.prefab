@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212793722246043270}
   - component: {fileID: 114981123007739018}
   - component: {fileID: 61355736309998298}
+  - component: {fileID: 114568225759302556}
   m_Layer: 0
   m_Name: SilverBlock
   m_TagString: Untagged
@@ -67,6 +68,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114568225759302556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1024704285966612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df85763a710dede43bbd188b72b9258b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppingItem: {fileID: 1237234801857588, guid: d83668c1e83ba0b4cb77fb196f8fe5b2,
+    type: 2}
 --- !u!114 &114981123007739018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,8 +128,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1530184771
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f23914a7e23d1cc49a84233f5513fabe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

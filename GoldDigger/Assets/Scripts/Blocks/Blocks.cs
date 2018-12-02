@@ -23,6 +23,8 @@ public class Blocks : MonoBehaviour
     //TODO: play break Animation
   }
 
+  public float GetHealth => health;
+
   public float Hardness => hardness;
 
   public float Spawnrate => spawnrate;

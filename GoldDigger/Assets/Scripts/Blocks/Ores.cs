@@ -1,12 +1,23 @@
-﻿using UnityEngine;
+﻿using System.Xml.Serialization;
+using UnityEngine;
 
 public class Ores : MonoBehaviour {
 
   [SerializeField]
   GameObject droppingItem;
 
-  void OnDestroy()
+  Blocks block;
+
+  void Start()
   {
-    Instantiate(droppingItem, gameObject.transform.position, Quaternion.identity);
+    block = gameObject.GetComponent<Blocks>();
+  }
+
+  void Update()
+  {
+    if (block.GetHealth < 0)
+    {
+      Instantiate(droppingItem, gameObject.transform.position, Quaternion.identity);
+    }
   }
 }

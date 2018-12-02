@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212507874863279132}
   - component: {fileID: 114410499152920160}
   - component: {fileID: 61202338195851080}
+  - component: {fileID: 114254299525863506}
   m_Layer: 0
   m_Name: PlatinBlock
   m_TagString: Untagged
@@ -67,6 +68,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &114254299525863506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1362738176215202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df85763a710dede43bbd188b72b9258b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppingItem: {fileID: 1129422429141832, guid: 1a11f9afc60e7d44a9dd6473fc5ff79d,
+    type: 2}
 --- !u!114 &114410499152920160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81,7 +95,7 @@ MonoBehaviour:
   blockName: platinBlock
   hardness: 8
   health: 0
-  spawnrate: 0.01
+  spawnrate: 1
   breakable: 1
 --- !u!212 &212507874863279132
 SpriteRenderer:
@@ -114,8 +128,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1530184771
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d1a8696f2dc532e44a4c7795f6592ca0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
