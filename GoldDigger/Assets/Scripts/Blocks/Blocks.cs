@@ -37,7 +37,7 @@ public class Blocks : MonoBehaviour
       throw new System.Exception("ReceiveDamage not right amount of arguments");
     }
 
-    if(itemInfo[0] >= hardness)
+    if(itemInfo[0] >= hardness && breakable)
     {
       health -= itemInfo[1];
 
