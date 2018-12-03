@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSwitching : MonoBehaviour
+public class ItemSwitch : MonoBehaviour
 {
 
     private int selectedItem = 0;
@@ -71,9 +71,25 @@ public class ItemSwitching : MonoBehaviour
         {
             selectedItem = 1;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2) && transform.childCount >= 3)
+        if (Input.GetKeyDown(KeyCode.Alpha3) && transform.childCount >= 3)
         {
             selectedItem = 2;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4) && transform.childCount >= 4)
+        {
+            selectedItem = 3;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5) && transform.childCount >= 5)
+        {
+            selectedItem = 4;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6) && transform.childCount >= 6)
+        {
+            selectedItem = 5;
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7) && transform.childCount >= 7)
+        {
+            selectedItem = 6;
         }
 
         if (previousSelectedItem != selectedItem)
