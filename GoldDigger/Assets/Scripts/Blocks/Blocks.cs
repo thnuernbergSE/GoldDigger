@@ -39,7 +39,7 @@ public class Blocks : MonoBehaviour
 
         }
         Debug.Log("Hardness: " + itemInfo[0] + ":" + hardness + " Health: " + itemInfo[1] + ":" + health);
-        if (itemInfo[0] >= hardness && breakabel)
+        if (itemInfo[0] >= hardness)
         {
             health -= itemInfo[1];
 

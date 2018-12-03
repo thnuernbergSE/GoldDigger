@@ -40,7 +40,7 @@ public class MapGenerator : MonoBehaviour
 
     var spriteRenderer = background.GetComponent<SpriteRenderer>();
 
-    spriteRenderer.size = new Vector2(worldWidth + 5, worldHeight + 30);
+    spriteRenderer.size = new Vector2(worldWidth + 30, worldHeight + 30);
   }
   
 
@@ -94,6 +94,7 @@ public class MapGenerator : MonoBehaviour
 
   void Start()
   {
+    createGrassLayer(worldWidth, 1);
     createDirtLayer(worldWidth, 10);
     createStoneLayer1(worldWidth, 20);
     createIronTinLayer(worldWidth, 20);
@@ -224,6 +225,14 @@ public class MapGenerator : MonoBehaviour
     }
 
     worldHeight += height;
+  }
+
+  void createGrassLayer(int width, int height)
+  {
+    for (var i = 0; i < width; i++)
+    {
+      Instantiate(GrassBlock, new Vector2(i, 1), Quaternion.identity, GameObject.Find("World").transform);
+    }
   }
 
   void createGoldLithiumLayer(int width, int height)
