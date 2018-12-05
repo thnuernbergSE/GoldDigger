@@ -21,7 +21,7 @@ public class PlayerControl : MonoBehaviour
     private float groundRadius;
 
     [SerializeField]
-    private float jumpforce;
+    private float jumpForce;
 
     private bool isGrounded;
 
@@ -42,11 +42,19 @@ public class PlayerControl : MonoBehaviour
     private float strength = 5f;
     private float dmg = 5f;
 
-    public bool onWall;
 
-    [SerializeField]
-    public float climbSpeed;
+    //TODO:
+    bool wallJumping;
     
+
+
+
+    public float position
+    {
+        get { return transform.position.y; }
+    }
+
+
 
     // Use this for initialization
     void Start()
@@ -54,6 +62,7 @@ public class PlayerControl : MonoBehaviour
         facingRight = true;
         myRigidbody2D = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
+      
     }
 
     void Update()
@@ -94,20 +103,18 @@ public class PlayerControl : MonoBehaviour
         if (isGrounded && jump)
         {
             isGrounded = false;
-            myRigidbody2D.AddForce(new Vector2(0, jumpforce));
+            myRigidbody2D.AddForce(new Vector2(0, jumpForce));
             myAnimator.SetTrigger("jump");
         }
 
-        //if (onWall)
-        //{
-        //    myRigidbody2D.velocity = new Vector2(horizontal * climbSpeed,myRigidbody2D.velocity.y);
-        //}
-      
+        
 
         myRigidbody2D.velocity = new Vector2(horizontal * movementSpeed, myRigidbody2D.velocity.y);
 
         myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
     }
+
+    
 
     private void HandleAttacks()
     {
@@ -121,6 +128,9 @@ public class PlayerControl : MonoBehaviour
 
     private void HandleInput()
     {
+        Physics2D.queriesStartInColliders = false;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x,1);
+
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             attackWithPickaxe = true;
@@ -129,6 +139,17 @@ public class PlayerControl : MonoBehaviour
         {
             jump = true;
         }
+        if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && hit.collider!=null)
+        {
+            GetComponent<Rigidbody2D>().velocity = new Vector2(movementSpeed * hit.normal.x ,movementSpeed);
+            
+            //transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one; // nicht auskommentieren wichtig für später vlt
+        }
+        else if (hit.collider!=null && wallJumping)
+        {
+            wallJumping = false;
+        }
+
     }
 
     private void Flip(float horizontal)
