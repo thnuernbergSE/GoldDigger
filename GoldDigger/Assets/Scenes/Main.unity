@@ -6647,6 +6647,22 @@ Prefab:
       propertyPath: whatIsGround.m_Bits
       value: 311
       objectReference: {fileID: 0}
+    - target: {fileID: 1248950800775622, guid: d1e6ab3bc517c7a4a9ede22a705bae7e, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1595845376522518, guid: d1e6ab3bc517c7a4a9ede22a705bae7e, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1867812586063874, guid: d1e6ab3bc517c7a4a9ede22a705bae7e, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1534596064902600, guid: d1e6ab3bc517c7a4a9ede22a705bae7e, type: 2}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d1e6ab3bc517c7a4a9ede22a705bae7e, type: 2}
   m_IsPrefabAsset: 0

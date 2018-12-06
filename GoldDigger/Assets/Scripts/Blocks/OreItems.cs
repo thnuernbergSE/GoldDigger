@@ -15,6 +15,7 @@ public class OreItems : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
+
 		
 	}
 
@@ -22,6 +23,7 @@ public class OreItems : MonoBehaviour
   {
     if (col.tag == "Player")
     {
+      Debug.Log("test");
       //TODO: ADD ITEM TO PLAYER INVENTORY AND DESTROY
     }
   }
