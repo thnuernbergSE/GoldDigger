@@ -207,7 +207,7 @@ public class PlayerControl : MonoBehaviour
   {
     Vector2 lookdirection = Lookdirection();
 
-    RaycastHit2D hit = Physics2D.Raycast(transform.position, lookdirection, attackDistance);
+    RaycastHit2D hit = Physics2D.Raycast(transform.position, lookdirection, attackDistance, 1 << 8);
 
     Debug.Log("Yow");
 
