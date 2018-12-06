@@ -4,27 +4,32 @@ using UnityEngine;
 
 public class Pickaxe : MonoBehaviour {
 
- //   private Image image;
- //   private int strength;
- //   private int dmg;
- //   private string name;
+    [SerializeField]
+    float strength;
+    [SerializeField]
+    float dmg;
+    [SerializeField]
+    string name;
 
- //   public Pickaxe(Image image, int strength, int dmg, string name)
- //   {
- //       this.image = image;
- //       this.strength = strength;
- //       this.dmg = dmg;
- //       this.name = name;
- //   }
+    [SerializeField]
+    Sprite sprite;
 
-	//// Use this for initialization
-	//void Start ()
- //   {
- //       Pickaxe pickaxe_wood = new Pickaxe("",5,5,"Holzspitzhacke");
-	//}
-	
-	//// Update is called once per frame
-	//void Update () {
-		
-	//}
+    public float Strength
+    {
+        get { return strength; }
+    }
+    public float Damage
+    {
+        get { return dmg; }
+    }
+    public string Name
+    {
+        get { return name; }
+    }
+    public Sprite GetSprite
+    {
+        get { return sprite; }
+    }
+
+
 }

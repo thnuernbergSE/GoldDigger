@@ -80,8 +80,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockName: aluminumBlock
-  hardness: 5
-  health: 0
+  hardness: 0
+  health: 2
   spawnrate: 4
   breakable: 1
 --- !u!114 &114816492941773844

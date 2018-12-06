@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockName: grassBlock
   hardness: 0
-  health: 5
+  health: 2
   spawnrate: 0.01
   breakable: 1
 --- !u!212 &212821691316521266

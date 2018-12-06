@@ -6,20 +6,34 @@ public class Player : MonoBehaviour
 {
 
     // Use this for initialization
-    private int Life
+    public int MaxHealth
+    {
+        get;
+        set;
+    }
+    public int AcutalHealth
     {
         get;
     }
 
-    private int Stammina
+    public int Stammina
     {
         get;
     }
 
-    private GameObject pickaxe
+    public GameObject Pickaxe
     {
-        get;
+        get { return mainTool; }
+        set { mainTool = value; }
     }
+
+    public float GetYPos => transform.position.y;
+
+    [SerializeField]
+    private GameObject mainTool;
+
+    private Pickaxe pickScript;
+
     void Start()
     {
 
