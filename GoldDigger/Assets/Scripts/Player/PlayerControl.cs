@@ -39,7 +39,9 @@ public class PlayerControl : MonoBehaviour
     [SerializeField]
     float attackDistance;
 
+    [SerializeField]
     private float strength = 5f;
+    [SerializeField]
     private float dmg = 5f;
 
 
