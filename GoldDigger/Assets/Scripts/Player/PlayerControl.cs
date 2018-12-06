@@ -4,275 +4,283 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-    Vector2 lookdirection;
+  Vector2 lookdirection;
 
-    private Rigidbody2D myRigidbody2D;
+  private Rigidbody2D myRigidbody2D;
 
-    private Animator myAnimator;
+  private Animator myAnimator;
 
-    [SerializeField]
-    private float movementSpeed;
+  [SerializeField] private float movementSpeed;
 
-    private bool attackWithPickaxe;
+  private bool attackWithPickaxe;
 
-    private bool facingRight;
+  private bool facingRight;
 
-    [SerializeField]
-    private float groundRadius;
+  [SerializeField] private float groundRadius;
 
-    [SerializeField]
-    private float jumpForce;
+  [SerializeField] private float jumpForce;
 
-    private bool isGrounded;
+  private bool isGrounded;
 
-    private bool jump;
+  private bool jump;
 
-    [SerializeField]
-    private bool airControl;
+  [SerializeField] private bool airControl;
 
-    [SerializeField]
-    private LayerMask whatIsGround;
+  [SerializeField] private LayerMask whatIsGround;
 
-    [SerializeField]
-    private Transform[] groundPoints;
+  [SerializeField] private Transform[] groundPoints;
 
-    [SerializeField]
-    float attackDistance;
+  [SerializeField] float attackDistance;
 
-    [SerializeField]
-    private float strength = 5f;
-    [SerializeField]
-    private float dmg = 5f;
+  [SerializeField] private float strength = 5f;
+  [SerializeField] private float dmg = 5f;
 
 
-    //TODO:
-    bool wallJumping;
-    
+  //TODO:
+  bool wallJumping;
 
 
 
-    public float position
+
+  public float position
+  {
+    get { return transform.position.y; }
+  }
+
+
+
+  // Use this for initialization
+  void Start()
+  {
+    facingRight = true;
+    myRigidbody2D = GetComponent<Rigidbody2D>();
+    myAnimator = GetComponent<Animator>();
+
+  }
+
+  void Update()
+  {
+    HandleInput();
+  }
+
+  // Update is called once per frame
+  void FixedUpdate()
+  {
+    float horizontal = Input.GetAxisRaw("Horizontal");
+
+    isGrounded = IsGrounded();
+
+    HandleMovement(horizontal);
+
+    Flip(horizontal);
+
+    HandleLayers();
+
+    HandleAttacks();
+
+    ResetValues();
+
+
+  }
+
+  private void HandleMovement(float horizontal)
+  {
+    if (myRigidbody2D.velocity.y < 0)
     {
-        get { return transform.position.y; }
+      myAnimator.SetBool("land", true);
+    }
+
+    if (!myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe") && (isGrounded || airControl))
+    {
+      myRigidbody2D.velocity = new Vector2(horizontal * movementSpeed, myRigidbody2D.velocity.y);
+    }
+
+    if (isGrounded && jump)
+    {
+      isGrounded = false;
+      myRigidbody2D.AddForce(new Vector2(0, jumpForce));
+      myAnimator.SetTrigger("jump");
     }
 
 
 
-    // Use this for initialization
-    void Start()
+    myRigidbody2D.velocity = new Vector2(horizontal * movementSpeed, myRigidbody2D.velocity.y);
+
+    myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
+  }
+
+
+
+  private void HandleAttacks()
+  {
+    if (attackWithPickaxe && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe"))
     {
-        facingRight = true;
-        myRigidbody2D = GetComponent<Rigidbody2D>();
-        myAnimator = GetComponent<Animator>();
-      
+      myAnimator.SetTrigger("attack_pickaxe");
+      HandleRaycast();
+      myRigidbody2D.velocity = Vector2.zero;
+    }
+  }
+
+  private void HandleInput()
+  {
+    Physics2D.queriesStartInColliders = false;
+    RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, 1);
+
+    if (Input.GetKeyDown(KeyCode.Mouse0))
+    {
+      attackWithPickaxe = true;
     }
 
-    void Update()
+    if (Input.GetKeyDown(KeyCode.Space))
     {
-        HandleInput();
+      jump = true;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && hit.collider != null)
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
+      GetComponent<Rigidbody2D>().velocity = new Vector2(movementSpeed * hit.normal.x, movementSpeed);
 
-        isGrounded = IsGrounded();
-
-        HandleMovement(horizontal);
-
-        Flip(horizontal);
-
-        HandleLayers();
-
-        HandleAttacks();
-
-        ResetValues();
-
-
+      //transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one; // nicht auskommentieren wichtig für später vlt
     }
-    private void HandleMovement(float horizontal)
+    else if (hit.collider != null && wallJumping)
     {
-        if (myRigidbody2D.velocity.y < 0)
-        {
-            myAnimator.SetBool("land", true);
-        }
-        if (!myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe") && (isGrounded || airControl))
-        {
-            myRigidbody2D.velocity = new Vector2(horizontal * movementSpeed, myRigidbody2D.velocity.y);
-        }
-
-        if (isGrounded && jump)
-        {
-            isGrounded = false;
-            myRigidbody2D.AddForce(new Vector2(0, jumpForce));
-            myAnimator.SetTrigger("jump");
-        }
-
-        
-
-        myRigidbody2D.velocity = new Vector2(horizontal * movementSpeed, myRigidbody2D.velocity.y);
-
-        myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
+      wallJumping = false;
     }
 
-    
+  }
 
-    private void HandleAttacks()
+  private void Flip(float horizontal)
+  {
+    if (horizontal > 0 && !facingRight || horizontal < 0 && facingRight)
     {
-        if (attackWithPickaxe && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe"))
+      facingRight = !facingRight;
+      Vector3 theScale = transform.localScale;
+
+      theScale.x *= -1;
+
+      transform.localScale = theScale;
+    }
+  }
+
+  private void ResetValues()
+  {
+    attackWithPickaxe = false;
+    jump = false;
+  }
+
+  private bool IsGrounded()
+  {
+    if (myRigidbody2D.velocity.y <= 0)
+    {
+      foreach (Transform point in groundPoints)
+      {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
+
+        for (int i = 0; i < colliders.Length; i++)
         {
-            myAnimator.SetTrigger("attack_pickaxe");
-            HandleRaycast();
-            myRigidbody2D.velocity = Vector2.zero;
+          if (colliders[i].gameObject != gameObject)
+          {
+            myAnimator.ResetTrigger("jump");
+            myAnimator.SetBool("land", false);
+            return true;
+          }
         }
+      }
     }
 
-    private void HandleInput()
+    return false;
+  }
+
+  private void HandleLayers()
+  {
+    if (!isGrounded)
     {
-        Physics2D.queriesStartInColliders = false;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x,1);
+      myAnimator.SetLayerWeight(1, 1);
+    }
+    else
+    {
+      myAnimator.SetLayerWeight(1, 0);
+    }
+  }
 
-        if (Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            attackWithPickaxe = true;
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            jump = true;
-        }
-        if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && hit.collider!=null)
-        {
-            GetComponent<Rigidbody2D>().velocity = new Vector2(movementSpeed * hit.normal.x ,movementSpeed);
-            
-            //transform.localScale = transform.localScale.x == 1 ? new Vector2(-1, 1) : Vector2.one; // nicht auskommentieren wichtig für später vlt
-        }
-        else if (hit.collider!=null && wallJumping)
-        {
-            wallJumping = false;
-        }
+  private void HandleRaycast()
+  {
+    Vector2 lookdirection = Lookdirection();
 
+    int layerMask = 1 << 8;
+
+    RaycastHit2D hit = Physics2D.Raycast(transform.position, lookdirection, attackDistance);
+
+    Debug.Log("Yow");
+
+    if (hit.collider != null)
+    {
+      hit.collider.SendMessage("ReceiveDamage", new float[] {strength, dmg});
+    }
+  }
+
+  private Vector2 Lookdirection()
+  {
+    Vector2 lookdirection = new Vector2(0, 0);
+    Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+    Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
+    direction.Normalize();
+
+    if (direction.x > 0 && direction.y > 0)
+    {
+      if (direction.x < direction.y)
+      {
+        lookdirection = new Vector2(0, 1);
+      }
+
+      if (direction.x >= direction.y)
+      {
+        lookdirection = new Vector2(1, 0);
+      }
     }
 
-    private void Flip(float horizontal)
+    if (direction.x < 0 && direction.y < 0)
     {
-        if (horizontal > 0 && !facingRight || horizontal < 0 && facingRight)
-        {
-            facingRight = !facingRight;
-            Vector3 theScale = transform.localScale;
+      if (Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
+      {
+        lookdirection = new Vector2(0, -1);
+      }
 
-            theScale.x *= -1;
-
-            transform.localScale = theScale;
-        }
+      if (Mathf.Abs(direction.x) >= Mathf.Abs(direction.y))
+      {
+        lookdirection = new Vector2(-1, 0);
+      }
     }
 
-    private void ResetValues()
+    if (direction.x > 0 && direction.y < 0)
     {
-        attackWithPickaxe = false;
-        jump = false;
+      if (direction.x < Mathf.Abs(direction.y))
+      {
+        lookdirection = new Vector2(0, -1);
+      }
+
+      if (direction.x >= Mathf.Abs(direction.y))
+      {
+        lookdirection = new Vector2(1, 0);
+      }
     }
 
-    private bool IsGrounded()
+    if (direction.x < 0 && direction.y > 0)
     {
-        if (myRigidbody2D.velocity.y <= 0)
-        {
-            foreach (Transform point in groundPoints)
-            {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
+      if (Mathf.Abs(direction.x) < direction.y)
+      {
+        lookdirection = new Vector2(0, 1);
+      }
 
-                for (int i = 0; i < colliders.Length; i++)
-                {
-                    if (colliders[i].gameObject != gameObject)
-                    {
-                        myAnimator.ResetTrigger("jump");
-                        myAnimator.SetBool("land", false);
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+      if (Mathf.Abs(direction.x) >= direction.y)
+      {
+        lookdirection = new Vector2(-1, 0);
+      }
     }
 
-    private void HandleLayers()
-    {
-        if (!isGrounded)
-        {
-            myAnimator.SetLayerWeight(1, 1);
-        }
-        else
-        {
-            myAnimator.SetLayerWeight(1, 0);
-        }
-    }
+    return lookdirection;
 
-    private void HandleRaycast()
-    {
-        Vector2 lookdirection = Lookdirection();
-
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, lookdirection, attackDistance);
-
-        if (hit.collider != null)
-        {
-            hit.collider.SendMessage("ReceiveDamage", new float[] { strength, dmg });
-        }
-    }
-
-    private Vector2 Lookdirection()
-    {
-        Vector2 lookdirection = new Vector2(0,0);
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        Vector2 direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
-        direction.Normalize();
-
-        if (direction.x > 0 && direction.y > 0)
-        {
-            if (direction.x < direction.y)
-            {
-                lookdirection = new Vector2(0, 1);
-            }
-            if (direction.x >= direction.y)
-            {
-                lookdirection = new Vector2(1, 0);
-            }
-        }
-        if (direction.x < 0 && direction.y < 0)
-        {
-            if (Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
-            {
-                lookdirection = new Vector2(0,-1);
-            }
-            if (Mathf.Abs(direction.x) >= Mathf.Abs(direction.y))
-            {
-                lookdirection = new Vector2(-1, 0);
-            }
-        }
-        if (direction.x > 0 && direction.y < 0)
-        {
-            if (direction.x < Mathf.Abs(direction.y))
-            {
-                lookdirection = new Vector2(0, -1);
-            }
-            if (direction.x >= Mathf.Abs(direction.y))
-            {
-                lookdirection = new Vector2(1, 0);
-            }
-        }
-        if (direction.x < 0 && direction.y > 0)
-        {
-            if (Mathf.Abs(direction.x) < direction.y)
-            {
-                lookdirection = new Vector2(0, 1);
-            }
-            if (Mathf.Abs(direction.x) >= direction.y)
-            {
-                lookdirection = new Vector2(-1, 0);
-            }
-        }
-        return lookdirection;
-
-    }
+  }
 
 }

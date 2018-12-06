@@ -6,18 +6,10 @@ public class Ores : MonoBehaviour {
   [SerializeField]
   GameObject droppingItem;
 
-  Blocks block;
+  
 
-  void Start()
+  public void SpawnOre()
   {
-    block = gameObject.GetComponent<Blocks>();
-  }
-
-  void Update()
-  {
-    if (block.GetHealth < 0)
-    {
-      Instantiate(droppingItem, gameObject.transform.position, Quaternion.identity);
-    }
+    Instantiate(droppingItem, gameObject.transform.position, Quaternion.identity);
   }
 }

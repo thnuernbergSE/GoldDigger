@@ -229,6 +229,11 @@ MonoBehaviour:
   - {fileID: 4972206910789220}
   - {fileID: 4000519975297246}
   attackDistance: 1
+  strength: 10
+  dmg: 5
+  blocksLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!212 &212375817115750754
 SpriteRenderer:
   m_ObjectHideFlags: 1

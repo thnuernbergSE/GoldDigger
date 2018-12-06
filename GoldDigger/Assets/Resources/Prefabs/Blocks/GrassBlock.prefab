@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212821691316521266}
   - component: {fileID: 114615310481801608}
   - component: {fileID: 61661469180867954}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GrassBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}

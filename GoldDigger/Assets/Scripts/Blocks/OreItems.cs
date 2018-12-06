@@ -17,4 +17,12 @@ public class OreItems : MonoBehaviour
 	void Update () {
 		
 	}
+
+  void OnTriggerEnter2D(Collider2D col)
+  {
+    if (col.tag == "Player")
+    {
+      //TODO: ADD ITEM TO PLAYER INVENTORY AND DESTROY
+    }
+  }
 }
