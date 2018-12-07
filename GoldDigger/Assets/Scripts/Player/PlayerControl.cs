@@ -48,11 +48,7 @@ public class PlayerControl : MonoBehaviour
 
 
 
-  public float position
-  {
-    get { return transform.position.y; }
-  }
-
+  public float GetYPosition => transform.position.y;
 
 
   // Use this for initialization

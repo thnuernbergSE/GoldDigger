@@ -26,6 +26,7 @@ public class MapGenerator : MonoBehaviour
   const int worldWidth = 50;
 
   public static int GetWorldWidth => worldWidth;
+  public int GetWorldHeight => worldHeight;
 
   float GetSpawnRate(GameObject block)
   {
