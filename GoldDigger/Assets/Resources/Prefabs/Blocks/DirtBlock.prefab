@@ -79,8 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockName: dirtBlock
-  hardness: 5
-  health: 10
+  hardness: 0
+  health: 2
   spawnrate: 0
   breakable: 1
 --- !u!212 &212891118598699446

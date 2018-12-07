@@ -32,9 +32,15 @@ public class PlayerControl : MonoBehaviour
 
   [SerializeField] float attackDistance;
 
-  [SerializeField] private float strength = 5f;
-  [SerializeField] private float dmg = 5f;
+  private float strength;
+  private float dmg;
 
+    [SerializeField]
+    private float coolDown = 0.5f;
+
+    private float coolDownTimer;
+
+    
 
   //TODO:
   bool wallJumping;
@@ -76,6 +82,8 @@ public class PlayerControl : MonoBehaviour
 
     HandleLayers();
 
+    HandlePickaxe();
+
     HandleAttacks();
 
     ResetValues();
@@ -113,11 +121,13 @@ public class PlayerControl : MonoBehaviour
 
   private void HandleAttacks()
   {
-    if (attackWithPickaxe && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe"))
+        coolDownTimer -= Time.deltaTime;
+    if (attackWithPickaxe && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe") && isGrounded && coolDownTimer<=0)
     {
       myAnimator.SetTrigger("attack_pickaxe");
       HandleRaycast();
       myRigidbody2D.velocity = Vector2.zero;
+            coolDownTimer = coolDown;
     }
   }
 
@@ -216,6 +226,15 @@ public class PlayerControl : MonoBehaviour
       hit.collider.SendMessage("ReceiveDamage", new float[] {strength, dmg});
     }
   }
+
+    private void HandlePickaxe()
+    {
+        Player player = gameObject.GetComponent<Player>();
+        Pickaxe pickaxe = player.Pickaxe.GetComponent<Pickaxe>();
+        strength = pickaxe.Strength;
+        dmg = pickaxe.Damage;
+
+    }
 
   private Vector2 Lookdirection()
   {
