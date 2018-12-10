@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,18 +36,18 @@ public class PlayerControl : MonoBehaviour
   private float strength;
   private float dmg;
 
-    [SerializeField]
-    private float coolDown = 0.5f;
+  [SerializeField] private float coolDown = 0.5f;
 
-    private float coolDownTimer;
+  private float coolDownTimer;
 
-    
+
 
   //TODO:
   bool wallJumping;
 
 
-
+  GameObject pivotPoint;
+  bool isPickAnimationRunning = false;
 
   public float GetYPosition => transform.position.y;
 
@@ -57,6 +58,12 @@ public class PlayerControl : MonoBehaviour
     facingRight = true;
     myRigidbody2D = GetComponent<Rigidbody2D>();
     myAnimator = GetComponent<Animator>();
+    pivotPoint = GameObject.Find("Pivot");
+
+    if (pivotPoint == null)
+    {
+      throw new NullReferenceException("Pivot Point not found! - PlayerControl.cs");
+    }
 
   }
 
@@ -113,17 +120,45 @@ public class PlayerControl : MonoBehaviour
     myAnimator.SetFloat("speed", Mathf.Abs(horizontal));
   }
 
-
+  float i = 0f;
+  
 
   private void HandleAttacks()
   {
-        coolDownTimer -= Time.deltaTime;
-    if (attackWithPickaxe && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe") && isGrounded && coolDownTimer<=0)
+    if (isPickAnimationRunning)
     {
-      myAnimator.SetTrigger("attack_pickaxe");
+      var pivotMax = 50;
+      var pivotMin = -30f;
+      float rate = 3f;
+
+
+      i += rate * Time.deltaTime;
+
+      pivotPoint.transform.eulerAngles = new Vector3(0,0,Mathf.LerpAngle(pivotMax, pivotMin, i));;
+
+      Debug.Log(pivotPoint.transform.rotation);
+
+      if (i > 1)
+      {
+        isPickAnimationRunning = false;
+        i = 0f;
+      }
+        
+
+    }
+
+    coolDownTimer -= Time.deltaTime;
+    if (attackWithPickaxe && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe") && isGrounded &&
+        coolDownTimer <= 0)
+    {
+      //myAnimator.SetTrigger("attack_pickaxe");
+      //ANIMATION
+
+
+      isPickAnimationRunning = true;
       HandleRaycast();
       myRigidbody2D.velocity = Vector2.zero;
-            coolDownTimer = coolDown;
+      coolDownTimer = coolDown;
     }
   }
 
@@ -132,7 +167,7 @@ public class PlayerControl : MonoBehaviour
     Physics2D.queriesStartInColliders = false;
     RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, 1);
 
-    if (Input.GetKeyDown(KeyCode.Mouse0))
+    if (Input.GetKey(KeyCode.Mouse0))
     {
       attackWithPickaxe = true;
     }
@@ -215,22 +250,20 @@ public class PlayerControl : MonoBehaviour
 
     RaycastHit2D hit = Physics2D.Raycast(transform.position, lookdirection, attackDistance, 1 << 8);
 
-    Debug.Log("Yow");
-
     if (hit.collider != null)
     {
       hit.collider.SendMessage("ReceiveDamage", new float[] {strength, dmg});
     }
   }
 
-    private void HandlePickaxe()
-    {
-        Player player = gameObject.GetComponent<Player>();
-        Pickaxe pickaxe = player.Pickaxe.GetComponent<Pickaxe>();
-        strength = pickaxe.Strength;
-        dmg = pickaxe.Damage;
+  private void HandlePickaxe()
+  {
+    Player player = gameObject.GetComponent<Player>();
+    Pickaxe pickaxe = player.Pickaxe.GetComponent<Pickaxe>();
+    strength = pickaxe.Strength;
+    dmg = pickaxe.Damage;
 
-    }
+  }
 
   private Vector2 Lookdirection()
   {
