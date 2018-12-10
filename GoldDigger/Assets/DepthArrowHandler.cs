@@ -1,32 +1,30 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DepthArrowHandler : MonoBehaviour
 {
-
-  MapGenerator mapGenerator;
-  int worldHeight;
-  PlayerControl playerControl;
-
-  float playerPosPercentage;
-  float depthArrowPosition;
-
   const int ImageOffset = 25;
   const int ImageSize = 500;
   GameObject depthArrow;
+  float depthArrowPosition;
+
+  MapGenerator mapGenerator;
+  PlayerControl playerControl;
+
+  float playerPosPercentage;
+  int worldHeight;
 
   // Use this for initialization
-  void Start () {
-		mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
+  void Start()
+  {
+    mapGenerator = GameObject.Find("MapGenerator").GetComponent<MapGenerator>();
     if (mapGenerator == null)
     {
       throw new NullReferenceException("No MapGenerator found! - DepthArrowHandler");
     }
 
     playerControl = GameObject.Find("Player").GetComponent<PlayerControl>();
-    if (playerControl == null) 
+    if (playerControl == null)
     {
       throw new NullReferenceException("No PlayerControl found! - DepthArrowHandler");
     }
@@ -40,12 +38,11 @@ public class DepthArrowHandler : MonoBehaviour
   }
 
 
-	
-	// Update is called once per frame
-	void Update ()
-	{
-	  playerPosPercentage = Mathf.Max(-playerControl.GetYPosition, 0) * 100 / worldHeight;
-	  depthArrowPosition = (-playerPosPercentage / 100 * ImageSize) - ImageOffset;
-	  depthArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3(-9.7f, depthArrowPosition);
-	}
+  // Update is called once per frame
+  void Update()
+  {
+    playerPosPercentage = Mathf.Max(-playerControl.GetYPosition, 0) * 100 / worldHeight;
+    depthArrowPosition = -playerPosPercentage / 100 * ImageSize - ImageOffset;
+    depthArrow.GetComponent<RectTransform>().anchoredPosition = new Vector3(-9.7f, depthArrowPosition);
+  }
 }

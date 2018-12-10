@@ -2,7 +2,10 @@
 
 public class MapGenerator : MonoBehaviour
 {
+  const int worldWidth = 50;
   public GameObject AluminumBlock;
+
+  public GameObject BoulderEnemy;
   public GameObject CoalBlock;
   public GameObject CobaltBlock;
   public GameObject CobbleBlock;
@@ -22,75 +25,70 @@ public class MapGenerator : MonoBehaviour
 
   public GameObject WorldBackground;
 
-  int worldHeight;
-  const int worldWidth = 50;
-
   public static int GetWorldWidth => worldWidth;
-  public int GetWorldHeight => worldHeight;
+  public int GetWorldHeight { get; set; }
 
   float GetSpawnRate(GameObject block)
   {
     var blocksClass = block.GetComponent<Blocks>();
-    
+
     return blocksClass.Spawnrate;
   }
 
   void setWorldBackground()
   {
-    var background = Instantiate(WorldBackground, new Vector2(worldWidth / 2f - 0.5f, -worldHeight / 2f -  13f), Quaternion.identity);
+    var background = Instantiate(WorldBackground, new Vector2(worldWidth / 2f - 0.5f, -GetWorldHeight / 2f - 13f),
+      Quaternion.identity);
 
     var spriteRenderer = background.GetComponent<SpriteRenderer>();
 
-    spriteRenderer.size = new Vector2(worldWidth + 30, worldHeight + 30);
+    spriteRenderer.size = new Vector2(worldWidth + 30, GetWorldHeight + 30);
   }
-  
 
 
   void createStoneLayer1(int width, int height)
   {
     for (var i = 0; i < height; i++)
+    for (var j = 0; j < width; j++)
     {
-      
-      for (var j = 0; j < width; j++)
+      var active = StoneBlock;
+
+      float spawnRate = 0;
+
+      var rand = Random.Range(0f, 100f);
+
+      if (rand <= (spawnRate += GetSpawnRate(CoalBlock)))
       {
-        GameObject active = StoneBlock;
-
-        float spawnRate = 0;
-
-        var rand = Random.Range(0f, 100f);
-
-        if (rand <= (spawnRate += GetSpawnRate(CoalBlock)))
-        {
-          active = CoalBlock;
-        }
-        else if (rand <= (spawnRate + GetSpawnRate(CopperBlock)))
-        {
-          active = CopperBlock;
-        }
-
-        Instantiate(active, new Vector2(j, -i - worldHeight), Quaternion.identity, GameObject.Find("World").transform);
+        active = CoalBlock;
       }
+      else if (rand <= spawnRate + GetSpawnRate(CopperBlock))
+      {
+        active = CopperBlock;
+      }
+      else if (rand <= spawnRate + GetSpawnRate(BoulderEnemy))
+      {
+        active = BoulderEnemy;
+      }
+
+      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
     }
 
-    worldHeight += height;
+    GetWorldHeight += height;
   }
 
   void createDirtLayer(int width, int height)
   {
-
     for (var i = 0; i < height; i++)
+    for (var j = 0; j < width; j++)
     {
-      
-      for (var j = 0; j < width; j++)
-      {
-        var rand = Random.Range(0, 100);
+      var rand = Random.Range(0, 100);
 
-        var active = rand >= GetSpawnRate(CobbleBlock) ? DirtBlock : CobbleBlock;
+      var active = rand >= GetSpawnRate(CobbleBlock) ? DirtBlock : CobbleBlock;
 
-        Instantiate(active, new Vector2(j, -i - worldHeight), Quaternion.identity, GameObject.Find("World").transform);
-      }
+      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
     }
-    worldHeight += height;
+
+    GetWorldHeight += height;
   }
 
   void Start()
@@ -110,210 +108,224 @@ public class MapGenerator : MonoBehaviour
   void createTitaniumLayer(int width, int height)
   {
     for (var i = 0; i < height; i++)
+    for (var j = 0; j < width; j++)
     {
-      for (var j = 0; j < width; j++)
+      var random = Random.Range(0f, 100f);
+      var active = StoneBlock;
+      var spawnRate = 0f;
+
+      if (random <= (spawnRate += GetSpawnRate(DiamondBlock)))
       {
-        var random = Random.Range(0f, 100f);
-        var active = StoneBlock;
-        var spawnRate = 0f;
-
-        if (random <= (spawnRate += GetSpawnRate(DiamondBlock)))
-        {
-          active = DiamondBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(TitaniumBlock)))
-        {
-          active = TitaniumBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(PlatinumBlock)))
-        {
-          active = PlatinumBlock;
-        }
-
-        Instantiate(active, new Vector2(j, -i - worldHeight), Quaternion.identity, GameObject.Find("World").transform);
+        active = DiamondBlock;
       }
+      else if (random <= (spawnRate += GetSpawnRate(TitaniumBlock)))
+      {
+        active = TitaniumBlock;
+      }
+      else if (random <= (spawnRate += GetSpawnRate(PlatinumBlock)))
+      {
+        active = PlatinumBlock;
+      }
+      else if (random <= spawnRate + GetSpawnRate(BoulderEnemy))
+      {
+        active = BoulderEnemy;
+      }
+
+      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
     }
 
-    worldHeight += height;
+    GetWorldHeight += height;
   }
 
   void createPlatinumLayer(int width, int height)
   {
     for (var i = 0; i < height; i++)
+    for (var j = 0; j < width; j++)
     {
-      for (var j = 0; j < width; j++)
+      var random = Random.Range(0f, 100f);
+      var active = StoneBlock;
+      var spawnRate = 0f;
+
+      if (random <= (spawnRate += GetSpawnRate(DiamondBlock)))
       {
-        var random = Random.Range(0f, 100f);
-        var active = StoneBlock;
-        var spawnRate = 0f;
-
-        if (random <= (spawnRate += GetSpawnRate(DiamondBlock)))
-        {
-          active = DiamondBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(CobaltBlock)))
-        {
-          active = CobaltBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(PlatinumBlock)))
-        {
-          active = PlatinumBlock;
-        }
-
-        Instantiate(active, new Vector2(j, -i - worldHeight), Quaternion.identity, GameObject.Find("World").transform);
+        active = DiamondBlock;
       }
+      else if (random <= (spawnRate += GetSpawnRate(CobaltBlock)))
+      {
+        active = CobaltBlock;
+      }
+      else if (random <= (spawnRate += GetSpawnRate(PlatinumBlock)))
+      {
+        active = PlatinumBlock;
+      }
+      else if (random <= spawnRate + GetSpawnRate(BoulderEnemy))
+      {
+        active = BoulderEnemy;
+      }
+
+      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
     }
 
-    worldHeight += height;
+    GetWorldHeight += height;
   }
 
   void createDiamondLayer(int width, int height)
   {
     for (var i = 0; i < height; i++)
+    for (var j = 0; j < width; j++)
     {
-      for (var j = 0; j < width; j++)
+      var random = Random.Range(0f, 100f);
+      var active = StoneBlock;
+      var spawnRate = 0f;
+
+      if (random <= (spawnRate += GetSpawnRate(RubyBlock)))
       {
-        var random = Random.Range(0f, 100f);
-        var active = StoneBlock;
-        var spawnRate = 0f;
-
-        if (random <= (spawnRate += GetSpawnRate(RubyBlock)))
-        {
-          active = RubyBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(CobaltBlock)))
-        {
-          active = CobaltBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(DiamondBlock)))
-        {
-          active = DiamondBlock;
-        }
-
-        Instantiate(active, new Vector2(j, -i - worldHeight), Quaternion.identity, GameObject.Find("World").transform);
+        active = RubyBlock;
       }
+      else if (random <= (spawnRate += GetSpawnRate(CobaltBlock)))
+      {
+        active = CobaltBlock;
+      }
+      else if (random <= (spawnRate += GetSpawnRate(DiamondBlock)))
+      {
+        active = DiamondBlock;
+      }
+      else if (random <= spawnRate + GetSpawnRate(BoulderEnemy))
+      {
+        active = BoulderEnemy;
+      }
+
+      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
     }
 
-    worldHeight += height;
+    GetWorldHeight += height;
   }
 
   void createRubyCobaltLayer(int width, int height)
   {
     for (var i = 0; i < height; i++)
+    for (var j = 0; j < width; j++)
     {
-      for (var j = 0; j < width; j++)
+      var random = Random.Range(0f, 100f);
+      var active = StoneBlock;
+      var spawnRate = 0f;
+
+      if (random <= (spawnRate += GetSpawnRate(RubyBlock)))
       {
-        var random = Random.Range(0f, 100f);
-        var active = StoneBlock;
-        var spawnRate = 0f;
-
-        if (random <= (spawnRate += GetSpawnRate(RubyBlock)))
-        {
-          active = RubyBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(CobaltBlock)))
-        {
-          active = CobaltBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(GoldBlock) / 2))
-        {
-          active = GoldBlock;
-        }
-
-        Instantiate(active, new Vector2(j, -i - worldHeight), Quaternion.identity, GameObject.Find("World").transform);
+        active = RubyBlock;
       }
+      else if (random <= (spawnRate += GetSpawnRate(CobaltBlock)))
+      {
+        active = CobaltBlock;
+      }
+      else if (random <= (spawnRate += GetSpawnRate(GoldBlock) / 2))
+      {
+        active = GoldBlock;
+      }
+      else if (random <= spawnRate + GetSpawnRate(BoulderEnemy))
+      {
+        active = BoulderEnemy;
+      }
+
+      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
     }
 
-    worldHeight += height;
+    GetWorldHeight += height;
   }
 
   void createGoldLithiumLayer(int width, int height)
   {
     for (var i = 0; i < height; i++)
+    for (var j = 0; j < width; j++)
     {
-      for (var j = 0; j < width; j++)
+      var random = Random.Range(0f, 100f);
+      var active = StoneBlock;
+      var spawnRate = 0f;
+
+      if (random <= (spawnRate += GetSpawnRate(GoldBlock)))
       {
-        var random = Random.Range(0f, 100f);
-        var active = StoneBlock;
-        var spawnRate = 0f;
-
-        if (random <= (spawnRate += GetSpawnRate(GoldBlock)))
-        {
-          active = GoldBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(LithiumBlock)))
-        {
-          active = LithiumBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(SilverBlock)))
-        {
-          active = SilverBlock;
-        }
-
-        Instantiate(active, new Vector2(j, -i - worldHeight), Quaternion.identity, GameObject.Find("World").transform);
+        active = GoldBlock;
       }
+      else if (random <= (spawnRate += GetSpawnRate(LithiumBlock)))
+      {
+        active = LithiumBlock;
+      }
+      else if (random <= (spawnRate += GetSpawnRate(SilverBlock)))
+      {
+        active = SilverBlock;
+      }
+      else if (random <= spawnRate + GetSpawnRate(BoulderEnemy))
+      {
+        active = BoulderEnemy;
+      }
+
+      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
     }
 
-    worldHeight += height;
+    GetWorldHeight += height;
   }
 
   void createSilverAluminumLayer(int width, int height)
   {
     for (var i = 0; i < height; i++)
+    for (var j = 0; j < width; j++)
     {
-      for (var j = 0; j < width; j++)
+      var random = Random.Range(0f, 125f);
+      var active = StoneBlock;
+      var spawnRate = 0f;
+
+      if (random <= (spawnRate += GetSpawnRate(SilverBlock)))
       {
-        var random = Random.Range(0f, 125f);
-        var active = StoneBlock;
-        var spawnRate = 0f;
-
-        if (random <= (spawnRate += GetSpawnRate(SilverBlock)))
-        {
-          active = SilverBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(AluminumBlock)))
-        {
-          active = AluminumBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(CoalBlock) / 2))
-        {
-          active = CoalBlock;
-        }
-
-        Instantiate(active, new Vector2(j, -i - worldHeight), Quaternion.identity, GameObject.Find("World").transform);
+        active = SilverBlock;
       }
+      else if (random <= (spawnRate += GetSpawnRate(AluminumBlock)))
+      {
+        active = AluminumBlock;
+      }
+      else if (random <= (spawnRate += GetSpawnRate(CoalBlock) / 2))
+      {
+        active = CoalBlock;
+      }
+      else if (random <= spawnRate + GetSpawnRate(BoulderEnemy))
+      {
+        active = BoulderEnemy;
+      }
+
+      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
     }
 
-    worldHeight += height;
+    GetWorldHeight += height;
   }
 
   void createIronTinLayer(int width, int height)
   {
     for (var i = 0; i < height; i++)
+    for (var j = 0; j < width; j++)
     {
-      for (var j = 0; j < width; j++)
+      var random = Random.Range(0f, 100f);
+      var active = StoneBlock;
+      var spawnRate = 0f;
+
+      if (random <= (spawnRate += GetSpawnRate(IronBlock)))
       {
-        var random = Random.Range(0f, 100f);
-        var active = StoneBlock;
-        var spawnRate = 0f;
-
-        if (random <= (spawnRate += GetSpawnRate(IronBlock)))
-        {
-          active = IronBlock;
-        }
-        else if (random <= (spawnRate += GetSpawnRate(TinBlock)))
-        {
-          active = TinBlock;
-        } 
-        else if (random <= (spawnRate += GetSpawnRate(CoalBlock) / 2))
-        {
-          active = CoalBlock;
-        }
-
-        Instantiate(active, new Vector2(j, -i - worldHeight), Quaternion.identity, GameObject.Find("World").transform);
+        active = IronBlock;
       }
+      else if (random <= (spawnRate += GetSpawnRate(TinBlock)))
+      {
+        active = TinBlock;
+      }
+      else if (random <= (spawnRate += GetSpawnRate(CoalBlock) / 2))
+      {
+        active = CoalBlock;
+      }
+      else if (random <= spawnRate + GetSpawnRate(BoulderEnemy))
+      {
+        active = BoulderEnemy;
+      }
+
+      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
     }
 
-    worldHeight += height;
+    GetWorldHeight += height;
   }
 }

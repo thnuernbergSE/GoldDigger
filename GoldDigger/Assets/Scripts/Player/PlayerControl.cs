@@ -3,38 +3,37 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+  [SerializeField] readonly float coolDown = 0.5f;
   [SerializeField] bool airControl;
 
-  [SerializeField] float attackDistance;
-  [SerializeField] float groundRadius;
-  [SerializeField] float jumpForce;
-  [SerializeField] float movementSpeed;
-
-  [SerializeField] readonly float coolDown = 0.5f;
-
-  [SerializeField] Transform[] groundPoints;
-
-  [SerializeField] LayerMask whatIsGround;
-
   float animationTime;
-  float coolDownTimer;
-  float dmg;
-  float strength;
+
+  [SerializeField] float attackDistance;
 
   bool attackWithPickaxe;
+  float coolDownTimer;
+  float dmg;
   bool facingRight;
+
+  [SerializeField] Transform[] groundPoints;
+  [SerializeField] float groundRadius;
   bool isGrounded;
   bool isPickAnimationRunning;
   bool jump;
-  bool wallJumping;
+  [SerializeField] float jumpForce;
 
   Vector2 lookdirection;
+  [SerializeField] float movementSpeed;
 
   Animator myAnimator;
 
   Rigidbody2D myRigidbody2D;
 
   GameObject pivotPoint;
+  float strength;
+  bool wallJumping;
+
+  [SerializeField] LayerMask whatIsGround;
 
   public float GetYPosition => transform.position.y;
 
@@ -103,13 +102,9 @@ public class PlayerControl : MonoBehaviour
       var pivotMin = -30f;
       var rate = 3f;
 
-
       animationTime += rate * Time.deltaTime;
 
       pivotPoint.transform.eulerAngles = new Vector3(0, 0, Mathf.LerpAngle(pivotMax, pivotMin, animationTime));
-      ;
-
-      Debug.Log(pivotPoint.transform.rotation);
 
       if (animationTime > 1)
       {
