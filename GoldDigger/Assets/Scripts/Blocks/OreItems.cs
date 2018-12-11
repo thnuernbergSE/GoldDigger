@@ -40,5 +40,10 @@ public class OreItems : MonoBehaviour
   void OnTriggerEnter2D(Collider2D col)
   {
     if (col.tag == "Player") Debug.Log("test");
+
+    if (col.GetComponent<BoulderHandler>() != null)
+    {
+      Destroy(gameObject);
+    }
   }
 }

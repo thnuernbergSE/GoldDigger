@@ -8,7 +8,6 @@ public class BoulderHandler : MonoBehaviour
   bool isFalling;
   Vector3 oldPos;
 
-  GameObject stoneUnderneath;
   float timePerWobble;
   float timeTillFall = 1f;
   uint wobbleDirection = 1;
@@ -77,8 +76,11 @@ public class BoulderHandler : MonoBehaviour
     {
       if (col.gameObject.layer == 8 || col.gameObject.GetComponent<BoulderHandler>() != null)
       {
-        stoneUnderneath = col.gameObject;
         doWobble = true;
+      }
+      else
+      {
+        isFalling = true;
       }
     }
     else
