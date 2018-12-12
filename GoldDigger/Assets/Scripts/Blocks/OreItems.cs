@@ -7,7 +7,16 @@ public class OreItems : MonoBehaviour
   float direction = 1;
   [SerializeField] string itemName;
   [SerializeField] int itemValue;
-  [SerializeField] int itemWeight;
+    [SerializeField] ushort itemWeight;
+
+    public ushort ItemWeight
+    {
+        get { return itemWeight; }
+    }
+    public string ItemName
+    {
+        get { return itemName; }
+    }
 
   Vector3 oldPos;
   readonly float speed = 0.05f;

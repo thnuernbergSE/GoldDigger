@@ -6868,7 +6868,7 @@ Prefab:
         type: 2}
       propertyPath: mainTool
       value: 
-      objectReference: {fileID: 1142869572198580, guid: c3516652a6e9db0438da00e50e765ad6,
+      objectReference: {fileID: 1664397568821682, guid: bafe517001e1fca4899dd62194376b92,
         type: 2}
     - target: {fileID: 114465450313519400, guid: d1e6ab3bc517c7a4a9ede22a705bae7e,
         type: 2}

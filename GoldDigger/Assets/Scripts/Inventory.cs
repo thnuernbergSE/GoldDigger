@@ -2,35 +2,80 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory<Space> : MonoBehaviour
+public class Inventory : MonoBehaviour
 {
-    public Space Maxspace;
+    [SerializeField]
+    private ushort maxWeight = 5;
 
-    public Inventory(Space maxspace)
+    private ushort currentWeight;
+
+    public ushort MaxWeight
     {
-        Maxspace = maxspace;
+        get { return maxWeight; }
+        set { maxWeight = value; }
     }
-    class KeyValueListe<ItemName, AmountOf>
+
+    List<KeyValuePair<string, int>> inventory = new List<KeyValuePair<string, int>>();
+
+
+
+    public bool Add(GameObject item, int amountOf)
     {
-        class Item
+
+        OreItems oreItems = item.GetComponent<OreItems>();
+
+        if (oreItems == null)
         {
-            public ItemName ItemName;
-            public AmountOf AmountOf;
-            public Item next;
-            public Item(ItemName itemName, AmountOf amountOf)
+            throw new UnassignedReferenceException("OreItems equals null - Inventory.cs");
+        }
+
+        if (oreItems.ItemWeight + currentWeight <= maxWeight)
+        {
+            for (int i = 0; i < inventory.Count; i++)
             {
-                itemName = ItemName;
-                amountOf = AmountOf;
+
+                if (inventory[i].Key == oreItems.ItemName)
+                {
+                    inventory[i] = new KeyValuePair<string, int>(inventory[i].Key, inventory[i].Value + amountOf);
+                }
+                else
+                {
+                    currentWeight += oreItems.ItemWeight;
+                    inventory.Add(new KeyValuePair<string, int>(oreItems.ItemName, amountOf));
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public bool Remove(GameObject item, int amountOf)
+    {
+        OreItems oreItems = item.GetComponent<OreItems>();
+
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i].Key == oreItems.ItemName)
+            {
+                if (inventory[i].Value < amountOf)
+                {
+                    return false;
+                }
+                else if (inventory[i].Value == amountOf)
+                {
+                    inventory.Remove(inventory[i]);
+                    
+                }
+                else
+                {
+                    inventory[i] = new KeyValuePair<string, int>(inventory[i].Key, inventory[i].Value - amountOf);
+                }
+                return true;
             }
         }
-        Item start, end;
-
-        public void Add()
-        { }
-
-        public void Remove()
-        { }
-
-
+        return false;
     }
+       
+    
+
 }

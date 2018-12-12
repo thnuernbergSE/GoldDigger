@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-  [SerializeField] readonly float coolDown = 0.5f;
+  [SerializeField] readonly float coolDown = 1f;
   [SerializeField] bool airControl;
 
   float animationTime;
@@ -37,7 +37,8 @@ public class PlayerControl : MonoBehaviour
 
   public float GetYPosition => transform.position.y;
 
-
+    private GameObject tool;
+   
   // Use this for initialization
   void Start()
   {
@@ -45,9 +46,10 @@ public class PlayerControl : MonoBehaviour
     myRigidbody2D = GetComponent<Rigidbody2D>();
     myAnimator = GetComponent<Animator>();
     pivotPoint = GameObject.Find("Pivot");
-
+        tool = GameObject.Find("Tool");
     if (pivotPoint == null) throw new NullReferenceException("Pivot Point not found! - PlayerControl.cs");
-  }
+        if (tool == null) throw new NullReferenceException("Tool not found! - PlayerControl.cs");
+    }
 
   void Update()
   {
@@ -96,7 +98,8 @@ public class PlayerControl : MonoBehaviour
 
   void HandleAttacks()
   {
-    if (isPickAnimationRunning)
+        coolDownTimer -= Time.deltaTime;
+        if (attackWithPickaxe && isGrounded)
     {
       var pivotMax = 50;
       var pivotMin = -30f;
@@ -105,28 +108,33 @@ public class PlayerControl : MonoBehaviour
       animationTime += rate * Time.deltaTime;
 
       pivotPoint.transform.eulerAngles = new Vector3(0, 0, Mathf.LerpAngle(pivotMax, pivotMin, animationTime));
+      
+            HandleRaycast();
+            myRigidbody2D.velocity = Vector2.zero;
+            //coolDownTimer = coolDown;
 
-      if (animationTime > 1)
-      {
-        isPickAnimationRunning = false;
-        animationTime = 0f;
-      }
+            if (animationTime > 1)
+            {
+                attackWithPickaxe = false;
+                isPickAnimationRunning = false;
+                animationTime = 0f;
+            }
+        }
+
+
+        if (attackWithPickaxe && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe") && isGrounded &&
+            coolDownTimer <= 0)
+        {
+            //myAnimator.SetTrigger("attack_pickaxe");
+            //ANIMATION
+
+
+            isPickAnimationRunning = true;
+            HandleRaycast();
+            myRigidbody2D.velocity = Vector2.zero;
+            coolDownTimer = coolDown;
+        }
     }
-
-    coolDownTimer -= Time.deltaTime;
-    if (attackWithPickaxe && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe") && isGrounded &&
-        coolDownTimer <= 0)
-    {
-      //myAnimator.SetTrigger("attack_pickaxe");
-      //ANIMATION
-
-
-      isPickAnimationRunning = true;
-      HandleRaycast();
-      myRigidbody2D.velocity = Vector2.zero;
-      coolDownTimer = coolDown;
-    }
-  }
 
   void HandleInput()
   {
@@ -194,13 +202,17 @@ public class PlayerControl : MonoBehaviour
 
     var hit = Physics2D.Raycast(transform.position, lookdirection, attackDistance, 1 << 8);
 
-    if (hit.collider != null) hit.collider.SendMessage("ReceiveDamage", new[] {strength, dmg});
+        if (hit.collider != null)
+        {
+            hit.collider.SendMessage("ReceiveDamage", new[] { strength, dmg });
+        }
   }
 
   void HandlePickaxe()
   {
     var player = gameObject.GetComponent<Player>();
     var pickaxe = player.Pickaxe.GetComponent<Pickaxe>();
+    tool.GetComponent<SpriteRenderer>().sprite = pickaxe.GetSprite;
     strength = pickaxe.Strength;
     dmg = pickaxe.Damage;
   }
