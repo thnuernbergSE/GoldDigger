@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class OreItems : MonoBehaviour
 {
@@ -48,7 +49,18 @@ public class OreItems : MonoBehaviour
 
   void OnTriggerEnter2D(Collider2D col)
   {
-    if (col.tag == "Player") Debug.Log("test");
+    if (col.tag == "Player")
+    {
+      var inventory = col.GetComponent<Inventory>();
+
+      if (inventory == null)
+        throw new NullReferenceException("No Inventory found! - OreItems.cs");
+
+      if (inventory.Add(gameObject, 1))
+      {
+        Destroy(gameObject);
+      }
+    }
 
     if (col.GetComponent<BoulderHandler>() != null)
     {

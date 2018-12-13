@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-  [SerializeField] readonly float coolDown = 1f;
+  [SerializeField] readonly float coolDown = 0.5f;
   [SerializeField] bool airControl;
 
   float animationTime;
@@ -31,14 +31,14 @@ public class PlayerControl : MonoBehaviour
 
   GameObject pivotPoint;
   float strength;
+
+  GameObject tool;
   bool wallJumping;
 
   [SerializeField] LayerMask whatIsGround;
 
   public float GetYPosition => transform.position.y;
 
-    private GameObject tool;
-   
   // Use this for initialization
   void Start()
   {
@@ -46,10 +46,17 @@ public class PlayerControl : MonoBehaviour
     myRigidbody2D = GetComponent<Rigidbody2D>();
     myAnimator = GetComponent<Animator>();
     pivotPoint = GameObject.Find("Pivot");
-        tool = GameObject.Find("Tool");
-    if (pivotPoint == null) throw new NullReferenceException("Pivot Point not found! - PlayerControl.cs");
-        if (tool == null) throw new NullReferenceException("Tool not found! - PlayerControl.cs");
+    tool = GameObject.Find("Tool");
+    if (pivotPoint == null)
+    {
+      throw new NullReferenceException("Pivot Point not found! - PlayerControl.cs");
     }
+
+    if (tool == null)
+    {
+      throw new NullReferenceException("Tool not found! - PlayerControl.cs");
+    }
+  }
 
   void Update()
   {
@@ -78,10 +85,15 @@ public class PlayerControl : MonoBehaviour
 
   void HandleMovement(float horizontal)
   {
-    if (myRigidbody2D.velocity.y < 0) myAnimator.SetBool("land", true);
+    if (myRigidbody2D.velocity.y < 0)
+    {
+      myAnimator.SetBool("land", true);
+    }
 
     if (!myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe") && (isGrounded || airControl))
+    {
       myRigidbody2D.velocity = new Vector2(horizontal * movementSpeed, myRigidbody2D.velocity.y);
+    }
 
     if (isGrounded && jump)
     {
@@ -98,8 +110,7 @@ public class PlayerControl : MonoBehaviour
 
   void HandleAttacks()
   {
-        coolDownTimer -= Time.deltaTime;
-        if (attackWithPickaxe && isGrounded)
+    if (isPickAnimationRunning)
     {
       var pivotMax = 50;
       var pivotMin = -30f;
@@ -107,47 +118,57 @@ public class PlayerControl : MonoBehaviour
 
       animationTime += rate * Time.deltaTime;
 
-      pivotPoint.transform.eulerAngles = new Vector3(0, 0, Mathf.LerpAngle(pivotMax, pivotMin, animationTime));
-      
-            HandleRaycast();
-            myRigidbody2D.velocity = Vector2.zero;
-            //coolDownTimer = coolDown;
+      if (transform.localScale.x > 0)
+      {
+        pivotPoint.transform.eulerAngles = new Vector3(0, 0, Mathf.LerpAngle(pivotMax, pivotMin, animationTime));
+      }
+      else
+      {
+        pivotPoint.transform.eulerAngles = new Vector3(0, 0, -Mathf.LerpAngle(pivotMax, pivotMin, animationTime));
+      }
 
-            if (animationTime > 1)
-            {
-                attackWithPickaxe = false;
-                isPickAnimationRunning = false;
-                animationTime = 0f;
-            }
-        }
-
-
-        if (attackWithPickaxe && !myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe") && isGrounded &&
-            coolDownTimer <= 0)
-        {
-            //myAnimator.SetTrigger("attack_pickaxe");
-            //ANIMATION
-
-
-            isPickAnimationRunning = true;
-            HandleRaycast();
-            myRigidbody2D.velocity = Vector2.zero;
-            coolDownTimer = coolDown;
-        }
+      if (animationTime > 1)
+      {
+        attackWithPickaxe = false;
+        isPickAnimationRunning = false;
+        animationTime = 0f;
+        pivotPoint.transform.eulerAngles = transform.localScale.x > 0 ? new Vector3(0, 0, 25) : new Vector3(0, 0, -19);
+      }
     }
+
+    coolDownTimer -= Time.deltaTime;
+
+    if (attackWithPickaxe && isGrounded && coolDownTimer <= 0)
+    {
+      isPickAnimationRunning = true;
+      HandleRaycast();
+      coolDownTimer = coolDown;
+    }
+  }
 
   void HandleInput()
   {
     Physics2D.queriesStartInColliders = false;
     var hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, 1);
 
-    if (Input.GetKey(KeyCode.Mouse0)) attackWithPickaxe = true;
+    if (Input.GetKey(KeyCode.Mouse0))
+    {
+      attackWithPickaxe = true;
+    }
 
-    if (Input.GetKeyDown(KeyCode.Space)) jump = true;
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+      jump = true;
+    }
 
     if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && hit.collider != null)
+    {
       GetComponent<Rigidbody2D>().velocity = new Vector2(movementSpeed * hit.normal.x, movementSpeed);
-    else if (hit.collider != null && wallJumping) wallJumping = false;
+    }
+    else if (hit.collider != null && wallJumping)
+    {
+      wallJumping = false;
+    }
   }
 
   void Flip(float horizontal)
@@ -172,18 +193,22 @@ public class PlayerControl : MonoBehaviour
   bool IsGrounded()
   {
     if (myRigidbody2D.velocity.y <= 0)
+    {
       foreach (var point in groundPoints)
       {
         var colliders = Physics2D.OverlapCircleAll(point.position, groundRadius, whatIsGround);
 
         for (var i = 0; i < colliders.Length; i++)
+        {
           if (colliders[i].gameObject != gameObject)
           {
             myAnimator.ResetTrigger("jump");
             myAnimator.SetBool("land", false);
             return true;
           }
+        }
       }
+    }
 
     return false;
   }
@@ -191,9 +216,13 @@ public class PlayerControl : MonoBehaviour
   void HandleLayers()
   {
     if (!isGrounded)
+    {
       myAnimator.SetLayerWeight(1, 1);
+    }
     else
+    {
       myAnimator.SetLayerWeight(1, 0);
+    }
   }
 
   void HandleRaycast()
@@ -202,10 +231,10 @@ public class PlayerControl : MonoBehaviour
 
     var hit = Physics2D.Raycast(transform.position, lookdirection, attackDistance, 1 << 8);
 
-        if (hit.collider != null)
-        {
-            hit.collider.SendMessage("ReceiveDamage", new[] { strength, dmg });
-        }
+    if (hit.collider != null)
+    {
+      hit.collider.SendMessage("ReceiveDamage", new[] {strength, dmg});
+    }
   }
 
   void HandlePickaxe()
@@ -227,30 +256,54 @@ public class PlayerControl : MonoBehaviour
 
     if (direction.x > 0 && direction.y > 0)
     {
-      if (direction.x < direction.y) lookdirection = new Vector2(0, 1);
+      if (direction.x < direction.y)
+      {
+        lookdirection = new Vector2(0, 1);
+      }
 
-      if (direction.x >= direction.y) lookdirection = new Vector2(1, 0);
+      if (direction.x >= direction.y)
+      {
+        lookdirection = new Vector2(1, 0);
+      }
     }
 
     if (direction.x < 0 && direction.y < 0)
     {
-      if (Mathf.Abs(direction.x) < Mathf.Abs(direction.y)) lookdirection = new Vector2(0, -1);
+      if (Mathf.Abs(direction.x) < Mathf.Abs(direction.y))
+      {
+        lookdirection = new Vector2(0, -1);
+      }
 
-      if (Mathf.Abs(direction.x) >= Mathf.Abs(direction.y)) lookdirection = new Vector2(-1, 0);
+      if (Mathf.Abs(direction.x) >= Mathf.Abs(direction.y))
+      {
+        lookdirection = new Vector2(-1, 0);
+      }
     }
 
     if (direction.x > 0 && direction.y < 0)
     {
-      if (direction.x < Mathf.Abs(direction.y)) lookdirection = new Vector2(0, -1);
+      if (direction.x < Mathf.Abs(direction.y))
+      {
+        lookdirection = new Vector2(0, -1);
+      }
 
-      if (direction.x >= Mathf.Abs(direction.y)) lookdirection = new Vector2(1, 0);
+      if (direction.x >= Mathf.Abs(direction.y))
+      {
+        lookdirection = new Vector2(1, 0);
+      }
     }
 
     if (direction.x < 0 && direction.y > 0)
     {
-      if (Mathf.Abs(direction.x) < direction.y) lookdirection = new Vector2(0, 1);
+      if (Mathf.Abs(direction.x) < direction.y)
+      {
+        lookdirection = new Vector2(0, 1);
+      }
 
-      if (Mathf.Abs(direction.x) >= direction.y) lookdirection = new Vector2(-1, 0);
+      if (Mathf.Abs(direction.x) >= direction.y)
+      {
+        lookdirection = new Vector2(-1, 0);
+      }
     }
 
     return lookdirection;

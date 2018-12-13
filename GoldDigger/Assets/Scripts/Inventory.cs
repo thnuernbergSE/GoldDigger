@@ -5,12 +5,12 @@ using UnityEngine;
 public class Inventory : MonoBehaviour
 {
   //InventorySlot inventorySlot;
-  private bool isAktive;
+  private bool isActive;
 
   [SerializeField]
   private GameObject[] inventorySlots;
 
-  
+
 
   [SerializeField]
   private ushort maxWeight = 5;
@@ -40,14 +40,14 @@ public class Inventory : MonoBehaviour
       throw new UnassignedReferenceException("OreItems equals null - Inventory.cs");
     }
 
-    if (oreItems.ItemWeight + currentWeight <= maxWeight)
+    if (oreItems.ItemWeight * amountOf + currentWeight <= maxWeight)
     {
       for (int i = 0; i < inventory.Count; i++)
       {
 
         if (inventory[i].Key.GetComponent<OreItems>().ItemName == oreItems.ItemName)
         {
-          
+
           inventory[i] = new KeyValuePair<GameObject, int>(inventory[i].Key, inventory[i].Value + amountOf);
           //inventorySlot.Add(amountOf);//item.GetComponent<SpriteRenderer>().sprite;
         }
@@ -56,20 +56,22 @@ public class Inventory : MonoBehaviour
           currentWeight += oreItems.ItemWeight;
           inventory.Add(new KeyValuePair<GameObject, int>(item, amountOf));
           //inventorySlot.Add(item);
-          
+          currentWeight += amountOf * oreItems.ItemWeight;
         }
       }
       return true;
     }
     return false;
   }
+
+
   public bool Remove(GameObject item, int amountOf)
   {
     OreItems oreItems = item.GetComponent<OreItems>();
 
     for (int i = 0; i < inventory.Count; i++)
     {
-      if (inventory[i].Key.GetComponent<OreItems>().ItemName == oreItems.ItemName)
+      if (inventory[i].Key == oreItems.ItemName)
       {
         if (inventory[i].Value < amountOf)
         {
@@ -97,6 +99,7 @@ public class Inventory : MonoBehaviour
       if (inventory[i].Key != null)
       {
         inventorySlots[i].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = inventory[i].Key.GetComponent<SpriteRenderer>().sprite;
+        currentWeight -= amountOf * oreItems.ItemWeight;
       }
     }
   }
