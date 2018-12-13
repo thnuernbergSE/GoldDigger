@@ -7,15 +7,14 @@ public class Inventory : MonoBehaviour
   //InventorySlot inventorySlot;
   private bool isActive;
 
-  [SerializeField]
+
   private GameObject[] inventorySlots;
-
-
+  private GameObject inventoryUI;
 
   [SerializeField]
   private ushort maxWeight = 5;
 
-  private ushort currentWeight;
+  private int currentWeight;
 
   public ushort MaxWeight
   {
@@ -32,7 +31,6 @@ public class Inventory : MonoBehaviour
 
   public bool Add(GameObject item, int amountOf)
   {
-
     OreItems oreItems = item.GetComponent<OreItems>();
 
     if (oreItems == null)
@@ -42,25 +40,33 @@ public class Inventory : MonoBehaviour
 
     if (oreItems.ItemWeight * amountOf + currentWeight <= maxWeight)
     {
-      for (int i = 0; i < inventory.Count; i++)
+      if (inventory.Count == 0)
       {
-
-        if (inventory[i].Key.GetComponent<OreItems>().ItemName == oreItems.ItemName)
+        currentWeight += oreItems.ItemWeight;
+        inventory.Add(new KeyValuePair<GameObject, int>(item, amountOf));
+      }
+      else
+      {
+        for (int i = 0; i < inventory.Count; i++)
         {
-
-          inventory[i] = new KeyValuePair<GameObject, int>(inventory[i].Key, inventory[i].Value + amountOf);
-          //inventorySlot.Add(amountOf);//item.GetComponent<SpriteRenderer>().sprite;
-        }
-        else
-        {
-          currentWeight += oreItems.ItemWeight;
-          inventory.Add(new KeyValuePair<GameObject, int>(item, amountOf));
-          //inventorySlot.Add(item);
-          currentWeight += amountOf * oreItems.ItemWeight;
+          if (inventory[i].Key.GetComponent<OreItems>().ItemName == oreItems.ItemName)
+          {
+            inventory[i] = new KeyValuePair<GameObject, int>(inventory[i].Key, inventory[i].Value + amountOf);
+          }
+          else
+          {
+            currentWeight += oreItems.ItemWeight;
+            inventory.Add(new KeyValuePair<GameObject, int>(item, amountOf));
+          }
         }
       }
+
+      currentWeight += amountOf * oreItems.ItemWeight;
+      Debug.Log(currentWeight);
+
       return true;
     }
+
     return false;
   }
 
@@ -71,7 +77,7 @@ public class Inventory : MonoBehaviour
 
     for (int i = 0; i < inventory.Count; i++)
     {
-      if (inventory[i].Key == oreItems.ItemName)
+      if (inventory[i].Key.GetComponent<OreItems>().ItemName == oreItems.ItemName)
       {
         if (inventory[i].Value < amountOf)
         {
@@ -85,6 +91,7 @@ public class Inventory : MonoBehaviour
         else
         {
           inventory[i] = new KeyValuePair<GameObject, int>(inventory[i].Key, inventory[i].Value - amountOf);
+          currentWeight -= amountOf * oreItems.ItemWeight;
         }
         return true;
       }
@@ -94,13 +101,34 @@ public class Inventory : MonoBehaviour
 
   void Update()
   {
+    //Debug.Log(inventory.Count);
     for (int i = 0; i < inventorySlots.Length; i++)
     {
-      if (inventory[i].Key != null)
+      if (inventory.Count > i)
       {
-        inventorySlots[i].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = inventory[i].Key.GetComponent<SpriteRenderer>().sprite;
-        currentWeight -= amountOf * oreItems.ItemWeight;
+        Debug.Log(i + "Items");
+        if (inventory[i].Key != null)
+        {
+
+          inventorySlots[i].transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = inventory[i].Key.GetComponent<SpriteRenderer>().sprite;
+         
+        }
       }
+
+    }
+  }
+
+  void Start()
+  {
+    inventoryUI = GameObject.Find("SlotPanel");
+    if (inventoryUI == null)
+    {
+      throw new MissingReferenceException("Missing Reference --- Inventory");
+    }
+    inventorySlots = new GameObject[inventoryUI.transform.childCount];
+    for (int i = 0; i < inventorySlots.Length; i++)
+    {
+      inventorySlots[i] = inventoryUI.transform.GetChild(i).gameObject;
     }
   }
 
