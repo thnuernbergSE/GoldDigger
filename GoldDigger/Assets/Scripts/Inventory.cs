@@ -4,78 +4,85 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [SerializeField]
-    private ushort maxWeight = 5;
+  [SerializeField] private ushort maxWeight = 5;
 
-    private ushort currentWeight;
+  private int currentWeight;
 
-    public ushort MaxWeight
+  public ushort MaxWeight
+  {
+    get { return maxWeight; }
+    set { maxWeight = value; }
+  }
+
+  List<KeyValuePair<string, int>> inventory = new List<KeyValuePair<string, int>>();
+
+
+
+  public bool Add(GameObject item, int amountOf)
+  {
+
+    OreItems oreItems = item.GetComponent<OreItems>();
+
+    if (oreItems == null)
     {
-        get { return maxWeight; }
-        set { maxWeight = value; }
+      throw new UnassignedReferenceException("OreItems equals null - Inventory.cs");
     }
 
-    List<KeyValuePair<string, int>> inventory = new List<KeyValuePair<string, int>>();
-
-
-
-    public bool Add(GameObject item, int amountOf)
+    if (oreItems.ItemWeight * amountOf + currentWeight <= maxWeight)
     {
+      for (int i = 0; i < inventory.Count; i++)
+      {
 
-        OreItems oreItems = item.GetComponent<OreItems>();
-
-        if (oreItems == null)
+        if (inventory[i].Key == oreItems.ItemName)
         {
-            throw new UnassignedReferenceException("OreItems equals null - Inventory.cs");
+          inventory[i] = new KeyValuePair<string, int>(inventory[i].Key, inventory[i].Value + amountOf);
         }
-
-        if (oreItems.ItemWeight + currentWeight <= maxWeight)
+        else
         {
-            for (int i = 0; i < inventory.Count; i++)
-            {
-
-                if (inventory[i].Key == oreItems.ItemName)
-                {
-                    inventory[i] = new KeyValuePair<string, int>(inventory[i].Key, inventory[i].Value + amountOf);
-                }
-                else
-                {
-                    currentWeight += oreItems.ItemWeight;
-                    inventory.Add(new KeyValuePair<string, int>(oreItems.ItemName, amountOf));
-                }
-            }
-            return true;
+          currentWeight += oreItems.ItemWeight;
+          inventory.Add(new KeyValuePair<string, int>(oreItems.ItemName, amountOf));
         }
-        return false;
+      }
+
+      currentWeight += amountOf * oreItems.ItemWeight;
+      Debug.Log(currentWeight);
+
+      return true;
     }
 
-    public bool Remove(GameObject item, int amountOf)
-    {
-        OreItems oreItems = item.GetComponent<OreItems>();
+    return false;
+  }
 
-        for (int i = 0; i < inventory.Count; i++)
+  public bool Remove(GameObject item, int amountOf)
+  {
+    OreItems oreItems = item.GetComponent<OreItems>();
+
+    for (int i = 0; i < inventory.Count; i++)
+    {
+      if (inventory[i].Key == oreItems.ItemName)
+      {
+        if (inventory[i].Value < amountOf)
         {
-            if (inventory[i].Key == oreItems.ItemName)
-            {
-                if (inventory[i].Value < amountOf)
-                {
-                    return false;
-                }
-                else if (inventory[i].Value == amountOf)
-                {
-                    inventory.Remove(inventory[i]);
-                    
-                }
-                else
-                {
-                    inventory[i] = new KeyValuePair<string, int>(inventory[i].Key, inventory[i].Value - amountOf);
-                }
-                return true;
-            }
+          return false;
         }
-        return false;
+        else if (inventory[i].Value == amountOf)
+        {
+          inventory.Remove(inventory[i]);
+
+        }
+        else
+        {
+          inventory[i] = new KeyValuePair<string, int>(inventory[i].Key, inventory[i].Value - amountOf);
+        }
+        currentWeight -= amountOf * oreItems.ItemWeight;
+        Debug.Log(currentWeight);
+        return true;
+      }
     }
-       
-    
+
+    return false;
+  }
+
+
 
 }

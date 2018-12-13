@@ -4,7 +4,7 @@ using UnityEngine;
 public class DepthArrowHandler : MonoBehaviour
 {
   const int ImageOffset = 25;
-  const int ImageSize = 500;
+  const int ImageSize = 325;
   GameObject depthArrow;
   float depthArrowPosition;
 
