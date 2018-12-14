@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99e63d6aade19f4c8fc62ce408068a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: cobbleItem
+  itemName: Cobble
   itemValue: 1
   itemWeight: 1
 --- !u!212 &212001494882816988

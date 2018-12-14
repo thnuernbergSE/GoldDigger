@@ -56,7 +56,7 @@ public class OreItems : MonoBehaviour
       if (inventory == null)
         throw new NullReferenceException("No Inventory found! - OreItems.cs");
 
-      if (inventory.Add(gameObject, 1))
+      if (inventory.Add(new InventoryItems(itemName, itemWeight), 1))
       {
         Destroy(gameObject);
       }
