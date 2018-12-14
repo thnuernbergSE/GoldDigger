@@ -14,13 +14,12 @@ public class Inventory : MonoBehaviour
     set { maxWeight = value; }
   }
 
-  List<KeyValuePair<string, int>> inventory = new List<KeyValuePair<string, int>>();
+  List<KeyValuePair<GameObject, int>> inventory = new List<KeyValuePair<GameObject, int>>();
 
 
 
   public bool Add(GameObject item, int amountOf)
   {
-
     OreItems oreItems = item.GetComponent<OreItems>();
 
     if (oreItems == null)
@@ -30,17 +29,24 @@ public class Inventory : MonoBehaviour
 
     if (oreItems.ItemWeight * amountOf + currentWeight <= maxWeight)
     {
-      for (int i = 0; i < inventory.Count; i++)
+      if (inventory.Count == 0)
       {
-
-        if (inventory[i].Key == oreItems.ItemName)
+        currentWeight += oreItems.ItemWeight;
+        inventory.Add(new KeyValuePair<GameObject, int>(item, amountOf));
+      }
+      else
+      {
+        for (int i = 0; i < inventory.Count; i++)
         {
-          inventory[i] = new KeyValuePair<string, int>(inventory[i].Key, inventory[i].Value + amountOf);
-        }
-        else
-        {
-          currentWeight += oreItems.ItemWeight;
-          inventory.Add(new KeyValuePair<string, int>(oreItems.ItemName, amountOf));
+          if (inventory[i].Key.GetComponent<OreItems>().ItemName == oreItems.ItemName)
+          {
+            inventory[i] = new KeyValuePair<GameObject, int>(inventory[i].Key, inventory[i].Value + amountOf);
+          }
+          else
+          {
+            currentWeight += oreItems.ItemWeight;
+            inventory.Add(new KeyValuePair<GameObject, int>(item, amountOf));
+          }
         }
       }
 
@@ -59,7 +65,7 @@ public class Inventory : MonoBehaviour
 
     for (int i = 0; i < inventory.Count; i++)
     {
-      if (inventory[i].Key == oreItems.ItemName)
+      if (inventory[i].Key.GetComponent<OreItems>().ItemName == oreItems.ItemName)
       {
         if (inventory[i].Value < amountOf)
         {
@@ -72,7 +78,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-          inventory[i] = new KeyValuePair<string, int>(inventory[i].Key, inventory[i].Value - amountOf);
+          inventory[i] = new KeyValuePair<GameObject, int>(inventory[i].Key, inventory[i].Value - amountOf);
         }
         currentWeight -= amountOf * oreItems.ItemWeight;
         Debug.Log(currentWeight);
