@@ -9,9 +9,11 @@ public class InventoryItems
   Sprite sprite;
   int itemWeight;
 
+
   public Sprite GetSprite => sprite;
   public string ItemName => itemName;
   public int ItemWeight => itemWeight;
+  
 
   public InventoryItems(string name, int weight)
   {

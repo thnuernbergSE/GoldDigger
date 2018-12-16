@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
   //InventorySlot inventorySlot;
   private bool isActive;
 
- 
+  bool alreadyDone = false;
 
   private GameObject[] inventorySlots;
   private GameObject inventoryUI;
@@ -40,37 +40,43 @@ public class Inventory : MonoBehaviour
     {
       throw new UnassignedReferenceException("OreItems equals null - Inventory.cs");
     }
-
-    if (item.ItemWeight * amountOf + currentWeight <= maxWeight)
+    else if (item.ItemWeight * amountOf + currentWeight <= maxWeight)
     {
       if (inventory.Count == 0)
       {
         inventory.Add(new KeyValuePair<InventoryItems, int>(item, amountOf));
+        alreadyDone = true;
       }
       else
       {
         for (int i = 0; i < inventory.Count; i++)
         {
-          if (inventory[i].Key.ItemName == item.ItemName)
+          if (inventory[i].Key.ItemName == item.ItemName && !alreadyDone)
           {
             inventory[i] = new KeyValuePair<InventoryItems, int>(inventory[i].Key, inventory[i].Value + amountOf);
+            alreadyDone = true;
           }
-          else
+          else if (!alreadyDone)
           {
             inventory.Add(new KeyValuePair<InventoryItems, int>(item, amountOf));
+            alreadyDone = true;
           }
+
         }
+
       }
 
       currentWeight += amountOf * item.ItemWeight;
       Debug.Log(currentWeight);
 
       Debug.Log(inventory);
-
+      alreadyDone = false;
       return true;
     }
-
-    return false;
+    else
+    {
+      return false;
+    }
   }
 
 
@@ -103,7 +109,7 @@ public class Inventory : MonoBehaviour
 
   void Update()
   {
-    //Debug.Log(inventory.Count);
+    Debug.Log(inventory.Count);
     for (int i = 0; i < inventorySlots.Length; i++)
     {
       if (inventory.Count > i)
@@ -111,7 +117,6 @@ public class Inventory : MonoBehaviour
         Debug.Log(i + "Items");
         if (inventory[i].Key != null)
         {
-
           inventorySlots[i].transform.GetChild(0).GetComponent<Image>().sprite = inventory[i].Key.GetSprite;
           inventorySlots[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inventory[i].Value.ToString();
 
@@ -120,6 +125,8 @@ public class Inventory : MonoBehaviour
 
     }
   }
+
+  
 
   void Start()
   {
@@ -140,6 +147,11 @@ public class Inventory : MonoBehaviour
       
       
     }
+    for (int i = 0; i < 12; i++)
+    {
+      inventory[i] = new KeyValuePair<InventoryItems, int>(null, 0);
+    }
+    
 
   }
 
