@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Inventory : MonoBehaviour
 {
   //InventorySlot inventorySlot;
   private bool isActive;
 
+ 
 
   private GameObject[] inventorySlots;
   private GameObject inventoryUI;
 
+ 
+
   [SerializeField]
-  private ushort maxWeight = 5;
+  private ushort maxWeight = 10;
 
   private int currentWeight = 0;
 
@@ -109,7 +113,8 @@ public class Inventory : MonoBehaviour
         {
 
           inventorySlots[i].transform.GetChild(0).GetComponent<Image>().sprite = inventory[i].Key.GetSprite;
-         
+          inventorySlots[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = inventory[i].Value.ToString();
+
         }
       }
 
@@ -128,6 +133,14 @@ public class Inventory : MonoBehaviour
     {
       inventorySlots[i] = inventoryUI.transform.GetChild(i).gameObject;
     }
+    for (int i = 0; i < inventorySlots.Length; i++)
+    {
+      inventorySlots[i].transform.GetChild(0).GetComponent<Image>().sprite = null;
+      inventorySlots[i].transform.GetChild(1).GetComponent <TextMeshProUGUI>().text = null;
+      
+      
+    }
+
   }
 
 

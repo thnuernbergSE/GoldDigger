@@ -3,8 +3,12 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
+  
+
   [SerializeField] readonly float coolDown = 0.5f;
   [SerializeField] bool airControl;
+
+  bool openInventory;
 
   float animationTime;
 
@@ -39,12 +43,15 @@ public class PlayerControl : MonoBehaviour
 
   public float GetYPosition => transform.position.y;
 
+  private GameObject Inventory;
+
   // Use this for initialization
   void Start()
   {
     facingRight = true;
     myRigidbody2D = GetComponent<Rigidbody2D>();
     myAnimator = GetComponent<Animator>();
+    Inventory = GameObject.Find("Inventory");
     pivotPoint = GameObject.Find("Pivot");
     tool = GameObject.Find("Tool");
     if (pivotPoint == null)
@@ -79,6 +86,8 @@ public class PlayerControl : MonoBehaviour
     HandlePickaxe();
 
     HandleAttacks();
+
+   HandleInventoryUI();
 
     ResetValues();
   }
@@ -159,6 +168,18 @@ public class PlayerControl : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Space))
     {
       jump = true;
+    }
+
+    if (Input.GetKeyDown(KeyCode.I))
+    {
+      if (openInventory)
+      {
+        openInventory = false;
+      }
+      else
+      {
+        openInventory = true;
+      }
     }
 
     if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && hit.collider != null)
@@ -307,5 +328,17 @@ public class PlayerControl : MonoBehaviour
     }
 
     return lookdirection;
+  }
+
+  void HandleInventoryUI()
+  {
+    if (openInventory)
+    {
+      Inventory.active = true;
+    }
+    else
+    {
+      Inventory.active = false;
+    }
   }
 }
