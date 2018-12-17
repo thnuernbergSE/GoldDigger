@@ -96,13 +96,14 @@ public class Inventory : MonoBehaviour
 
         if (GetInventory[i].Value == amountOf)
         {
+          currentWeight -= GetInventory[i].Key.ItemWeight * amountOf;
           GetInventory.Remove(GetInventory[i]);
         }
         else
         {
+          currentWeight -= GetInventory[i].Key.ItemWeight * amountOf;
           GetInventory[i] =
             new KeyValuePair<InventoryItems, int>(GetInventory[i].Key, GetInventory[i].Value - amountOf);
-          currentWeight -= amountOf * item.ItemWeight;
         }
 
         return true;

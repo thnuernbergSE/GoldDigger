@@ -20,7 +20,11 @@ public class SmithHandler : MonoBehaviour
 	  }
 
     smithUI.SetActive(false);
-	}
+
+	  smithUI.transform.GetChild(0).gameObject.SetActive(false);
+	  smithUI.transform.GetChild(1).gameObject.SetActive(false);
+	  smithUI.transform.GetChild(2).gameObject.SetActive(true);
+  }
 	
 	// Update is called once per frame
 	void Update () {
@@ -28,7 +32,7 @@ public class SmithHandler : MonoBehaviour
 	  {
 	    if (Input.GetKeyDown(KeyCode.F))
 	    {
-	      isShopOpen = !isShopOpen;
+	      isShopOpen = !smithUI.activeSelf;
 	      smithUI.SetActive(isShopOpen);
 	    }
     }
@@ -43,6 +47,11 @@ public class SmithHandler : MonoBehaviour
   {
     isColliding = false;
     isShopOpen = false;
+
+    smithUI.transform.GetChild(0).gameObject.SetActive(false);
+    smithUI.transform.GetChild(1).gameObject.SetActive(false);
+    smithUI.transform.GetChild(2).gameObject.SetActive(true);
+
     smithUI.SetActive(false);
   }
 

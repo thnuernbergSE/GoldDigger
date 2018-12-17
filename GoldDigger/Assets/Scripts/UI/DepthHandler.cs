@@ -1,4 +1,5 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,12 +7,12 @@ public class DepthHandler : MonoBehaviour
 {
   PlayerControl playerControl;
 
-  Text text;
+  TextMeshProUGUI text;
 
   // Use this for initialization
   void Start()
   {
-    text = GetComponent<Text>();
+    text = GetComponent<TextMeshProUGUI>();
     playerControl = GameObject.Find("Player").GetComponent<PlayerControl>();
     if (playerControl == null)
     {

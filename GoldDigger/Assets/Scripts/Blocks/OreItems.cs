@@ -19,6 +19,8 @@ public class OreItems : MonoBehaviour
         get { return itemName; }
     }
 
+  public int ItemValue => itemValue;
+
   Vector3 oldPos;
   readonly float speed = 0.05f;
 

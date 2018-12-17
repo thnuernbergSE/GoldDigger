@@ -26,7 +26,7 @@ public class InventoryItems
 
     if (GetSprite == null)
     {
-      throw new NullReferenceException("Sprite can't be null - InventoryItems.cs");
+      throw new NullReferenceException("Sprite can't be null: " + name + "- InventoryItems.cs");
     }
   }
 }
