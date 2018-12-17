@@ -9,8 +9,6 @@ public class Inventory : MonoBehaviour
   //InventorySlot inventorySlot;
   private bool isActive;
 
-  bool alreadyDone = false;
-
   private GameObject[] inventorySlots;
   private GameObject inventoryUI;
 
@@ -36,41 +34,40 @@ public class Inventory : MonoBehaviour
 
   public bool Add(InventoryItems item, int amountOf)
   {
+    bool itemAdded = false;
+
     if (item == null)
     {
       throw new UnassignedReferenceException("OreItems equals null - Inventory.cs");
     }
-    else if (item.ItemWeight * amountOf + currentWeight <= maxWeight)
+
+    if (item.ItemWeight * amountOf + currentWeight <= maxWeight)
     {
+      Debug.Log(inventory.Count);
       if (inventory.Count == 0)
       {
         inventory.Add(new KeyValuePair<InventoryItems, int>(item, amountOf));
-        alreadyDone = true;
+        Debug.Log("Inventory Count == 0");
       }
       else
       {
         for (int i = 0; i < inventory.Count; i++)
         {
-          if (inventory[i].Key.ItemName == item.ItemName && !alreadyDone)
+          if (inventory[i].Key.ItemName == item.ItemName)
           {
             inventory[i] = new KeyValuePair<InventoryItems, int>(inventory[i].Key, inventory[i].Value + amountOf);
-            alreadyDone = true;
+            itemAdded = true;
           }
-          else if (!alreadyDone)
-          {
-            inventory.Add(new KeyValuePair<InventoryItems, int>(item, amountOf));
-            alreadyDone = true;
-          }
-
         }
 
+        if (!itemAdded)
+        {
+          inventory.Add(new KeyValuePair<InventoryItems, int>(item, amountOf));
+        }
       }
 
       currentWeight += amountOf * item.ItemWeight;
       Debug.Log(currentWeight);
-
-      Debug.Log(inventory);
-      alreadyDone = false;
       return true;
     }
     else
@@ -109,12 +106,12 @@ public class Inventory : MonoBehaviour
 
   void Update()
   {
-    Debug.Log(inventory.Count);
     for (int i = 0; i < inventorySlots.Length; i++)
     {
+      inventorySlots[i].transform.GetChild(0).GetComponent<Image>().sprite = null;
+      inventorySlots[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
       if (inventory.Count > i)
       {
-        Debug.Log(i + "Items");
         if (inventory[i].Key != null)
         {
           inventorySlots[i].transform.GetChild(0).GetComponent<Image>().sprite = inventory[i].Key.GetSprite;
@@ -140,19 +137,6 @@ public class Inventory : MonoBehaviour
     {
       inventorySlots[i] = inventoryUI.transform.GetChild(i).gameObject;
     }
-    for (int i = 0; i < inventorySlots.Length; i++)
-    {
-      inventorySlots[i].transform.GetChild(0).GetComponent<Image>().sprite = null;
-      inventorySlots[i].transform.GetChild(1).GetComponent <TextMeshProUGUI>().text = null;
-      
-      
-    }
-    for (int i = 0; i < 12; i++)
-    {
-      inventory[i] = new KeyValuePair<InventoryItems, int>(null, 0);
-    }
-    
-
   }
 
 

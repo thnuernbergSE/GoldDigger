@@ -334,11 +334,11 @@ public class PlayerControl : MonoBehaviour
   {
     if (openInventory)
     {
-      Inventory.active = true;
+      Inventory.SetActive(true);
     }
     else
     {
-      Inventory.active = false;
+      Inventory.SetActive(false);
     }
   }
 }
