@@ -5,43 +5,43 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    // Use this for initialization
-    public int MaxHealth
-    {
-        get;
-        set;
-    }
-    public int AcutalHealth
-    {
-        get;
-    }
+  // Use this for initialization
+  public int MaxHealth
+  {
+    get;
+    set;
+  }
+  public int AcutalHealth
+  {
+    get;
+  }
 
-    public int Stammina
-    {
-        get;
-    }
+  public int Stammina
+  {
+    get;
+  }
 
-    public GameObject Pickaxe
-    {
-        get { return mainTool; }
-        set { mainTool = value; }
-    }
+  public GameObject Pickaxe
+  {
+    get { return mainTool; }
+    set { mainTool = value; }
+  }
 
-    public float GetYPos => transform.position.y;
+  public float GetYPos => transform.position.y;
 
-    [SerializeField]
-    private GameObject mainTool;
+  [SerializeField]
+  private GameObject mainTool;
 
-    private Pickaxe pickScript;
+  private Pickaxe pickScript;
 
-    void Start()
-    {
+  void Start()
+  {
 
-    }
+  }
 
-    // Update is called once per frame
-    void Update()
-    {
+  // Update is called once per frame
+  void Update()
+  {
 
-    }
+  }
 }
