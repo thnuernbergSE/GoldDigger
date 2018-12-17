@@ -18,7 +18,7 @@ public class InventoryItems
   public int ItemWeight { get; }
 
 
-  public InventoryItems(string name, int weight)
+  public InventoryItems(string name, int weight = 0)
   {
     GetSprite = Resources.Load<Sprite>("Sprites/Items/" + name);
     ItemName = name;

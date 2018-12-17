@@ -2995,6 +2995,7 @@ GameObject:
   - component: {fileID: 632751576}
   - component: {fileID: 632751578}
   - component: {fileID: 632751577}
+  - component: {fileID: 632751579}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -3062,6 +3063,18 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 632751575}
   m_CullTransparentMesh: 0
+--- !u!114 &632751579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 632751575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79b5488c669be4047b628ec37b568da3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 1009755738216454, guid: 5da6d49a2eb2c0746b615ba50818ff9f, type: 2}
 --- !u!1 &635888733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3385,6 +3398,7 @@ GameObject:
   - component: {fileID: 642260770}
   - component: {fileID: 642260769}
   - component: {fileID: 642260768}
+  - component: {fileID: 642260771}
   m_Layer: 5
   m_Name: SellAllButton
   m_TagString: Untagged
@@ -3449,7 +3463,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 642260769}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 642260771}
+        m_MethodName: OnClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &642260769
@@ -3486,6 +3511,17 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 642260766}
   m_CullTransparentMesh: 0
+--- !u!114 &642260771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 642260766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7675e5a0f886ae48be650df151b9148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &642582856
 GameObject:
   m_ObjectHideFlags: 0

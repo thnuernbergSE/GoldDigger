@@ -36,7 +36,6 @@ public class Inventory : MonoBehaviour
 
     if (item.ItemWeight * amountOf + currentWeight <= maxWeight)
     {
-      Debug.Log(GetInventory.Count);
       if (GetInventory.Count == 0)
       {
         GetInventory.Add(new KeyValuePair<InventoryItems, int>(item, amountOf));
@@ -68,6 +67,21 @@ public class Inventory : MonoBehaviour
     return false;
   }
 
+  public bool Remove(InventoryItems item)
+  {
+    for (var i = 0; i < GetInventory.Count; i++)
+    {
+      if (GetInventory[i].Key.ItemName == item.ItemName)
+      {
+        currentWeight -= GetInventory[i].Key.ItemWeight * GetInventory[i].Value;
+        GetInventory.Remove(GetInventory[i]);
+        
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   public bool Remove(InventoryItems item, int amountOf)
   {
