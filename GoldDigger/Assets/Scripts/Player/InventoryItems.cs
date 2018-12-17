@@ -5,31 +5,28 @@ using UnityEngine;
 
 public class InventoryItems
 {
-  string itemName;
-  Sprite sprite;
-  int itemWeight;
+  public const string AluminumItem = "Aluminium";
+  public const string CoalItem = "Coal";
+  public const string CobaltItem = "Cobalt";
+  public const string CobbleItem = "Cobble";
 
 
-  public Sprite GetSprite => sprite;
-  public string ItemName => itemName;
-  public int ItemWeight => itemWeight;
-  
+  public Sprite GetSprite { get; }
+
+  public string ItemName { get; }
+
+  public int ItemWeight { get; }
+
 
   public InventoryItems(string name, int weight)
   {
-    sprite = Resources.Load<Sprite>("Sprites/Items/" + name);
-    itemName = name;
-    itemWeight = weight;
+    GetSprite = Resources.Load<Sprite>("Sprites/Items/" + name);
+    ItemName = name;
+    ItemWeight = weight;
 
-    if (sprite == null)
+    if (GetSprite == null)
     {
       throw new NullReferenceException("Sprite can't be null - InventoryItems.cs");
     }
   }
-
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }
