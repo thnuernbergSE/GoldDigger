@@ -16,7 +16,7 @@ public class PlayerControl : MonoBehaviour
 
   bool attackWithPickaxe;
   float coolDownTimer;
-  float dmg;
+  int dmg;
   bool facingRight;
 
   [SerializeField] Transform[] groundPoints;
@@ -34,7 +34,7 @@ public class PlayerControl : MonoBehaviour
   Rigidbody2D myRigidbody2D;
 
   GameObject pivotPoint;
-  float strength;
+  int strength;
 
   GameObject tool;
   bool wallJumping;
@@ -263,8 +263,8 @@ public class PlayerControl : MonoBehaviour
     var player = gameObject.GetComponent<Player>();
     var pickaxe = player.Pickaxe.GetComponent<Pickaxe>();
     tool.GetComponent<SpriteRenderer>().sprite = pickaxe.GetSprite;
-    strength = pickaxe.Strength;
-    dmg = pickaxe.Damage;
+    strength = (int) pickaxe.Strength;
+    dmg = (int) pickaxe.Damage;
   }
 
   Vector2 Lookdirection()

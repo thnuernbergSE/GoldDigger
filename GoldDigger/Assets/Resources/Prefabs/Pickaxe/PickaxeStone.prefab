@@ -53,5 +53,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strength: 2
   dmg: 3
-  name: Steinspitzhacke
+  name: Stone Pick
+  itemCost: 10
   sprite: {fileID: 21300000, guid: 2ea152ecf8b774e44b7db56dcc399119, type: 3}

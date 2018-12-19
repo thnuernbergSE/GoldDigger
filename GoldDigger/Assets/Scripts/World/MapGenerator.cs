@@ -25,6 +25,16 @@ public class MapGenerator : MonoBehaviour
 
   public GameObject WorldBackground;
 
+  [SerializeField] int blockHealthDirtLayer = 0;
+  [SerializeField] int blockHealthStoneLayer = 0;
+  [SerializeField] int blockHealthIronTinLayer = 0;
+  [SerializeField] int blockHealthSilverAluminumLayer = 0;
+  [SerializeField] int blockHealthGoldLithiumLayer = 0;
+  [SerializeField] int blockHealthRubyCobaltLayer = 0;
+  [SerializeField] int blockHealthDiamondLayer = 0;
+  [SerializeField] int blockHealthPlatinumLayer = 0;
+  [SerializeField] int blockHealthTitaniumLayer = 0;
+
   public static int GetWorldWidth => worldWidth;
   public int GetWorldHeight { get; set; }
 
@@ -51,6 +61,7 @@ public class MapGenerator : MonoBehaviour
     for (var i = 0; i < height; i++)
     for (var j = 0; j < width; j++)
     {
+
       var active = StoneBlock;
 
       float spawnRate = 0;
@@ -70,7 +81,9 @@ public class MapGenerator : MonoBehaviour
         active = BoulderEnemy;
       }
 
-      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
+      var spawnedBlock = Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
+      spawnedBlock.GetComponent<Blocks>().Hardness = 2;
+      spawnedBlock.GetComponent<Blocks>().Health = blockHealthStoneLayer;
     }
 
     GetWorldHeight += height;
@@ -85,8 +98,10 @@ public class MapGenerator : MonoBehaviour
 
       var active = rand >= GetSpawnRate(CobbleBlock) ? DirtBlock : CobbleBlock;
 
-      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
-    }
+      var spawnedBlock =Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
+      spawnedBlock.GetComponent<Blocks>().Hardness = 1;
+      spawnedBlock.GetComponent<Blocks>().Health = blockHealthDirtLayer;
+      }
 
     GetWorldHeight += height;
   }
@@ -131,8 +146,10 @@ public class MapGenerator : MonoBehaviour
         active = BoulderEnemy;
       }
 
-      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
-    }
+      var spawnedBlock = Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
+      spawnedBlock.GetComponent<Blocks>().Hardness = 6;
+      spawnedBlock.GetComponent<Blocks>().Health = blockHealthTitaniumLayer;
+      }
 
     GetWorldHeight += height;
   }
@@ -163,8 +180,10 @@ public class MapGenerator : MonoBehaviour
         active = BoulderEnemy;
       }
 
-      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
-    }
+      var spawnedBlock = Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
+      spawnedBlock.GetComponent<Blocks>().Hardness = 6;
+      spawnedBlock.GetComponent<Blocks>().Health = blockHealthPlatinumLayer;
+      }
 
     GetWorldHeight += height;
   }
@@ -195,8 +214,10 @@ public class MapGenerator : MonoBehaviour
         active = BoulderEnemy;
       }
 
-      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
-    }
+      var spawnedBlock = Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
+      spawnedBlock.GetComponent<Blocks>().Hardness = 5;
+      spawnedBlock.GetComponent<Blocks>().Health = blockHealthDiamondLayer;
+      }
 
     GetWorldHeight += height;
   }
@@ -227,8 +248,10 @@ public class MapGenerator : MonoBehaviour
         active = BoulderEnemy;
       }
 
-      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
-    }
+      var spawnedBlock =Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
+      spawnedBlock.GetComponent<Blocks>().Hardness = 4;
+      spawnedBlock.GetComponent<Blocks>().Health = blockHealthRubyCobaltLayer;
+      }
 
     GetWorldHeight += height;
   }
@@ -259,8 +282,10 @@ public class MapGenerator : MonoBehaviour
         active = BoulderEnemy;
       }
 
-      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
-    }
+      var spawnedBlock = Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
+      spawnedBlock.GetComponent<Blocks>().Hardness = 4;
+      spawnedBlock.GetComponent<Blocks>().Health = blockHealthGoldLithiumLayer;
+      }
 
     GetWorldHeight += height;
   }
@@ -291,8 +316,10 @@ public class MapGenerator : MonoBehaviour
         active = BoulderEnemy;
       }
 
-      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
-    }
+      var spawnedBlock = Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
+      spawnedBlock.GetComponent<Blocks>().Hardness = 3;
+      spawnedBlock.GetComponent<Blocks>().Health = blockHealthSilverAluminumLayer;
+      }
 
     GetWorldHeight += height;
   }
@@ -323,8 +350,10 @@ public class MapGenerator : MonoBehaviour
         active = BoulderEnemy;
       }
 
-      Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
-    }
+      var spawnedBlock = Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
+      spawnedBlock.GetComponent<Blocks>().Hardness = 3;
+      spawnedBlock.GetComponent<Blocks>().Health = blockHealthIronTinLayer;
+      }
 
     GetWorldHeight += height;
   }

@@ -17,6 +17,8 @@ public class SellAllHandler : MonoBehaviour
 
   Button button;
 
+  Player player;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -25,6 +27,8 @@ public class SellAllHandler : MonoBehaviour
 	  item = gameObject.transform.parent.gameObject.GetComponent<ShopItem>().GetItem;
 
 	  button = GetComponent<Button>();
+
+    player = GameObject.Find("Player").GetComponent<Player>();
 
     if (inventory == null)
 	  {
@@ -54,11 +58,12 @@ public class SellAllHandler : MonoBehaviour
   public void OnClick()
   {
     var inventoryItem = new InventoryItems(itemName, item.GetComponent<OreItems>().ItemWeight);
-    int amountOf = inventory.GetAmountOf(inventoryItem);
+    var amountOf = inventory.GetAmountOf(inventoryItem);
     if (inventory.Remove(inventoryItem))
     {
       Debug.Log("Removed Items: " + amountOf);
-      //TODO: ADD MONEY TO PLAYER
+      player.AddMoney(amountOf * item.GetComponent<OreItems>().ItemValue);
+
     }
   }
 }

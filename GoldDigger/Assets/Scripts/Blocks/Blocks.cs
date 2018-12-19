@@ -7,7 +7,7 @@ public class Blocks : MonoBehaviour
 
   [SerializeField] int hardness;
 
-  [SerializeField] float health;
+  [SerializeField] int health;
 
   [SerializeField] float spawnrate;
 
@@ -19,13 +19,21 @@ public class Blocks : MonoBehaviour
     //TODO: play break Animation
   }
 
-  public float GetHealth => health;
+  public int Health
+  {
+    get { return health; }
+    set { health = value; }
+  }
 
-  public float Hardness => hardness;
+  public int Hardness
+  {
+    get { return hardness; }
+    set { hardness = value; }
+  }
 
   public float Spawnrate => spawnrate;
 
-  public void ReceiveDamage(float[] itemInfo)
+  public void ReceiveDamage(int[] itemInfo)
   {
 
     if (itemInfo.Length != 2)

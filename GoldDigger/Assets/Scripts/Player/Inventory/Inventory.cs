@@ -23,6 +23,8 @@ public class Inventory : MonoBehaviour
     set { maxWeight = value; }
   }
 
+  public int CurrentWeight => currentWeight;
+
   public List<KeyValuePair<InventoryItems, int>> GetInventory { get; } = new List<KeyValuePair<InventoryItems, int>>();
 
   public bool Add(InventoryItems item, int amountOf)

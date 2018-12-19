@@ -51,7 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02753aadc84efff429ca4da9109e9660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 2
+  strength: 5
   dmg: 3
-  name: Kobaltspitzhacke
+  name: Cobalt Pick
+  itemCost: 1250
   sprite: {fileID: 21300000, guid: 089e6b9fcbb52594082b42a2c61620bd, type: 3}

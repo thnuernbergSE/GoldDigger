@@ -21,6 +21,27 @@ public class Player : MonoBehaviour
     get;
   }
 
+  int money;
+
+  public int Money => money;
+
+  public bool AddMoney(int amount)
+  {
+    money += amount;
+    return true;
+  }
+
+  public bool RemoveMoney(int amount)
+  {
+    if (money < amount)
+    {
+      return false;
+    }
+
+    money -= amount;
+    return true;
+  }
+
   public GameObject Pickaxe
   {
     get { return mainTool; }
@@ -36,7 +57,7 @@ public class Player : MonoBehaviour
 
   void Start()
   {
-
+    money = 20;
   }
 
   // Update is called once per frame

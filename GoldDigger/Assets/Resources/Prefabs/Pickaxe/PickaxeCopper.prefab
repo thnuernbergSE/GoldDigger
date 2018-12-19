@@ -51,7 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02753aadc84efff429ca4da9109e9660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 2
+  strength: 3
   dmg: 3
-  name: Kupferspitzhacke
+  name: Copper Pick
+  itemCost: 100
   sprite: {fileID: 21300000, guid: 3a326119d58be4e48be291f981ba93fa, type: 3}

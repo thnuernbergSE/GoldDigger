@@ -19,6 +19,8 @@ public class SellOneHandler : MonoBehaviour
 
   Button button;
 
+  Player player;
+
   // Use this for initialization
   void Start () {
     inventory = GameObject.Find("Player").GetComponent<Inventory>();
@@ -28,6 +30,8 @@ public class SellOneHandler : MonoBehaviour
     itemName = item.GetComponent<OreItems>().ItemName;
 
     button = GetComponent<Button>();
+
+    player = GameObject.Find("Player").GetComponent<Player>();
 
     if (inventory == null)
     {
@@ -58,7 +62,7 @@ public class SellOneHandler : MonoBehaviour
     if (inventory.Remove(inventoryItem, 1))
     {
       Debug.Log("Removed Items: " + 1);
-      //TODO: ADD MONEY TO PLAYER
+      player.AddMoney(item.GetComponent<OreItems>().ItemValue);
     }
   }
 }

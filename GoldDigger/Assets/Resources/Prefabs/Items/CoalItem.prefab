@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Coal
-  itemValue: 5
+  itemValue: 3
   itemWeight: 1
 --- !u!212 &212684301974688762
 SpriteRenderer:

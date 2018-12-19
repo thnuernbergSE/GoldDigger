@@ -51,7 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02753aadc84efff429ca4da9109e9660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 2
+  strength: 6
   dmg: 3
-  name: Diamantenspitzhacke
+  name: Diamond Pick
+  itemCost: 2500
   sprite: {fileID: 21300000, guid: 3e227ff6e48a18a48ae4f20629929f14, type: 3}

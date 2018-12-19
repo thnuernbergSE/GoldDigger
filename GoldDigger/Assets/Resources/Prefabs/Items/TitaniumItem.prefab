@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Titanium
-  itemValue: 1
+  itemValue: 100
   itemWeight: 1
 --- !u!212 &212789245958732144
 SpriteRenderer:

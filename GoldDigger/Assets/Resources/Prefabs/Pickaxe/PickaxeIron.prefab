@@ -51,7 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02753aadc84efff429ca4da9109e9660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 2
+  strength: 4
   dmg: 3
-  name: Eisenspitzhacke
+  name: Iron Pick
+  itemCost: 250
   sprite: {fileID: 21300000, guid: e3d4753102dd77945bf10521dc1ac3c4, type: 3}

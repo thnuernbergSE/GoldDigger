@@ -10,8 +10,10 @@ public class Pickaxe : MonoBehaviour {
     float dmg;
     [SerializeField]
     string name;
+  [SerializeField]
+  int itemCost;
 
-    [SerializeField]
+  [SerializeField]
     Sprite sprite;
 
     public float Strength
@@ -30,6 +32,8 @@ public class Pickaxe : MonoBehaviour {
     {
         get { return sprite; }
     }
+
+  public int ItemCost => itemCost;
 
 
 }
