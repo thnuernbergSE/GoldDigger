@@ -37,6 +37,9 @@ public class PlayerControl : MonoBehaviour
   int strength;
 
   GameObject tool;
+  GameObject thinkingCloud;
+
+
   bool wallJumping;
 
   [SerializeField] LayerMask whatIsGround;
@@ -54,6 +57,9 @@ public class PlayerControl : MonoBehaviour
     Inventory = GameObject.Find("Inventory");
     pivotPoint = GameObject.Find("Pivot");
     tool = GameObject.Find("Tool");
+    thinkingCloud = GameObject.Find("thinkCloud");
+
+    thinkingCloud.SetActive(false);
     if (pivotPoint == null)
     {
       throw new NullReferenceException("Pivot Point not found! - PlayerControl.cs");

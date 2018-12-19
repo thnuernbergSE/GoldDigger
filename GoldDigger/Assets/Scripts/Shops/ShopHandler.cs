@@ -9,7 +9,6 @@ public class ShopHandler : MonoBehaviour {
   void Start()
   {
     thinkingCloud = GameObject.Find("thinkCloud");
-    thinkingCloud.SetActive(false);
   }
 
   // Update is called once per frame

@@ -11,13 +11,22 @@ public class Inventory : MonoBehaviour
 
   GameObject inventoryUI;
 
+  GameObject inventory;
+
+  [SerializeField] GameObject acitveBackpack;
+
+  public GameObject ActiveBackpack
+  {
+    set { acitveBackpack = value; }
+  }
+
   //InventorySlot inventorySlot;
   bool isActive;
 
 
-  [SerializeField] ushort maxWeight = 10;
+  [SerializeField] int maxWeight;
 
-  public ushort MaxWeight
+  public int MaxWeight
   {
     get { return maxWeight; }
     set { maxWeight = value; }
@@ -146,6 +155,14 @@ public class Inventory : MonoBehaviour
 
   void Update()
   {
+    inventory.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentWeight.ToString();
+    inventory.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = maxWeight.ToString();
+
+
+    inventory.GetComponent<Image>().sprite =
+      acitveBackpack.GetComponent<BackpackHandler>().BackPack;
+    maxWeight = acitveBackpack.GetComponent<BackpackHandler>().MaxWeight;
+
     for (var i = 0; i < inventorySlots.Length; i++)
     {
       inventorySlots[i].transform.GetChild(0).GetComponent<Image>().sprite = null;
@@ -165,6 +182,13 @@ public class Inventory : MonoBehaviour
 
   void Start()
   {
+    maxWeight = acitveBackpack.GetComponent<BackpackHandler>().MaxWeight;
+
+    inventory = GameObject.Find("Inventory");
+
+    inventory.GetComponent<Image>().sprite =
+      acitveBackpack.GetComponent<BackpackHandler>().BackPack;
+
     inventoryUI = GameObject.Find("SlotPanel");
     if (inventoryUI == null)
     {

@@ -1,5 +1,4 @@
-﻿using UnityEditor.IMGUI.Controls;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Blocks : MonoBehaviour
 {
@@ -12,6 +11,23 @@ public class Blocks : MonoBehaviour
   [SerializeField] float spawnrate;
 
   [SerializeField] bool breakable = true;
+
+  Sprite[] breakingSprites = new Sprite[3];
+
+  GameObject breakObject;
+
+  float fraction;
+
+  void Start()
+  {
+    breakingSprites[0] = Resources.Load<Sprite>("Sprites/Blocks/Breaking/Break1");
+    breakingSprites[1] = Resources.Load<Sprite>("Sprites/Blocks/Breaking/Break2");
+    breakingSprites[2] = Resources.Load<Sprite>("Sprites/Blocks/Breaking/Break3");
+
+    breakObject = transform.GetChild(0).gameObject;
+
+    fraction = (float)health / breakingSprites.Length;
+  }
 
   void breakBlock()
   {
@@ -35,17 +51,30 @@ public class Blocks : MonoBehaviour
 
   public void ReceiveDamage(int[] itemInfo)
   {
-
     if (itemInfo.Length != 2)
     {
       throw new System.Exception("ReceiveDamage not right amount of arguments");
 
     }
 
-    //Debug.Log("Hardness: " + itemInfo[0] + ":" + hardness + " Health: " + itemInfo[1] + ":" + health);
     if (itemInfo[0] >= hardness && breakable)
     {
       health -= itemInfo[1];
+
+      
+
+      if (health < fraction * 3)
+      {
+        breakObject.GetComponent<SpriteRenderer>().sprite = breakingSprites[0];
+      }
+      if (health < fraction * 2)
+      {
+        breakObject.GetComponent<SpriteRenderer>().sprite = breakingSprites[1];
+      }
+      if (health < fraction * 1)
+      {
+        breakObject.GetComponent<SpriteRenderer>().sprite = breakingSprites[2];
+      }
 
       if (health <= 0)
       {
