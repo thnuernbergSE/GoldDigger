@@ -163,11 +163,13 @@ public class PlayerControl : MonoBehaviour
     if (Input.GetKey(KeyCode.Mouse0))
     {
       attackWithPickaxe = true;
+      //SendMessage("UseStamina",5);
     }
 
     if (Input.GetKeyDown(KeyCode.Space))
     {
       jump = true;
+      SendMessage("UseStamina", 5);
     }
 
     if (Input.GetKeyDown(KeyCode.I))
@@ -185,6 +187,7 @@ public class PlayerControl : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && hit.collider != null)
     {
       GetComponent<Rigidbody2D>().velocity = new Vector2(movementSpeed * hit.normal.x, movementSpeed);
+      SendMessage("UseStamina", 5);
     }
     else if (hit.collider != null && wallJumping)
     {

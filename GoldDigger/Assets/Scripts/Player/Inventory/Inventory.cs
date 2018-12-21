@@ -155,8 +155,7 @@ public class Inventory : MonoBehaviour
         if (GetInventory[i].Key != null)
         {
           inventorySlots[i].transform.GetChild(0).GetComponent<Image>().sprite = GetInventory[i].Key.GetSprite;
-          inventorySlots[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-            GetInventory[i].Value.ToString();
+          inventorySlots[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =GetInventory[i].Value.ToString();
         }
       }
     }
