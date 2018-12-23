@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Silver
-  itemValue: 1
+  itemValue: 10
   itemWeight: 1
 --- !u!212 &212827865978126692
 SpriteRenderer:

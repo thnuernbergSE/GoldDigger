@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Gold
-  itemValue: 1
+  itemValue: 15
   itemWeight: 1
 --- !u!212 &212134682302180058
 SpriteRenderer:

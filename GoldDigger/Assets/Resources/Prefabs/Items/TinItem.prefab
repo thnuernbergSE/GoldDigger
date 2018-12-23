@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Tin
-  itemValue: 1
+  itemValue: 7
   itemWeight: 1
 --- !u!212 &212400786142159274
 SpriteRenderer:

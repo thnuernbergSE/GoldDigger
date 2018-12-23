@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Ruby
-  itemValue: 1
+  itemValue: 18
   itemWeight: 1
 --- !u!212 &212318243684967196
 SpriteRenderer:

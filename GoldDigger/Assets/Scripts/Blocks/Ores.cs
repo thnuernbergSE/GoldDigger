@@ -3,10 +3,7 @@ using UnityEngine;
 
 public class Ores : MonoBehaviour {
 
-  [SerializeField]
-  GameObject droppingItem;
-
-  
+  [SerializeField] GameObject droppingItem;
 
   public void SpawnOre()
   {

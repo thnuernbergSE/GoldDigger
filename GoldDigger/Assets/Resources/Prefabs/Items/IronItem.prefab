@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Iron
-  itemValue: 1
+  itemValue: 8
   itemWeight: 1
 --- !u!212 &212879166429695242
 SpriteRenderer:

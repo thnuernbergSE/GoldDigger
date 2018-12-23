@@ -124,6 +124,19 @@ public class Inventory : MonoBehaviour
     return false;
   }
 
+  public InventoryItems GetItemByName(string name)
+  {
+    foreach (var inventoryItem in GetInventory)
+    {
+      if (inventoryItem.Key.ItemName.Contains(name))
+      {
+        return inventoryItem.Key;
+      }
+    }
+
+    return null;
+  }
+
   public bool Contains(InventoryItems item, int amountOf)
   {
     foreach (var inventoryItem in GetInventory)

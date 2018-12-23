@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Aluminium
-  itemValue: 1
+  itemValue: 9
   itemWeight: 1
 --- !u!212 &212513500974701932
 SpriteRenderer:

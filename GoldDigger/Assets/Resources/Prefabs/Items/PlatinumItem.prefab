@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Platinum
-  itemValue: 1
+  itemValue: 36
   itemWeight: 1
 --- !u!212 &212211808575618456
 SpriteRenderer:

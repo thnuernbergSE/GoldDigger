@@ -25,6 +25,10 @@ public class MapGenerator : MonoBehaviour
 
   public GameObject WorldBackground;
 
+  [SerializeField] int BoneAmount = 20;
+
+  [SerializeField] GameObject BoneBlock;
+
   [SerializeField] int blockHealthDirtLayer = 0;
   [SerializeField] int blockHealthStoneLayer = 0;
   [SerializeField] int blockHealthIronTinLayer = 0;
@@ -92,18 +96,40 @@ public class MapGenerator : MonoBehaviour
   void createDirtLayer(int width, int height)
   {
     for (var i = 0; i < height; i++)
-    for (var j = 0; j < width; j++)
     {
-      var rand = Random.Range(0, 100);
+      for (var j = 0; j < width; j++)
+      {    
+        var rand = Random.Range(0, 100);
 
-      var active = rand >= GetSpawnRate(CobbleBlock) ? DirtBlock : CobbleBlock;
+        var active = rand >= GetSpawnRate(CobbleBlock) ? DirtBlock : CobbleBlock;
 
-      var spawnedBlock =Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
-      spawnedBlock.GetComponent<Blocks>().Hardness = 1;
-      spawnedBlock.GetComponent<Blocks>().Health = blockHealthDirtLayer;
+        var spawnedBlock = Instantiate(active, new Vector2(j, -i - GetWorldHeight), Quaternion.identity, GameObject.Find("World").transform);
+        spawnedBlock.GetComponent<Blocks>().Hardness = 1;
+        spawnedBlock.GetComponent<Blocks>().Health = blockHealthDirtLayer;
+      }
+    }
+    
+    GetWorldHeight += height;
+  }
+
+  void spawnBones(int width)
+  {
+    for(var i = 0; i < BoneAmount; i++)
+    {
+      var randomXPos = Random.Range(0, width);
+      var randomYPos = Random.Range(-GetWorldHeight, -1);
+
+      var col = Physics2D.OverlapCircle(new Vector2(randomXPos, randomYPos), 0.1f);
+
+      if(col == null)
+      {
+        Debug.Log("X:" + randomXPos + ";  Y: " + randomYPos);
       }
 
-    GetWorldHeight += height;
+      Destroy(col.gameObject);
+
+      var spawnedBone = Instantiate(BoneBlock, new Vector2(randomXPos, randomYPos), Quaternion.identity, GameObject.Find("World").transform);
+    }
   }
 
   void Start()
@@ -117,6 +143,9 @@ public class MapGenerator : MonoBehaviour
     createDiamondLayer(worldWidth, 20);
     createPlatinumLayer(worldWidth, 20);
     createTitaniumLayer(worldWidth, 20);
+
+    spawnBones(worldWidth);
+
     setWorldBackground();
   }
 

@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemName: Cobalt
-  itemValue: 1
+  itemValue: 16
   itemWeight: 1
 --- !u!212 &212670379063317304
 SpriteRenderer:

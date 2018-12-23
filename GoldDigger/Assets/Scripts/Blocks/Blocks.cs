@@ -78,11 +78,11 @@ public class Blocks : MonoBehaviour
 
       if (health <= 0)
       {
-        var ores = gameObject.GetComponent<Ores>();
-        if (ores != null)
+        if(GetComponent<Ores>() != null || GetComponent<BoneHandler>() != null)
         {
-          ores.SpawnOre();
+          gameObject.SendMessage("SpawnOre");   
         }
+        
 
         Destroy(gameObject);
       }

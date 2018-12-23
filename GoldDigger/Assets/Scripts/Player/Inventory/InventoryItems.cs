@@ -20,7 +20,7 @@ public class InventoryItems
 
   public InventoryItems(string name, int weight = 0)
   {
-    GetSprite = Resources.Load<Sprite>("Sprites/Items/" + name);
+    GetSprite = Resources.Load<Sprite>("Sprites/Items/" + name.Split('_')[0]);
     ItemName = name;
     ItemWeight = weight;
 
