@@ -8,12 +8,16 @@ public class Inventory : MonoBehaviour
   int currentWeight;
 
   GameObject[] inventorySlots;
+  GameObject[] foodSlots;
 
   GameObject inventoryUI;
 
   //InventorySlot inventorySlot;
   bool isActive;
 
+  const int foodSpace = 4;
+
+  int currentFoodSpace = 0;
 
   [SerializeField] ushort maxWeight = 10;
 
@@ -26,6 +30,8 @@ public class Inventory : MonoBehaviour
   public int CurrentWeight => currentWeight;
 
   public List<KeyValuePair<InventoryItems, int>> GetInventory { get; } = new List<KeyValuePair<InventoryItems, int>>();
+
+  public List<InventoryItems> GetFoodInventory { get; } = new List<InventoryItems>();
 
   public bool Add(InventoryItems item, int amountOf)
   {
@@ -146,6 +152,12 @@ public class Inventory : MonoBehaviour
 
   void Update()
   {
+    UpdateSlotPanel();
+    UpdateFoodPanel();
+  }
+
+  void UpdateSlotPanel()
+  {
     for (var i = 0; i < inventorySlots.Length; i++)
     {
       inventorySlots[i].transform.GetChild(0).GetComponent<Image>().sprite = null;
@@ -161,8 +173,29 @@ public class Inventory : MonoBehaviour
     }
   }
 
+  void UpdateFoodPanel()
+  {
+    for (var i = 0; i < foodSlots.Length; i++)
+    {
+      foodSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = null;
+      
+      if (GetFoodInventory.Count > i)
+      {
+        if (GetFoodInventory[i] != null)
+        {
+          foodSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = GetInventory[i].Key.GetSprite;
+        }
+      }
+    }
+  }
 
   void Start()
+  {
+    SlotPanelStart();
+    FoodPanelStart();
+  }
+
+  void SlotPanelStart()
   {
     inventoryUI = GameObject.Find("SlotPanel");
     if (inventoryUI == null)
@@ -175,5 +208,41 @@ public class Inventory : MonoBehaviour
     {
       inventorySlots[i] = inventoryUI.transform.GetChild(i).gameObject;
     }
+  }
+
+  void FoodPanelStart()
+  {
+    inventoryUI = GameObject.Find("FoodPanel");
+    if (inventoryUI == null)
+    {
+      throw new MissingReferenceException("Missing Reference --- Inventory");
+    }
+
+    foodSlots = new GameObject[inventoryUI.transform.childCount];
+    for (var i = 0; i < foodSlots.Length; i++)
+    {
+      foodSlots[i] = inventoryUI.transform.GetChild(i).gameObject;
+    }
+  }
+
+  void UseFood()
+  {
+    //TODO
+  }
+
+  public bool AddFood(InventoryItems item)
+  {
+    if (item == null)
+    {
+      throw new UnassignedReferenceException("FoodItem equals null - Inventory.cs");
+    }
+
+    if (currentFoodSpace < foodSpace)
+    {
+      GetFoodInventory.Add(item);
+      return true;
+    }
+
+    return false;
   }
 }
