@@ -5,29 +5,64 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    // Use this for initialization
-    private int Life
+  // Use this for initialization
+  public int MaxHealth
+  {
+    get;
+    set;
+  }
+  public int AcutalHealth
+  {
+    get;
+  }
+
+  public int Stammina
+  {
+    get;
+  }
+
+  int money;
+
+  public int Money => money;
+
+  public bool AddMoney(int amount)
+  {
+    money += amount;
+    return true;
+  }
+
+  public bool RemoveMoney(int amount)
+  {
+    if (money < amount)
     {
-        get;
+      return false;
     }
 
-    private int Stammina
-    {
-        get;
-    }
+    money -= amount;
+    return true;
+  }
 
-    private GameObject pickaxe
-    {
-        get;
-    }
-    void Start()
-    {
+  public GameObject Pickaxe
+  {
+    get { return mainTool; }
+    set { mainTool = value; }
+  }
 
-    }
+  public float GetYPos => transform.position.y;
 
-    // Update is called once per frame
-    void Update()
-    {
+  [SerializeField]
+  private GameObject mainTool;
 
-    }
+  private Pickaxe pickScript;
+
+  void Start()
+  {
+    money = 0;
+  }
+
+  // Update is called once per frame
+  void Update()
+  {
+
+  }
 }
