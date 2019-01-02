@@ -128,7 +128,7 @@ public class MapGenerator : MonoBehaviour
 
       Destroy(col.gameObject);
 
-      var spawnedBone = Instantiate(BoneBlock, new Vector2(randomXPos, randomYPos), Quaternion.identity, GameObject.Find("World").transform);
+      Instantiate(BoneBlock, new Vector2(randomXPos, randomYPos), Quaternion.identity, GameObject.Find("World").transform);
     }
   }
 

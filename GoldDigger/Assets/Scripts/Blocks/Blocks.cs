@@ -16,6 +16,15 @@ public class Blocks : MonoBehaviour
 
   GameObject breakObject;
 
+  AudioClip pickaxeSound;
+
+  AudioSource source;
+
+  float lowPitchRange = .75f;
+  float highPitchRange = 1.5f;
+  float velToVol = .2f;
+  float velocityClipSplit = .5f;
+
   float fraction;
 
   void Start()
@@ -23,6 +32,11 @@ public class Blocks : MonoBehaviour
     breakingSprites[0] = Resources.Load<Sprite>("Sprites/Blocks/Breaking/Break1");
     breakingSprites[1] = Resources.Load<Sprite>("Sprites/Blocks/Breaking/Break2");
     breakingSprites[2] = Resources.Load<Sprite>("Sprites/Blocks/Breaking/Break3");
+
+    pickaxeSound = Resources.Load<AudioClip>("Sounds/pickaxe");
+
+    source = GameObject.Find("AudioPlayer").GetComponent<AudioSource>();
+    
 
     breakObject = transform.GetChild(0).gameObject;
 
@@ -49,6 +63,12 @@ public class Blocks : MonoBehaviour
 
   public float Spawnrate => spawnrate;
 
+  private void playSound()
+  {
+    source.pitch = Random.Range(lowPitchRange, highPitchRange);
+    source.PlayOneShot(pickaxeSound, velocityClipSplit);
+  }
+
   public void ReceiveDamage(int[] itemInfo)
   {
     if (itemInfo.Length != 2)
@@ -61,7 +81,7 @@ public class Blocks : MonoBehaviour
     {
       health -= itemInfo[1];
 
-      
+      playSound();
 
       if (health < fraction * 3)
       {
