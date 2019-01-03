@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Explotion: MonoBehaviour
 {
-  public GameObject explostionEffect;
+  public GameObject explosionEffect;
 
   float countdown;
 
@@ -16,12 +16,14 @@ public class Explotion: MonoBehaviour
 
   public void ReceiveDamage(int[] itemInfo)
   {
-    explotion();
+    explosion();
   }
 
-  void explotion()
+  void explosion()
   {
-    Instantiate(explostionEffect, transform.position, transform.rotation);
+    Instantiate(explosionEffect, transform.position, transform.rotation);
+
+    Destroy(gameObject);
   }
 
 

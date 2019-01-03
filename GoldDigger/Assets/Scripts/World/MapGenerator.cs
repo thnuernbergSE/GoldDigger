@@ -285,7 +285,7 @@ public class MapGenerator : MonoBehaviour
     createPlatinumLayer(worldWidth, 20);
     createTitaniumLayer(worldWidth, 20);
 
-    createDungeons();
+    //createDungeons();
 
     spawnBones(worldWidth);
 
