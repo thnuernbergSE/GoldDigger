@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114489069267589138}
   - component: {fileID: 61122586252150334}
   m_Layer: 8
-  m_Name: Bomb
+  m_Name: TNT
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,8 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3171b73c9a002b049a6583d4bce61fea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explostionEffect: {fileID: 1097952086347118, guid: c97aeb25a81d05a4e863a6a1ecfb43e8,
-    type: 2}
+  explosionEffect: {fileID: 0}
   force: 700
 --- !u!212 &212416487651645746
 SpriteRenderer:
