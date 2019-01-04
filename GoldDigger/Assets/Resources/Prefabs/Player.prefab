@@ -354,6 +354,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfa4330753a3614186a48bf7f5a2d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 5
+  maxStamina: 100
+  currentHealth: 3
+  currentStamina: 50
   mainTool: {fileID: 1142869572198580, guid: c3516652a6e9db0438da00e50e765ad6, type: 2}
 --- !u!114 &114329633031725140
 MonoBehaviour:
@@ -514,6 +518,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28f868cf43c8a95418824fff2420223b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  acitveBackpack: {fileID: 1840749160327136, guid: 85ce3301e33c0094b8c14510b064c80a,
+    type: 2}
   maxWeight: 5
 --- !u!114 &114908383042534956
 MonoBehaviour:

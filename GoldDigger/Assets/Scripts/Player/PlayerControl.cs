@@ -158,6 +158,7 @@ public class PlayerControl : MonoBehaviour
       isPickAnimationRunning = true;
       HandleRaycast();
       coolDownTimer = coolDown;
+      SendMessage("UseStamina", 2);
     }
   }
 
@@ -174,6 +175,7 @@ public class PlayerControl : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Space))
     {
       jump = true;
+      SendMessage("UseStamina", 2);
     }
 
     if (Input.GetKeyDown(KeyCode.I))
@@ -191,10 +193,12 @@ public class PlayerControl : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && hit.collider != null)
     {
       GetComponent<Rigidbody2D>().velocity = new Vector2(movementSpeed * hit.normal.x, movementSpeed);
+      SendMessage("UseStamina", 2);
     }
     else if (hit.collider != null && wallJumping)
     {
       wallJumping = false;
+      SendMessage("UseStamina", 2);
     }
   }
 

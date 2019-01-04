@@ -8,10 +8,13 @@ public class Inventory : MonoBehaviour
   int currentWeight;
 
   GameObject[] inventorySlots;
+  GameObject[] foodSlots;
 
   GameObject inventoryUI;
 
   GameObject inventory;
+
+  const int foodSpace = 4;
 
   [SerializeField] GameObject acitveBackpack;
 
@@ -35,6 +38,8 @@ public class Inventory : MonoBehaviour
   public int CurrentWeight => currentWeight;
 
   public List<KeyValuePair<InventoryItems, int>> GetInventory { get; } = new List<KeyValuePair<InventoryItems, int>>();
+
+  public List<FoodItems> GetFoodInventory { get; } = new List<FoodItems>();
 
   public bool Add(InventoryItems item, int amountOf)
   {
@@ -86,7 +91,7 @@ public class Inventory : MonoBehaviour
       {
         currentWeight -= GetInventory[i].Key.ItemWeight * GetInventory[i].Value;
         GetInventory.Remove(GetInventory[i]);
-        
+
         return true;
       }
     }
@@ -168,6 +173,12 @@ public class Inventory : MonoBehaviour
 
   void Update()
   {
+    updateSlotPanel();
+    UpdateFoodPanel();
+  }
+
+  void updateSlotPanel()
+  {
     inventory.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = currentWeight.ToString();
     inventory.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = maxWeight.ToString();
 
@@ -192,8 +203,30 @@ public class Inventory : MonoBehaviour
     }
   }
 
+  void UpdateFoodPanel()
+  {
+    for (var i = 0; i < foodSlots.Length; i++)
+    {
+      foodSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = null;
+
+      if (GetFoodInventory.Count > i)
+      {
+        if (GetFoodInventory[i] != null)
+        {
+          foodSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = GetFoodInventory[i].GetSprite;
+        }
+      }
+    }
+  }
+
 
   void Start()
+  {
+    startSlotPanel();
+    FoodPanelStart();
+  }
+
+  void startSlotPanel()
   {
     maxWeight = acitveBackpack.GetComponent<BackpackHandler>().MaxWeight;
 
@@ -213,5 +246,38 @@ public class Inventory : MonoBehaviour
     {
       inventorySlots[i] = inventoryUI.transform.GetChild(i).gameObject;
     }
+  }
+
+  void FoodPanelStart()
+  {
+    inventoryUI = GameObject.Find("FoodPanel");
+    if (inventoryUI == null)
+    {
+      throw new MissingReferenceException("Missing Reference --- Inventory");
+    }
+
+    foodSlots = new GameObject[inventoryUI.transform.childCount];
+    for (var i = 0; i < foodSlots.Length; i++)
+    {
+      foodSlots[i] = inventoryUI.transform.GetChild(i).gameObject;
+    }
+  }
+
+  public bool AddFood(GameObject item)
+  {
+    var foodItems = new FoodItems(item.name);
+    if (foodItems == null)
+    {
+      throw new UnassignedReferenceException("FoodItem equals null - Inventory.cs");
+    }
+
+    if (GetFoodInventory.Count < foodSpace)
+    {
+      GetFoodInventory.Add(foodItems);
+      Debug.Log(item.name);
+      return true;
+    }
+
+    return false;
   }
 }
