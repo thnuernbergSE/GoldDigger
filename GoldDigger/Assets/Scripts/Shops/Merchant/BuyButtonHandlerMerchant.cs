@@ -14,29 +14,20 @@ public class BuyButtonHandlerMerchant : MonoBehaviour
 
   public List<InventoryItems> ItemsList => buyItemsList;
 
-  MerchantContent content;
-
   GameObject player;
-
-  GameObject buyItems;
 
   GameObject food;
 
   int cost;
 
-  bool spaceAvailable;
+ 
 
   void Start()
   { 
-    spaceAvailable = true;
+    
     player = GameObject.Find("Player");
     cost = transform.parent.gameObject.GetComponent<BuyHandler>().Cost;
     food = transform.parent.gameObject.GetComponent<BuyHandler>().Food;
-
-    for (int i = 0; i < content.Food.Length; i++)
-    {
-       buyItemsList[i] = content.Food[i].GetComponent<InventoryItems>();
-    }
 
   }
 
@@ -52,13 +43,11 @@ public class BuyButtonHandlerMerchant : MonoBehaviour
   public void OnClick()
   {
     var inventory = player.GetComponent<Inventory>();
-    for (int i = 0; i < buyItemsList.Count; i++)
+
+    if (inventory.AddFood(food))
     {
-      
-      if (spaceAvailable)
-      {
-        spaceAvailable = inventory.AddFood(buyItemsList[i]);
-      }
+
     }
+   
   }
 }

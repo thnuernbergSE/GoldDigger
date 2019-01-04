@@ -24,7 +24,9 @@ public class Food : MonoBehaviour
 
   public string Name => name;
 
-	
+ 
 
+ 
 
 }
+  

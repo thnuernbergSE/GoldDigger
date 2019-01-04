@@ -31,7 +31,7 @@ public class Inventory : MonoBehaviour
 
   public List<KeyValuePair<InventoryItems, int>> GetInventory { get; } = new List<KeyValuePair<InventoryItems, int>>();
 
-  public List<InventoryItems> GetFoodInventory { get; } = new List<InventoryItems>();
+  public List<GameObject> GetFoodInventory { get; } = new List<GameObject>();
 
   public bool Add(InventoryItems item, int amountOf)
   {
@@ -173,6 +173,9 @@ public class Inventory : MonoBehaviour
     }
   }
 
+
+  MerchantContent content;
+
   void UpdateFoodPanel()
   {
     for (var i = 0; i < foodSlots.Length; i++)
@@ -183,11 +186,14 @@ public class Inventory : MonoBehaviour
       {
         if (GetFoodInventory[i] != null)
         {
-          foodSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = GetInventory[i].Key.GetSprite;
+          foodSlots[i].transform.GetChild(0).GetComponent<Image>().sprite = content.Food[0];
         }
       }
     }
   }
+
+
+
 
   void Start()
   {
@@ -225,12 +231,7 @@ public class Inventory : MonoBehaviour
     }
   }
 
-  void UseFood()
-  {
-    //TODO
-  }
-
-  public bool AddFood(InventoryItems item)
+  public bool AddFood(GameObject item)
   {
     if (item == null)
     {

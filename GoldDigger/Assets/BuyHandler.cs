@@ -15,7 +15,7 @@ public class BuyHandler : MonoBehaviour {
   // Use this for initialization
   void Start ()
   {
-    //upgradeCost = pickaxe.GetComponent<Pickaxe>().ItemCost;
+    
     cost = food.GetComponent<Food>().Cost;
 
     transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().text = Cost.ToString();
