@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 114002520919519714}
   m_Layer: 8
   m_Name: TinBlock
-  m_TagString: Untagged
+  m_TagString: Blocks
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

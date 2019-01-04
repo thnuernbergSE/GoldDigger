@@ -7,7 +7,7 @@ public class SmithHandler : MonoBehaviour
 {
 
   bool isColliding = false;
-  bool isShopOpen;
+  bool isShopOpen = false;
 
   GameObject smithUI;
 	// Use this for initialization
@@ -31,10 +31,17 @@ public class SmithHandler : MonoBehaviour
 	  if (isColliding)
 	  {
 	    if (Input.GetKeyDown(KeyCode.F))
-	    {
-	      isShopOpen = !smithUI.activeSelf;
-	      smithUI.SetActive(isShopOpen);
-	    }
+      {
+        isShopOpen = !smithUI.activeSelf;
+        smithUI.SetActive(isShopOpen);
+
+        if (isShopOpen)
+        {
+          smithUI.transform.GetChild(0).gameObject.SetActive(false);
+          smithUI.transform.GetChild(1).gameObject.SetActive(false);
+          smithUI.transform.GetChild(2).gameObject.SetActive(true);
+        }
+      }
     }
   }
 

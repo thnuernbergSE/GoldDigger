@@ -27,6 +27,7 @@ public class BuyButtonHandler : MonoBehaviour
     pickaxe = transform.parent.gameObject.GetComponent<UpgradeHandlerPickaxe>().Pickaxe;
 
     upgradeItems = transform.parent.GetChild(5).gameObject;
+
     for (var i = 0; i < upgradeItems.transform.childCount; i++)
     {
       if (upgradeItems.transform.GetChild(i).GetComponent<UpgradeItem>().Item == null)
@@ -67,8 +68,9 @@ public class BuyButtonHandler : MonoBehaviour
     foreach (var keyValuePair in UpgradeItemsList)
     {
       inventory.Remove(keyValuePair.Key, keyValuePair.Value);
-      player.GetComponent<Player>().RemoveMoney(upgradeCost);
-      player.GetComponent<Player>().Pickaxe = pickaxe;
     }
+
+    player.GetComponent<Player>().RemoveMoney(upgradeCost);
+    player.GetComponent<Player>().Pickaxe = pickaxe;
   }
 }
