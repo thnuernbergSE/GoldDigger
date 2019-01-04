@@ -1345,7 +1345,6 @@ GameObject:
   - component: {fileID: 52580711}
   - component: {fileID: 52580710}
   - component: {fileID: 52580709}
-  - component: {fileID: 52580712}
   m_Layer: 5
   m_Name: 'BuyWindowPanel '
   m_TagString: Untagged
@@ -1441,21 +1440,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.ScrollRect+ScrollRectEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &52580712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 52580707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db8de879358a46945b2d6c5615d575fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  food:
-  - {fileID: 1160827334051880, guid: 9bb80e1ad9ccc234f88490402865bef4, type: 2}
-  - {fileID: 1494612344205192, guid: 6a532badd3b25bc4280b85f1a5ed8be0, type: 2}
-  - {fileID: 1627917949382250, guid: cb8b4e2d01815e04ba9d77fbe5b91590, type: 2}
 --- !u!1 &60261909
 GameObject:
   m_ObjectHideFlags: 0
@@ -8942,7 +8926,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000012404879}
+  m_AnchoredPosition: {x: 0, y: 27.795305}
   m_SizeDelta: {x: 0, y: 490.18}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &473371217
@@ -9565,7 +9549,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000008591339}
+  m_AnchoredPosition: {x: 0, y: 27.795218}
   m_SizeDelta: {x: 0, y: 490.18}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &489873838
@@ -13157,6 +13141,7 @@ GameObject:
   - component: {fileID: 643532395}
   - component: {fileID: 643532397}
   - component: {fileID: 643532396}
+  - component: {fileID: 643532398}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -13171,16 +13156,16 @@ RectTransform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 643532394}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 1734779672}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0000038146973, y: -0.000005722046}
+  m_AnchoredPosition: {x: 0, y: -0}
   m_SizeDelta: {x: -0.0000076294, y: -0.000011444}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &643532396
@@ -13219,6 +13204,17 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 643532394}
   m_CullTransparentMesh: 0
+--- !u!114 &643532398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 643532394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a32768e89f9611e41b55fc8852664e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &646782517
 GameObject:
   m_ObjectHideFlags: 0
@@ -14748,7 +14744,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 619520833}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 0.0031317568
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -33341,7 +33337,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1112922436}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.9999999
+  m_Size: 0.12452234
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
