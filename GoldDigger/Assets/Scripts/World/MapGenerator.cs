@@ -137,12 +137,12 @@ public class MapGenerator : MonoBehaviour
     }
   }
 
-  int dungeonWidth = 10;
-  int dungeonHeight = 5;
-  int deathLimit = 4;
-  int birthLimit = 4;
-  float numberOfSteps = 2;
-  float chanceToStartAlive = 0.3f;
+  int dungeonWidth = worldWidth;
+  int dungeonHeight = 0;
+  int deathLimit = 3;
+  int birthLimit = 3;
+  float numberOfSteps = 3;
+  float chanceToStartAlive = 0.5f;
 
   public bool[,] initialiseMap(bool[,] map)
   {
@@ -230,11 +230,11 @@ public class MapGenerator : MonoBehaviour
   public bool[,] generateMap()
   {
     //Create a new map
-    bool[,] cellmap = new bool[dungeonWidth, dungeonHeight];
+    var cellmap = new bool[dungeonWidth, dungeonHeight];
     //Set up the map with random values
     cellmap = initialiseMap(cellmap);
     //And now run the simulation for a set number of steps
-    for (int i = 0; i < numberOfSteps; i++)
+    for (var i = 0; i < numberOfSteps; i++)
     {
       cellmap = doSimulationStep(cellmap);
     }
@@ -244,32 +244,31 @@ public class MapGenerator : MonoBehaviour
 
   void createDungeons()
   {
-    bool[,] cellmap = new bool[dungeonWidth, dungeonHeight];
+    int dungeonOffset = 20;
 
-    for (var i = 0; i < maxDungeons; i++)
+    dungeonHeight = GetWorldHeight;
+
+    var cellmap = new bool[dungeonWidth, dungeonHeight - dungeonOffset];
+
+    cellmap = generateMap();
+
+    for (var cellmapX = 0; cellmapX < cellmap.GetLength(0); cellmapX++)
     {
-      var x = Random.Range(0, worldWidth);
-      var y = Random.Range(-GetWorldHeight+ 1, -20);
-
-      cellmap = generateMap();
-
-      for (int cellmapX = 0; cellmapX < cellmap.GetLength(0); cellmapX++)
+      for (var cellmapY = 0; cellmapY < cellmap.GetLength(1); cellmapY++)
       {
-        for (int cellmapY = 0; cellmapY < cellmap.GetLength(1); cellmapY++)
+        if (cellmap[cellmapX, cellmapY])
         {
-          if (!cellmap[cellmapX, cellmapY])
-          {
-            var col = Physics2D.OverlapCircle(new Vector2(x + cellmapX, y + cellmapY), 0.1f); 
-            if (col == null || col.tag != "Blocks")
-            {
-              continue;
-            }
-
-            Destroy(col.gameObject);
-          }
+          continue;
         }
-      }
 
+        var col = Physics2D.OverlapCircle(new Vector2(cellmapX, -(cellmapY + dungeonOffset)), 0.1f);
+        if (col == null || col.tag != "Blocks")
+        {
+          continue;
+        }
+
+        Destroy(col.gameObject);
+      }
     }
   }
 
@@ -285,7 +284,7 @@ public class MapGenerator : MonoBehaviour
     createPlatinumLayer(worldWidth, 20);
     createTitaniumLayer(worldWidth, 20);
 
-    //createDungeons();
+    createDungeons();
 
     spawnBones(worldWidth);
 
