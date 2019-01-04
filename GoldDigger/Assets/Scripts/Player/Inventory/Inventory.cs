@@ -17,8 +17,6 @@ public class Inventory : MonoBehaviour
 
   const int foodSpace = 4;
 
-  int currentFoodSpace = 0;
-
   [SerializeField] ushort maxWeight = 10;
 
   public ushort MaxWeight
@@ -239,7 +237,7 @@ public class Inventory : MonoBehaviour
       throw new UnassignedReferenceException("FoodItem equals null - Inventory.cs");
     }
 
-    if (currentFoodSpace < foodSpace)
+    if (GetFoodInventory.Count < foodSpace)
     {
 
 
