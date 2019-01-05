@@ -27,6 +27,9 @@ public class MapGenerator : MonoBehaviour
   public GameObject WorldBackground;
 
   [SerializeField] int BoneAmount = 20;
+  [SerializeField] int maxTNT = 20;
+
+  [SerializeField] GameObject TNTBlock;
 
   [SerializeField] GameObject BoneBlock;
 
@@ -272,6 +275,24 @@ public class MapGenerator : MonoBehaviour
     }
   }
 
+  void spawnTNTBlocks()
+  {
+    for (var i = 0; i < maxTNT; i++)
+    {
+      var randomX = Random.Range(0, worldWidth);
+      var randomY = Random.Range(-GetWorldHeight, -20);
+
+      var col = Physics2D.OverlapCircle(new Vector2(randomX, randomY), 0.1f);
+      if (col == null || col.tag != "Blocks")
+      {
+        continue;
+      }
+
+      Destroy(col.gameObject);
+      Instantiate(TNTBlock, new Vector2(randomX, randomY), Quaternion.identity, GameObject.Find("World").transform);
+    }
+  }
+
   void Start()
   {
     createDirtLayer(worldWidth, 10);
@@ -283,6 +304,8 @@ public class MapGenerator : MonoBehaviour
     createDiamondLayer(worldWidth, 20);
     createPlatinumLayer(worldWidth, 20);
     createTitaniumLayer(worldWidth, 20);
+
+    spawnTNTBlocks();
 
     createDungeons();
 
