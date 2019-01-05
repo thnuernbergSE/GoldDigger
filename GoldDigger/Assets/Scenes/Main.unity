@@ -5152,6 +5152,8 @@ MonoBehaviour:
   WorldBackground: {fileID: 1816200322165336, guid: a2927d76ea9618a4f9a9f3ac2f85a031,
     type: 2}
   BoneAmount: 20
+  maxTNT: 20
+  TNTBlock: {fileID: 1067746236420310, guid: 452718a4a9a02b74c8a3f69b9e6bab70, type: 2}
   BoneBlock: {fileID: 1115262654251100, guid: 732389fe3d1f85a4587dccac49e35e5f, type: 2}
   blockHealthDirtLayer: 3
   blockHealthStoneLayer: 5
@@ -6635,7 +6637,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00004092326}
+  m_AnchoredPosition: {x: 0, y: 0.00009532281}
   m_SizeDelta: {x: 0, y: 490.18}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &797181527
@@ -8102,7 +8104,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 658242591}
   m_Direction: 2
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.96274793
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
