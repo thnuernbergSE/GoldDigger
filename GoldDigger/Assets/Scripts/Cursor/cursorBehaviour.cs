@@ -13,6 +13,8 @@ public class cursorBehaviour : MonoBehaviour
     public Texture2D diamondCursor;
     public Texture2D titaniumCursor;
 
+
+
     void Start()
     {
         Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
@@ -21,11 +23,12 @@ public class cursorBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
-   
+    //GameObject.Find("Player").GetComponent<Player>().GetYPos < 0
     void OnMouseEnter()
     {
-        if(gameObject.tag == "Above")
+        if (gameObject.tag == "Above")
         {
             //Cursor.SetCursor(handCursor, Vector2.zero, CursorMode.Auto);
 
