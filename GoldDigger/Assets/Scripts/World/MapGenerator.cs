@@ -33,6 +33,10 @@ public class MapGenerator : MonoBehaviour
 
   [SerializeField] GameObject BoneBlock;
 
+  [SerializeField] GameObject normalBug;
+
+  [SerializeField] GameObject extremeBug;
+
   [SerializeField] int blockHealthDirtLayer = 0;
   [SerializeField] int blockHealthStoneLayer = 0;
   [SerializeField] int blockHealthIronTinLayer = 0;
