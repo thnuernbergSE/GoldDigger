@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+
 public class Blocks : MonoBehaviour
 {
   [SerializeField] string blockName;
@@ -82,6 +83,8 @@ public class Blocks : MonoBehaviour
       health -= itemInfo[1];
 
       playSound();
+
+      GameObject.Find("Player").GetComponent<Player>().SendMessage("UseStamina",2);
 
       if (health < fraction * 3)
       {

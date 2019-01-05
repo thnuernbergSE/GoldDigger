@@ -152,7 +152,7 @@ public class PlayerControl : MonoBehaviour
       isPickAnimationRunning = true;
       HandleRaycast();
       coolDownTimer = coolDown;
-      SendMessage("UseStamina", 2);
+     
     }
   }
 
@@ -169,7 +169,6 @@ public class PlayerControl : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Space))
     {
       jump = true;
-      SendMessage("UseStamina", 2);
     }
 
     if (Input.GetKeyDown(KeyCode.I))

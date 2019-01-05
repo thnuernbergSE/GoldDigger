@@ -53,5 +53,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Pizza
   sprite: {fileID: 21300000, guid: 7f312c53af9126b40a3a35678d57b28f, type: 3}
-  energy: 2
+  energy: 20
   cost: 2

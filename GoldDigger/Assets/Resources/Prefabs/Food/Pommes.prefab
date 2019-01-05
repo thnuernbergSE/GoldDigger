@@ -53,5 +53,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Pommes
   sprite: {fileID: 21300000, guid: a4a1954f07b4c9e46810eedde0922b3d, type: 3}
-  energy: 3
+  energy: 30
   cost: 3
