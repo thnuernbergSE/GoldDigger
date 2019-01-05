@@ -72,8 +72,8 @@ public class PlayerControl : MonoBehaviour
   }
 
   void Update()
-  {
-    HandleInput();
+  {        
+        HandleInput();
   }
 
   // Update is called once per frame
@@ -102,7 +102,8 @@ public class PlayerControl : MonoBehaviour
   {
     if (myRigidbody2D.velocity.y < 0)
     {
-      myAnimator.SetBool("land", true);
+            SoundManager.PlaySound("walking");
+            myAnimator.SetBool("land", true);
     }
 
     if (!myAnimator.GetCurrentAnimatorStateInfo(0).IsTag("attack_pickaxe") && (isGrounded || airControl))

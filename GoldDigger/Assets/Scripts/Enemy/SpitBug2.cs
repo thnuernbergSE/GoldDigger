@@ -31,7 +31,8 @@ public class SpitBug2 : MonoBehaviour {
         if (other.gameObject.tag == "Spieler")
         {
            
-        }
+        }        
+        SoundManager.PlaySound("attack");
         DestroySpit();
     }
 

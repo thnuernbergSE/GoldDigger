@@ -21,7 +21,8 @@ public class Explotion: MonoBehaviour
 
   void explosion()
   {
-    Instantiate(explosionEffect, transform.position, transform.rotation);
+        SoundManager.PlaySound("bombExplosion");
+        Instantiate(explosionEffect, transform.position, transform.rotation);
 
     Destroy(gameObject);
   }
