@@ -3,32 +3,26 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour
 {
-  
-
+  [SerializeField] Transform[] groundPoints;
+  [SerializeField] float groundRadius;
+  [SerializeField] float attackDistance;
   [SerializeField] readonly float coolDown = 0.5f;
   [SerializeField] bool airControl;
+  [SerializeField] float jumpForce;
+  [SerializeField] float movementSpeed;
 
+  [SerializeField] LayerMask whatIsGround;
   bool openInventory;
 
   float animationTime;
-
-  [SerializeField] float attackDistance;
-
   bool attackWithPickaxe;
   float coolDownTimer;
   int dmg;
   bool facingRight;
-
-  [SerializeField] Transform[] groundPoints;
-  [SerializeField] float groundRadius;
   bool isGrounded;
   bool isPickAnimationRunning;
   bool jump;
-  [SerializeField] float jumpForce;
-
   Vector2 lookdirection;
-  [SerializeField] float movementSpeed;
-
   Animator myAnimator;
 
   Rigidbody2D myRigidbody2D;
@@ -42,7 +36,7 @@ public class PlayerControl : MonoBehaviour
 
   bool wallJumping;
 
-  [SerializeField] LayerMask whatIsGround;
+
 
   public float GetYPosition => transform.position.y;
 
@@ -93,7 +87,7 @@ public class PlayerControl : MonoBehaviour
 
     HandleAttacks();
 
-   HandleInventoryUI();
+    HandleInventoryUI();
 
     ResetValues();
   }
@@ -264,7 +258,7 @@ public class PlayerControl : MonoBehaviour
 
     if (hit.collider != null)
     {
-      hit.collider.SendMessage("ReceiveDamage", new[] {strength, dmg});
+      hit.collider.SendMessage("ReceiveDamage", new[] { strength, dmg });
     }
   }
 
@@ -273,8 +267,8 @@ public class PlayerControl : MonoBehaviour
     var player = gameObject.GetComponent<Player>();
     var pickaxe = player.Pickaxe.GetComponent<Pickaxe>();
     tool.GetComponent<SpriteRenderer>().sprite = pickaxe.GetSprite;
-    strength = (int) pickaxe.Strength;
-    dmg = (int) pickaxe.Damage;
+    strength = (int)pickaxe.Strength;
+    dmg = (int)pickaxe.Damage;
   }
 
   Vector2 Lookdirection()
@@ -350,5 +344,26 @@ public class PlayerControl : MonoBehaviour
     {
       Inventory.SetActive(false);
     }
+  }
+
+  const int fallDamage = 1;
+
+  [SerializeField]
+  float fallDamageDistance = 10f;
+  bool canLoseDamage;
+
+  void OnCollisionEnter2D(Collision2D other)
+  {
+
+    if (Mathf.Abs(other.relativeVelocity.y) > fallDamageDistance && canLoseDamage)
+    {
+      SendMessage("TakeDamge", fallDamage);
+      canLoseDamage = false;
+    }
+  }
+
+  void OnCollisionStay2D(Collision2D other)
+  {
+    canLoseDamage = true;
   }
 }
