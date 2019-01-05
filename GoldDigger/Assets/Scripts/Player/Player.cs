@@ -93,6 +93,7 @@ public class Player : MonoBehaviour
 
   public bool AddStammina(int amount)
   {
+    
     currentStamina += amount;
     currentStamina = Mathf.Min(currentStamina, MaxStamina);
     return true;
@@ -107,7 +108,6 @@ public class Player : MonoBehaviour
 
   public bool TakeDamge(int amout)
   {
-
     currentHealth -= amout;
     currentHealth = Mathf.Max(currentHealth, 0);
     return true;

@@ -22,8 +22,6 @@ public class Inventory : MonoBehaviour
   {
     set { acitveBackpack = value; }
   }
-
-  //InventorySlot inventorySlot;
   bool isActive;
 
 
@@ -174,7 +172,7 @@ public class Inventory : MonoBehaviour
   void Update()
   {
     updateSlotPanel();
-    UpdateFoodPanel();
+    updateFoodPanel();
   }
 
   void updateSlotPanel()
@@ -203,7 +201,7 @@ public class Inventory : MonoBehaviour
     }
   }
 
-  void UpdateFoodPanel()
+  void updateFoodPanel()
   {
     for (var i = 0; i < foodSlots.Length; i++)
     {
@@ -276,6 +274,21 @@ public class Inventory : MonoBehaviour
       GetFoodInventory.Add(foodItems);
       Debug.Log(item.name);
       return true;
+    }
+
+    return false;
+  }
+
+  public bool RemoveFood(FoodItems item)
+  {
+    for (var i = 0; i < GetFoodInventory.Count; i++)
+    {
+      
+      if (GetFoodInventory[i].Name == item.Name)
+      {
+        GetFoodInventory.Remove(GetFoodInventory[i]);
+        return true;
+      }
     }
 
     return false;

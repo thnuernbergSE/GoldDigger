@@ -44,9 +44,11 @@ public class BuyButtonHandlerMerchant : MonoBehaviour
   {
     var inventory = player.GetComponent<Inventory>();
 
-    if (inventory.AddFood(food))
-    {
 
+
+    if (inventory.AddFood(food) && player.GetComponent<Player>().RemoveMoney(cost))
+    {
+      Debug.Log("Food_Added-BuyhandlerMerchant.cs");
     }
    
   }
