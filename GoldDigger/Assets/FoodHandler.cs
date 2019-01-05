@@ -6,14 +6,13 @@ using UnityEngine.UI;
 public class FoodHandler : MonoBehaviour {
 
   GameObject player;
+
+  bool canUse;
   void Start ()
   {
     player = GameObject.Find("Player"); 
   }
 
-  bool canUse;
-
-	// Update is called once per frame
 	void Update ()
   {
 
@@ -26,7 +25,6 @@ public class FoodHandler : MonoBehaviour {
 
   public void OnClick()
   {
-    
     bool done = true;
     var inventory = player.GetComponent<Inventory>();
     foreach (var item in inventory.GetFoodInventory)

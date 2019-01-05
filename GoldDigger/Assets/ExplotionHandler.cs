@@ -5,6 +5,9 @@ using UnityEngine;
 public class ExplotionHandler : MonoBehaviour {
   int radius = 3;
 
+  [SerializeField]
+  int explosionDamage = 1;
+
   float delay = 0.3f;
   // Use this for initialization
   void Start () {
@@ -18,8 +21,7 @@ public class ExplotionHandler : MonoBehaviour {
 
       Destroy(nearbyObject.gameObject);
     }
-
-    SendMessage("TakeDamage", 1);
+    GameObject.Find("Player").GetComponent<Player>().SendMessage("TakeDamage", explosionDamage);
   }
 	
 	// Update is called once per frame

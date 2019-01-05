@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114183078983614480}
   - component: {fileID: 82525497575049674}
   m_Layer: 0
-  m_Name: Explotion
+  m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31a708ae8f2c49a4985d7b8209722be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionDamage: 1
 --- !u!212 &212222930029671180
 SpriteRenderer:
   m_ObjectHideFlags: 1

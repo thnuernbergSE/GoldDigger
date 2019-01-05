@@ -106,13 +106,15 @@ public class Player : MonoBehaviour
     return true;
   }
 
-  public bool TakeDamge(int amout)
+  public bool TakeDamage(int amout)
   {
     currentHealth -= amout;
     currentHealth = Mathf.Max(currentHealth, 0);
     return true;
+    
   }
 
+  
   public bool UseStamina(int amount)
   {
     currentStamina -= amount;

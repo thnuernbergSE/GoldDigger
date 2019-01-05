@@ -356,7 +356,7 @@ public class PlayerControl : MonoBehaviour
 
     if (Mathf.Abs(other.relativeVelocity.y) > fallDamageDistance && canLoseDamage)
     {
-      SendMessage("TakeDamge", fallDamage);
+      SendMessage("TakeDamage", fallDamage);
       canLoseDamage = false;
     }
   }

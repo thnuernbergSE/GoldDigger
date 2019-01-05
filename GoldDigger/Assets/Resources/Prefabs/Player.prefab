@@ -356,8 +356,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   maxStamina: 100
-  currentHealth: 3
-  currentStamina: 50
+  currentHealth: 5
+  currentStamina: 100
   mainTool: {fileID: 1142869572198580, guid: c3516652a6e9db0438da00e50e765ad6, type: 2}
 --- !u!114 &114329633031725140
 MonoBehaviour:
@@ -484,18 +484,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd83d41959bd160448733297f3dc84a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  airControl: 1
-  attackDistance: 1
   groundPoints:
   - {fileID: 4199611952921424}
   - {fileID: 4972206910789220}
   - {fileID: 4000519975297246}
   groundRadius: 0.1
+  attackDistance: 1
+  airControl: 1
   jumpForce: 240
   movementSpeed: 5
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4352
+  fallDamageDistance: 10
 --- !u!114 &114691018300927666
 MonoBehaviour:
   m_ObjectHideFlags: 1

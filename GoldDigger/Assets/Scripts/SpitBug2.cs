@@ -30,13 +30,8 @@ public class SpitBug2 : MonoBehaviour {
     {
         if (other.gameObject.tag == "Spieler")
         {
-           
+      other.SendMessage("TakeDamage",1);
         }
-        DestroySpit();
-    }
-
-    void DestroySpit()
-    {
         Destroy(gameObject);
     }
 }

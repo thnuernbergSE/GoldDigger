@@ -21,21 +21,19 @@ public class Patrol : MonoBehaviour {
     public Transform wallDetection;
 
     public GameObject spiderattack;
-    private Transform player;
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Bug2").transform;
-
-        timeBtwShots = startTimeShots;
+    timeBtwShots = startTimeShots;
     }
 
     void Update()
     {
         SpitCooldown -= Time.deltaTime;
 
-        if(SpitCooldown <= 0)
-        {
+     if(SpitCooldown <= 0)
+      {
+      SpitCooldown = 5f;
             Instantiate(spiderattack, transform.position, Quaternion.identity);
         }
 
