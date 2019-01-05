@@ -81,8 +81,6 @@ public class Blocks : MonoBehaviour
     {
       health -= itemInfo[1];
 
-      SendMessage("UseStamina", 2);
-
       playSound();
 
       if (health < fraction * 3)

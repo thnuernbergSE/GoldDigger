@@ -152,6 +152,7 @@ public class PlayerControl : MonoBehaviour
       isPickAnimationRunning = true;
       HandleRaycast();
       coolDownTimer = coolDown;
+      SendMessage("UseStamina", 2);
     }
   }
 
