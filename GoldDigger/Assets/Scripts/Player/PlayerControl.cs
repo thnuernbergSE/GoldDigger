@@ -255,9 +255,19 @@ public class PlayerControl : MonoBehaviour
 
     var hit = Physics2D.Raycast(transform.position, lookdirection, attackDistance, 1 << 8);
 
+    bool done = true;
+
     if (hit.collider != null)
     {
-      hit.collider.SendMessage("ReceiveDamage", new[] { strength, dmg });
+      if (hit.collider.gameObject.tag == "Enemy")
+      {
+        hit.collider.SendMessage("BugTakesDamage");
+        done = false;
+      }
+      if (hit.collider.gameObject.tag == "Blocks" && done)
+      {
+        hit.collider.SendMessage("ReceiveDamage", new[] { strength, dmg });
+      }
     }
   }
 
@@ -358,6 +368,11 @@ public class PlayerControl : MonoBehaviour
     {
       SendMessage("TakeDamage", fallDamage);
       canLoseDamage = false;
+    }
+
+    if (other.gameObject.tag.Equals("Enemy"))
+    {
+      SendMessage("TakeDamage",1);
     }
   }
 

@@ -2,36 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpitBug2 : MonoBehaviour {
+public class SpitBug2 : MonoBehaviour
+{
 
-    public float speed;
+  public float speed;
 
-    Patrol patrol;
+  
 
-    void Start()
+  void Start()
+  {
+  
+  }
+
+  // Update is called once per frame
+  void Update()
+  {
+    if (GameObject.Find("Bug2").GetComponent<Patrol>().GetMovingRight)
     {
-        patrol = transform.parent.gameObject.GetComponent<Patrol>();
+      transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, transform.position.y);
+      
     }
-	
-	// Update is called once per frame
-	void Update ()
+    else
     {
-        if (patrol.GetMovingRight)
-        {
-            transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, 0);
-        }
-        else
-        {
-            transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, 0);
-        }
+      transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y);
     }
+  }
 
-    void OntriggerEnter2D(Collider2D other)
+  void FixUpdate()
+  {
+    
+  }
+
+  void OntriggerEnter2D(Collider2D other)
+  {
+    if (other.gameObject != null)
     {
-        if (other.gameObject.tag == "Spieler")
-        {
-      other.SendMessage("TakeDamage",1);
-        }
-        Destroy(gameObject);
+      if (other.gameObject.tag.Equals("Player"))
+      {
+        SendMessage("TakeDamage", 1);
+      }
+      Destroy(gameObject);
     }
+  }
 }
