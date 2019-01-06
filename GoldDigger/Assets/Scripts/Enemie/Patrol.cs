@@ -14,14 +14,12 @@ public class Patrol : MonoBehaviour
 
   public bool GetMovingRight => movingRight;
 
-  public Transform wallDetection;
 
   public GameObject spiderattack;
 
   public bool canSpit;
   void Start()
   {
- 
   }
 
   void Update()
@@ -30,17 +28,16 @@ public class Patrol : MonoBehaviour
 
     if (SpitCooldown <= 0  && canSpit)
     {
-      Debug.Log(SpitCooldown);
+
       SpitCooldown = 5f;
-      Instantiate(spiderattack, transform.position, Quaternion.identity);
+      Instantiate(spiderattack, transform.position, Quaternion.identity, transform);
     }
 
     transform.Translate(Vector2.right * speed * Time.deltaTime);
+  }
 
-    RaycastHit2D wallinfo = Physics2D.Raycast(wallDetection.position, Vector2.down, 2f);
-
-    if (!wallinfo.collider)
-    {
+  void OnCollisionEnter2D(Collision2D col)
+  {
       if (movingRight)
       {
         transform.eulerAngles = new Vector3(0, -180, 0);
@@ -53,7 +50,7 @@ public class Patrol : MonoBehaviour
 
         movingRight = true;
       }
-    }
+    
   }
 
   public void BugTakesDamage()

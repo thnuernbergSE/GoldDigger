@@ -7,23 +7,23 @@ public class SpitBug2 : MonoBehaviour
 
   public float speed;
 
-  bool direction;
+  bool movingRight;
 
   void Start()
   {
-    direction = GameObject.Find("Bug2").GetComponent<Patrol>().GetMovingRight;
+    movingRight = transform.parent.GetComponent<Patrol>().GetMovingRight;
+    Destroy(gameObject, 3);
   }
 
   // Update is called once per frame
   void Update()
   {
-    
-    if (direction)
+    if (movingRight)
     {
       transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, transform.position.y);
 
     }
-    else if (!direction)
+    else if (!movingRight)
     {
       transform.localScale = new Vector2(-1, 1);
       transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y);
@@ -37,7 +37,11 @@ public class SpitBug2 : MonoBehaviour
     {
       GameObject.Find("Player").GetComponent<Player>().SendMessage("TakeDamage",1);
     }
-    DestroySpit();
+
+    if (!other.gameObject.tag.Equals("Enemy"))
+    {
+      DestroySpit();
+    } 
   }
   public void DestroySpit()
   {

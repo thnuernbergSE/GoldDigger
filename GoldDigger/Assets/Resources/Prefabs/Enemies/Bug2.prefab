@@ -11,21 +11,6 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1687723731262150}
   m_IsPrefabAsset: 1
---- !u!1 &1217942661253878
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4569189999050854}
-  m_Layer: 8
-  m_Name: WallDetection
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1687723731262150
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,6 +22,7 @@ GameObject:
   - component: {fileID: 212651237232610992}
   - component: {fileID: 114314138129137978}
   - component: {fileID: 58725108672866328}
+  - component: {fileID: 50058736752778696}
   m_Layer: 8
   m_Name: Bug2
   m_TagString: Enemy
@@ -51,26 +37,32 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1687723731262150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.7, y: 2, z: 0.1899414}
+  m_LocalPosition: {x: 5.7, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4569189999050854}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4569189999050854
-Transform:
+--- !u!50 &50058736752778696
+Rigidbody2D:
+  serializedVersion: 4
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1217942661253878}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.45, y: -0.03000009, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4411274825069774}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 1687723731262150}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 6
 --- !u!58 &58725108672866328
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -83,9 +75,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.004530996, y: 0}
   serializedVersion: 2
-  m_Radius: 0.30339032
+  m_Radius: 0.30792132
 --- !u!114 &114314138129137978
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,7 +91,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpitCooldown: 2
   speed: 1
-  wallDetection: {fileID: 4569189999050854}
   spiderattack: {fileID: 1720538084997558, guid: 4cc61bbf7d9e1284ba064122d90097c9,
     type: 2}
   canSpit: 1

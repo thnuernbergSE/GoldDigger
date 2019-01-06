@@ -11,21 +11,6 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1855597125802566}
   m_IsPrefabAsset: 1
---- !u!1 &1799948075829930
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4215646775125880}
-  m_Layer: 8
-  m_Name: WallDetection
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1855597125802566
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,6 +22,7 @@ GameObject:
   - component: {fileID: 212723557345712838}
   - component: {fileID: 114775935909597986}
   - component: {fileID: 58810261038688158}
+  - component: {fileID: 50368540767408042}
   m_Layer: 8
   m_Name: Bug1 1
   m_TagString: Enemy
@@ -44,19 +30,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4215646775125880
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1799948075829930}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.45, y: -0.03000009, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4915304493610516}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4915304493610516
 Transform:
   m_ObjectHideFlags: 1
@@ -64,13 +37,32 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1855597125802566}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.33, y: 2.19, z: 0.1899414}
+  m_LocalPosition: {x: 7.1842284, y: 1.9558805, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4215646775125880}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50368540767408042
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1855597125802566}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 6
 --- !u!58 &58810261038688158
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -99,8 +91,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpitCooldown: 2
   speed: 1
-  startTimeShots: 2
-  wallDetection: {fileID: 4215646775125880}
   spiderattack: {fileID: 0}
   canSpit: 0
 --- !u!212 &212723557345712838
