@@ -10,10 +10,6 @@ public class Patrol : MonoBehaviour
 
   private float distance;
 
-  private float timeBtwShots;
-
-  public float startTimeShots;
-
   private bool movingRight = true;
 
   public bool GetMovingRight => movingRight;
@@ -25,7 +21,7 @@ public class Patrol : MonoBehaviour
   public bool canSpit;
   void Start()
   {
-    timeBtwShots = startTimeShots;
+ 
   }
 
   void Update()
@@ -34,6 +30,7 @@ public class Patrol : MonoBehaviour
 
     if (SpitCooldown <= 0  && canSpit)
     {
+      Debug.Log(SpitCooldown);
       SpitCooldown = 5f;
       Instantiate(spiderattack, transform.position, Quaternion.identity);
     }
@@ -41,8 +38,6 @@ public class Patrol : MonoBehaviour
     transform.Translate(Vector2.right * speed * Time.deltaTime);
 
     RaycastHit2D wallinfo = Physics2D.Raycast(wallDetection.position, Vector2.down, 2f);
-
-    timeBtwShots = startTimeShots;
 
     if (!wallinfo.collider)
     {

@@ -67,6 +67,7 @@ public class PlayerControl : MonoBehaviour
 
   void Update()
   {
+    coolDownTimerBug -= Time.deltaTime;
     HandleInput();
   }
 
@@ -370,14 +371,24 @@ public class PlayerControl : MonoBehaviour
       canLoseDamage = false;
     }
 
-    if (other.gameObject.tag.Equals("Enemy"))
+    if (other.gameObject.tag.Equals("Enemy") && coolDownTimerBug <= 0)
     {
+      coolDownTimerBug = 1f;
       SendMessage("TakeDamage",1);
     }
   }
 
+  [SerializeField]
+  float coolDownTimerBug = 1f;
   void OnCollisionStay2D(Collision2D other)
   {
     canLoseDamage = true;
+    
+    if (other.gameObject.tag.Equals("Enemy") && coolDownTimerBug <= 0)
+    {
+      coolDownTimerBug = 1f;
+      SendMessage("TakeDamage", 1);
+    }
+
   }
 }

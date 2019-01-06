@@ -149,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionDamage: 1
+  force: 2800
 --- !u!212 &212222930029671180
 SpriteRenderer:
   m_ObjectHideFlags: 1
