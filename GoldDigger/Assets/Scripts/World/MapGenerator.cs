@@ -46,7 +46,6 @@ public class MapGenerator : MonoBehaviour
   [SerializeField] int blockHealthDiamondLayer = 0;
   [SerializeField] int blockHealthPlatinumLayer = 0;
   [SerializeField] int blockHealthTitaniumLayer = 0;
-  [SerializeField] int maxDungeons = 5;
 
   public static int GetWorldWidth => worldWidth;
   public int GetWorldHeight { get; set; }
@@ -305,8 +304,6 @@ public class MapGenerator : MonoBehaviour
 
   void spawnBugs()
   {
-    int spawnOffset = 20;
-
     for (int i = 0; i < 20; i++)
     {
       var randomXPos = Random.Range(0, worldWidth);
