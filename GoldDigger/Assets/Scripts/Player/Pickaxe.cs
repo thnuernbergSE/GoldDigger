@@ -1,39 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Pickaxe : MonoBehaviour {
+public class Pickaxe : MonoBehaviour
+{
+  [SerializeField] float dmg;
 
-    [SerializeField]
-    float strength;
-    [SerializeField]
-    float dmg;
-    [SerializeField]
-    string name;
-  [SerializeField]
-  int itemCost;
+  [SerializeField] int itemCost;
 
-  [SerializeField]
-    Sprite sprite;
+  [SerializeField] string name;
 
-    public float Strength
-    {
-        get { return strength; }
-    }
-    public float Damage
-    {
-        get { return dmg; }
-    }
-    public string Name
-    {
-        get { return name; }
-    }
-    public Sprite GetSprite
-    {
-        get { return sprite; }
-    }
+  [SerializeField] Sprite sprite;
+
+  [SerializeField] float strength;
+
+  public float Strength => strength;
+
+  public float Damage => dmg;
+
+  public string Name => name;
+
+  public Sprite GetSprite => sprite;
 
   public int ItemCost => itemCost;
-
-
 }
