@@ -8,6 +8,12 @@ public class Explotion: MonoBehaviour
 
   float countdown;
 
+  float radius = 1.0f;
+
+  bool hasExplodede = false;
+
+  public float force = 700f;
+
   public void ReceiveDamage(int[] itemInfo)
   {
     explosion();

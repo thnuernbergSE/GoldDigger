@@ -2,59 +2,62 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Patrol : MonoBehaviour
-{ 
-  public float SpitCooldown = 2f;
+public class Patrol : MonoBehaviour {
 
-  public float speed;
+    public float SpitCooldown = 2f;
 
-  private float distance;
+    public float speed;
 
-  private bool movingRight = true;
+    private float distance;
 
-  public bool GetMovingRight => movingRight;
+    private float timeBtwShots;
 
+    public float startTimeShots;
 
-  public GameObject spiderattack;
+    private bool movingRight = true;
 
-  public bool canSpit;
-  void Start()
-  {
-  }
+    public bool GetMovingRight => movingRight;
 
-  void Update()
-  {
-    SpitCooldown -= Time.deltaTime;
+    public Transform wallDetection;
 
-    if (SpitCooldown <= 0  && canSpit)
+    public GameObject spiderattack;
+
+    void Start()
     {
-
-      SpitCooldown = 5f;
-      Instantiate(spiderattack, transform.position, Quaternion.identity, transform);
+    timeBtwShots = startTimeShots;
     }
 
-    transform.Translate(Vector2.right * speed * Time.deltaTime);
-  }
+    void Update()
+    {
+        SpitCooldown -= Time.deltaTime;
 
-  void OnCollisionEnter2D(Collision2D col)
-  {
-      if (movingRight)
+     if(SpitCooldown <= 0)
       {
-        transform.eulerAngles = new Vector3(0, -180, 0);
+      SpitCooldown = 5f;
+            Instantiate(spiderattack, transform.position, Quaternion.identity);
+        }
 
-        movingRight = false;
-      }
-      else
-      {
-        transform.eulerAngles = new Vector3(0, 0, 0);
+        transform.Translate(Vector2.right * speed * Time.deltaTime);
 
-        movingRight = true;
-      }
-    
-  }
+        RaycastHit2D wallinfo = Physics2D.Raycast(wallDetection.position, Vector2.down, 2f );
 
-  public void BugTakesDamage()
-  {
-    Destroy(gameObject);
-  }
+        
+        timeBtwShots = startTimeShots;
+
+        if (!wallinfo.collider)
+        {
+            if (movingRight)
+            {
+                transform.eulerAngles = new Vector3(0, -180, 0);
+
+                movingRight = false;
+            }
+            else
+            {
+                transform.eulerAngles = new Vector3(0, 0, 0);
+
+                movingRight = true;
+            }
+        }
+    }
 }

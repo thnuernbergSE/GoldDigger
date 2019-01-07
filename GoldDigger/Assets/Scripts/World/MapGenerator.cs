@@ -46,6 +46,7 @@ public class MapGenerator : MonoBehaviour
   [SerializeField] int blockHealthDiamondLayer = 0;
   [SerializeField] int blockHealthPlatinumLayer = 0;
   [SerializeField] int blockHealthTitaniumLayer = 0;
+  [SerializeField] int maxDungeons = 5;
 
   public static int GetWorldWidth => worldWidth;
   public int GetWorldHeight { get; set; }
@@ -174,14 +175,17 @@ public class MapGenerator : MonoBehaviour
       {
         int neighbour_x = x + i;
         int neighbour_y = y + j;
-
+        //If we're looking at the middle point
         if (i == 0 && j == 0)
         {
+          //Do nothing, we don't want to add ourselves in!
         }
+        //In case the index we're looking at it off the edge of the map
         else if (neighbour_x < 0 || neighbour_y < 0 || neighbour_x >= map.GetLength(0) || neighbour_y >= map.GetLength(1))
         {
           count = count + 1;
         }
+        //Otherwise, a normal check of the neighbour
         else if (map[neighbour_x, neighbour_y])
         {
           count = count + 1;
@@ -195,12 +199,14 @@ public class MapGenerator : MonoBehaviour
   public bool[,] doSimulationStep(bool[,] oldMap)
   {
     bool[,] newMap = new bool[dungeonWidth, dungeonHeight];
+    //Loop over each row and column of the map
     for (int x = 0; x < oldMap.GetLength(0); x++)
     {
       for (int y = 0; y < oldMap.GetLength(1); y++)
       {
         int nbs = countAliveNeighbours(oldMap, x, y);
-
+        //The new value is based on our simulation rules
+        //First, if a cell is alive but has too few neighbours, kill it.
         if (oldMap[x, y])
         {
           if (nbs < deathLimit)
@@ -211,7 +217,7 @@ public class MapGenerator : MonoBehaviour
           {
             newMap[x, y] = true;
           }
-        }
+        } //Otherwise, if the cell is dead now, check if it has the right number of neighbours to be 'born'
         else
         {
           if (nbs > birthLimit)
@@ -230,10 +236,11 @@ public class MapGenerator : MonoBehaviour
 
   public bool[,] generateMap()
   {
+    //Create a new map
     var cellmap = new bool[dungeonWidth, dungeonHeight];
-
+    //Set up the map with random values
     cellmap = initialiseMap(cellmap);
-
+    //And now run the simulation for a set number of steps
     for (var i = 0; i < numberOfSteps; i++)
     {
       cellmap = doSimulationStep(cellmap);
@@ -267,18 +274,6 @@ public class MapGenerator : MonoBehaviour
           continue;
         }
 
-        if (Random.Range(0, 20) == 0)
-        {
-          if (Random.Range(0, 2) == 0)
-          {
-            Instantiate(normalBug, new Vector2(cellmapX, -(cellmapY + dungeonOffset)), Quaternion.identity, GameObject.Find("World").transform);
-          }
-          else
-          {
-            Instantiate(extremeBug, new Vector2(cellmapX, -(cellmapY + dungeonOffset)), Quaternion.identity, GameObject.Find("World").transform);
-          }
-        }
-
         Destroy(col.gameObject);
       }
     }
@@ -302,37 +297,6 @@ public class MapGenerator : MonoBehaviour
     }
   }
 
-  void spawnBugs()
-  {
-    for (int i = 0; i < 20; i++)
-    {
-      var randomXPos = Random.Range(0, worldWidth);
-      var randomYPos = Random.Range(-GetWorldHeight + 1, -1);
-
-      var col = Physics2D.OverlapCircle(new Vector2(randomXPos, randomYPos), 0.1f);
-
-      while (col == null || col.tag != "WorldBackground")
-      {
-        randomXPos = Random.Range(0, worldWidth);
-        randomYPos = Random.Range(-GetWorldHeight + 1, -1);
-
-        col = Physics2D.OverlapCircle(new Vector2(randomXPos, randomYPos), 0.1f);
-      }
-
-      var randomBug = Random.Range(0, 2);
-
-      if (randomBug == 0)
-      {
-        Instantiate(normalBug, new Vector2(randomXPos, randomYPos), Quaternion.identity, GameObject.Find("World").transform);
-      }
-      else
-      {
-        Instantiate(extremeBug, new Vector2(randomXPos, randomYPos), Quaternion.identity, GameObject.Find("World").transform);
-      }
-
-    }
-  }
-
   void Start()
   {
     createDirtLayer(worldWidth, 10);
@@ -348,8 +312,6 @@ public class MapGenerator : MonoBehaviour
     spawnTNTBlocks();
 
     createDungeons();
-
-    //spawnBugs();
 
     spawnBones(worldWidth);
 

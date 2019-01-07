@@ -23,6 +23,7 @@ public class Blocks : MonoBehaviour
 
   float lowPitchRange = .75f;
   float highPitchRange = 1.5f;
+  float velToVol = .2f;
   float velocityClipSplit = .5f;
 
   float fraction;

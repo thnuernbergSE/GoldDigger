@@ -230,7 +230,8 @@ public class Inventory : MonoBehaviour
 
     inventory = GameObject.Find("Inventory");
 
-    inventory.GetComponent<Image>().sprite = acitveBackpack.GetComponent<BackpackHandler>().BackPack;
+    inventory.GetComponent<Image>().sprite =
+      acitveBackpack.GetComponent<BackpackHandler>().BackPack;
 
     inventoryUI = GameObject.Find("SlotPanel");
     if (inventoryUI == null)

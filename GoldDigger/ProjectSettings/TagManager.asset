@@ -7,11 +7,7 @@ TagManager:
   - Enemy
   - Bone
   - Blocks
-<<<<<<< HEAD
   - Above
-=======
-  - BugSpit
->>>>>>> 870cf8d79313197041bd541721b183075f24ff7f
   layers:
   - Default
   - TransparentFX

@@ -2,50 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpitBug2 : MonoBehaviour
-{
+public class SpitBug2 : MonoBehaviour {
 
-  public float speed;
+    public float speed;
 
-  bool movingRight;
+    Patrol patrol;
 
-  void Start()
-  {
-    movingRight = transform.parent.GetComponent<Patrol>().GetMovingRight;
-    Destroy(gameObject, 3);
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-    if (movingRight)
+    void Start()
     {
-      transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, transform.position.y);
-
+        patrol = transform.parent.gameObject.GetComponent<Patrol>();
     }
-    else if (!movingRight)
+	
+	// Update is called once per frame
+	void Update ()
     {
-      transform.localScale = new Vector2(-1, 1);
-      transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y);
-    }
-  }
-
-
-  void OnTriggerEnter2D(Collider2D other)
-  {
-    if (other.gameObject.tag.Equals("Player"))
-    {
-      GameObject.Find("Player").GetComponent<Player>().SendMessage("TakeDamage",1);
+        if (patrol.GetMovingRight)
+        {
+            transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, 0);
+        }
+        else
+        {
+            transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, 0);
+        }
     }
 
-    if (!other.gameObject.tag.Equals("Enemy"))
+    void OntriggerEnter2D(Collider2D other)
     {
-      DestroySpit();
-    } 
-  }
-  public void DestroySpit()
-  {
-    Destroy(gameObject);
-  }
+        if (other.gameObject.tag == "Spieler")
+        {
+      other.SendMessage("TakeDamage",1);
+        }
+        Destroy(gameObject);
+    }
 }
-
