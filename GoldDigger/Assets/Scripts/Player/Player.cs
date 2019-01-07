@@ -79,7 +79,6 @@ public class Player : MonoBehaviour
 
   void Start()
   {
-    money = 20;
   }
 
   // Update is called once per frame
