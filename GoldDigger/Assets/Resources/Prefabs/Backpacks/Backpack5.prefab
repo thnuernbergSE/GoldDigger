@@ -54,4 +54,4 @@ MonoBehaviour:
   backpack: {fileID: 21300000, guid: 1fc7a61043f9bcf4eb1d1e517e1b6ded, type: 3}
   backpackIcon: {fileID: 21300000, guid: 4ead2f36eea877347afee92c7deb21d1, type: 3}
   maxWeight: 25
-  price: 0
+  price: 1000
