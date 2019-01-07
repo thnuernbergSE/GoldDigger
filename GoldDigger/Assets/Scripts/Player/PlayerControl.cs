@@ -67,6 +67,7 @@ public class PlayerControl : MonoBehaviour
 
   void Update()
   {
+    coolDownTimerBug -= Time.deltaTime;
     HandleInput();
   }
 
@@ -255,9 +256,19 @@ public class PlayerControl : MonoBehaviour
 
     var hit = Physics2D.Raycast(transform.position, lookdirection, attackDistance, 1 << 8);
 
+    bool done = true;
+
     if (hit.collider != null)
     {
-      hit.collider.SendMessage("ReceiveDamage", new[] { strength, dmg });
+      if (hit.collider.gameObject.tag == "Enemy")
+      {
+        hit.collider.SendMessage("BugTakesDamage");
+        done = false;
+      }
+      if (hit.collider.gameObject.tag == "Blocks" && done)
+      {
+        hit.collider.SendMessage("ReceiveDamage", new[] { strength, dmg });
+      }
     }
   }
 
@@ -359,10 +370,25 @@ public class PlayerControl : MonoBehaviour
       SendMessage("TakeDamage", fallDamage);
       canLoseDamage = false;
     }
+
+    if (other.gameObject.tag.Equals("Enemy") && coolDownTimerBug <= 0)
+    {
+      coolDownTimerBug = 1f;
+      SendMessage("TakeDamage",1);
+    }
   }
 
+  [SerializeField]
+  float coolDownTimerBug = 1f;
   void OnCollisionStay2D(Collision2D other)
   {
     canLoseDamage = true;
+    
+    if (other.gameObject.tag.Equals("Enemy") && coolDownTimerBug <= 0)
+    {
+      coolDownTimerBug = 1f;
+      SendMessage("TakeDamage", 1);
+    }
+
   }
 }

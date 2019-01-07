@@ -3,14 +3,10 @@ using UnityEngine.SceneManagement;
 
 public class DeathScreenHandler : MonoBehaviour
 {
-  bool isLoading;
-
   [SerializeField] GameObject loading;
   [SerializeField] GameObject gameOver;
 
   Animator loadingAnimator;
-
-  float loadingTimer = 5;
 
   void Start()
   {
@@ -23,7 +19,6 @@ public class DeathScreenHandler : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Mouse0))
     {
       SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
-      isLoading = true;
 
       gameOver.SetActive(false);
       loading.SetActive(true);

@@ -6910,8 +6910,8 @@ MonoBehaviour:
   maxTNT: 20
   TNTBlock: {fileID: 1067746236420310, guid: 452718a4a9a02b74c8a3f69b9e6bab70, type: 2}
   BoneBlock: {fileID: 1115262654251100, guid: 732389fe3d1f85a4587dccac49e35e5f, type: 2}
-  normalBug: {fileID: 0}
-  extremeBug: {fileID: 0}
+  normalBug: {fileID: 1855597125802566, guid: 806eef3704dba3448a623a5167fb58ba, type: 2}
+  extremeBug: {fileID: 1687723731262150, guid: a18a47cdc1d63f34485b14fd93f66e19, type: 2}
   blockHealthDirtLayer: 3
   blockHealthStoneLayer: 5
   blockHealthIronTinLayer: 10
@@ -8774,7 +8774,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000020967385}
+  m_AnchoredPosition: {x: 0, y: 0.000024194856}
   m_SizeDelta: {x: 0, y: 490.18}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &785614583
@@ -20274,11 +20274,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4145265279315240, guid: d1e6ab3bc517c7a4a9ede22a705bae7e, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.803
+      value: 3.61
       objectReference: {fileID: 0}
     - target: {fileID: 4145265279315240, guid: d1e6ab3bc517c7a4a9ede22a705bae7e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.509
+      value: 2.04
       objectReference: {fileID: 0}
     - target: {fileID: 4145265279315240, guid: d1e6ab3bc517c7a4a9ede22a705bae7e, type: 2}
       propertyPath: m_LocalPosition.z
