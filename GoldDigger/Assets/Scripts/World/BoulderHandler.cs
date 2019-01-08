@@ -25,16 +25,20 @@ public class BoulderHandler : MonoBehaviour
     if (isFalling)
     {
       timeTillFall -= Time.deltaTime;
+
       if (timeTillFall < 0f || !doWobble)
       {
         doWobble = false;
+
         transform.position = new Vector3(oldPos.x, transform.position.y);
         var toFall = 0.1f;
+
         if (fallDistance < maxFallDistance)
         {
           transform.position -= new Vector3(0, toFall);
           fallDistance += toFall;
         }
+
         else
         {
           isFalling = false;
@@ -42,6 +46,7 @@ public class BoulderHandler : MonoBehaviour
           timeTillFall = 1f;
         }
       }
+
       else
       {
         if (timePerWobble < 0 && doWobble)
@@ -51,6 +56,7 @@ public class BoulderHandler : MonoBehaviour
             transform.position += new Vector3(Random.Range(0.005f, 0.05f), 0);
             wobbleDirection = 0;
           }
+
           else if (wobbleDirection == 0)
           {
             transform.position -= new Vector3(Random.Range(0.005f, 0.05f), 0);
@@ -63,6 +69,7 @@ public class BoulderHandler : MonoBehaviour
         timePerWobble -= Time.deltaTime;
       }
     }
+
     else
     {
       getStoneUnderneath();
@@ -72,17 +79,20 @@ public class BoulderHandler : MonoBehaviour
   void getStoneUnderneath()
   {
     var col = Physics2D.OverlapCircle(transform.position + new Vector3(0, -1), 0.1f);
+
     if (col != null)
     {
       if (col.gameObject.layer == 8 || col.gameObject.GetComponent<BoulderHandler>() != null)
       {
         doWobble = true;
       }
+
       else
       {
         isFalling = true;
       }
     }
+
     else
     {
       isFalling = true;

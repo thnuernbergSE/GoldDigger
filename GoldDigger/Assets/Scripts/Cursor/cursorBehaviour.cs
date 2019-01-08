@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class cursorBehaviour : MonoBehaviour
 {
@@ -13,25 +11,15 @@ public class cursorBehaviour : MonoBehaviour
     public Texture2D diamondCursor;
     public Texture2D titaniumCursor;
 
-
-
     void Start()
     {
         Cursor.SetCursor(defaultCursor, Vector2.zero, CursorMode.Auto);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-    //GameObject.Find("Player").GetComponent<Player>().GetYPos < 0
     void OnMouseEnter()
     {
         if (gameObject.tag == "Above")
         {
-            //Cursor.SetCursor(handCursor, Vector2.zero, CursorMode.Auto);
-
             int caseSwitch = UpgradeHandlerPickaxe.caseSwitchCursor;
             
             switch (caseSwitch)

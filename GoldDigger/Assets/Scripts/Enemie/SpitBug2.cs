@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SpitBug2 : MonoBehaviour
 {
-
   public float speed;
 
   bool movingRight;
@@ -12,6 +9,7 @@ public class SpitBug2 : MonoBehaviour
   void Start()
   {
     movingRight = transform.parent.GetComponent<Patrol>().GetMovingRight;
+
     Destroy(gameObject, 3);
   }
 
@@ -21,9 +19,8 @@ public class SpitBug2 : MonoBehaviour
     if (movingRight)
     {
       transform.position = new Vector2(transform.position.x + speed * Time.deltaTime, transform.position.y);
-
     }
-    else if (!movingRight)
+    if (!movingRight)
     {
       transform.localScale = new Vector2(-1, 1);
       transform.position = new Vector2(transform.position.x - speed * Time.deltaTime, transform.position.y);
@@ -43,6 +40,7 @@ public class SpitBug2 : MonoBehaviour
       DestroySpit();
     } 
   }
+
   public void DestroySpit()
   {
     Destroy(gameObject);

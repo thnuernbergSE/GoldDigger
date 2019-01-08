@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class MuseumHandler : MonoBehaviour {
-
+public class MuseumHandler : MonoBehaviour
+{
   GameObject museumUI;
 
   bool isShopOpen = false;
@@ -13,8 +11,8 @@ public class MuseumHandler : MonoBehaviour {
   // Use this for initialization
   void Start()
   {
-
     museumUI = GameObject.Find("MuseumPopup");
+
     if (museumUI == null)
     {
       throw new NullReferenceException("MuseumUI is null - MuseumHandler.cs");

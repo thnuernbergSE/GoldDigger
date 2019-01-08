@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class Stats : MonoBehaviour
@@ -8,8 +6,7 @@ public class Stats : MonoBehaviour
 
   Player player;
 
-  [SerializeField]
-  Sprite[] lifeSprite;
+  [SerializeField] Sprite[] lifeSprite;
 
   GameObject stats;
 
@@ -17,6 +14,7 @@ public class Stats : MonoBehaviour
   void Start()
   {
     stats = GameObject.Find("Stats");
+
     player = GameObject.Find("Player").GetComponent<Player>();
   }
 
@@ -44,7 +42,7 @@ public class Stats : MonoBehaviour
     {
       if (player.CurrentStamina == i)
       {
-        stats.transform.GetChild(1).GetChild(0).GetComponent<Image>().fillAmount = (float)i / player.MaxStamina;
+        stats.transform.GetChild(1).GetChild(0).GetComponent<Image>().fillAmount = (float) i / player.MaxStamina;
       }
     }
   }

@@ -36,7 +36,7 @@ public class BuyButtonHandler : MonoBehaviour
       }
 
       var inventoryItem = new InventoryItems(upgradeItems.transform.GetChild(i).GetComponent<UpgradeItem>().Item
-        .GetComponent<OreItems>().ItemName);
+          .GetComponent<OreItems>().ItemName);
 
       var itemAmount = upgradeItems.transform.GetChild(i).GetComponent<UpgradeItem>().Amount;
 

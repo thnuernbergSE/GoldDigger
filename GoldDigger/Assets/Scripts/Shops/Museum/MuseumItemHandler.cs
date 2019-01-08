@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using System;
 
-public class MuseumItemHandler : MonoBehaviour {
-
+public class MuseumItemHandler : MonoBehaviour
+{
   [SerializeField] int itemID;
 
   Inventory inventory;
@@ -37,7 +35,8 @@ public class MuseumItemHandler : MonoBehaviour {
   public int ItemID => itemID;
 
   // Use this for initialization
-  void Start () {
+  void Start()
+  {
     inventory = GameObject.Find("Player").GetComponent<Inventory>();
 
     text = transform.GetChild(5).GetChild(1).GetComponent<TextMeshProUGUI>();
@@ -45,17 +44,20 @@ public class MuseumItemHandler : MonoBehaviour {
     text.text = "???";
 
     itemName = BoneNames.Bones[itemID];
-	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-    if(!finishedResearch)
+  }
+
+  // Update is called once per frame
+  void FixedUpdate()
+  {
+    if (!finishedResearch)
     {
       if (inventory.GetItemByName(BoneNames.Bones[itemID] + "_" + itemID) != null)
       {
         transform.GetChild(2).GetComponent<Button>().interactable = true;
+
         inventoryItem = inventory.GetItemByName(BoneNames.Bones[itemID] + "_" + itemID);
       }
+
       else
       {
         transform.GetChild(2).GetComponent<Button>().interactable = false;
@@ -68,16 +70,16 @@ public class MuseumItemHandler : MonoBehaviour {
         if (researchTimer + startingTime <= Time.time)
         {
           finishResearch();
+
           isResearching = false;
         }
       }
     }
-	}
+  }
 
   void updateResearchTimer()
   {
-    text.text = Mathf.Max((int)(startingTime + researchTimer - Time.time), 0) + "s";
-    
+    text.text = Mathf.Max((int) (startingTime + researchTimer - Time.time), 0) + "s";
   }
 
   void finishResearch()
@@ -95,7 +97,8 @@ public class MuseumItemHandler : MonoBehaviour {
 
   public void CollectMoney()
   {
-    int amount; 
+    int amount;
+
     Int32.TryParse(inventoryItem.ItemName.Split('_')[2], out amount);
 
     GameObject.Find("Player").GetComponent<Player>().AddMoney(amount);

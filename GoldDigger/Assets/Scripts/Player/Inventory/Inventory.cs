@@ -22,6 +22,7 @@ public class Inventory : MonoBehaviour
   {
     set { acitveBackpack = value; }
   }
+
   bool isActive;
 
 
@@ -55,6 +56,7 @@ public class Inventory : MonoBehaviour
         GetInventory.Add(new KeyValuePair<InventoryItems, int>(item, amountOf));
         Debug.Log("Inventory Count == 0");
       }
+
       else
       {
         for (var i = 0; i < GetInventory.Count; i++)
@@ -62,7 +64,7 @@ public class Inventory : MonoBehaviour
           if (GetInventory[i].Key.ItemName == item.ItemName)
           {
             GetInventory[i] =
-              new KeyValuePair<InventoryItems, int>(GetInventory[i].Key, GetInventory[i].Value + amountOf);
+                new KeyValuePair<InventoryItems, int>(GetInventory[i].Key, GetInventory[i].Value + amountOf);
             itemAdded = true;
           }
         }
@@ -74,7 +76,9 @@ public class Inventory : MonoBehaviour
       }
 
       currentWeight += amountOf * item.ItemWeight;
+
       Debug.Log(currentWeight);
+
       return true;
     }
 
@@ -88,6 +92,7 @@ public class Inventory : MonoBehaviour
       if (GetInventory[i].Key.ItemName == item.ItemName)
       {
         currentWeight -= GetInventory[i].Key.ItemWeight * GetInventory[i].Value;
+
         GetInventory.Remove(GetInventory[i]);
 
         return true;
@@ -113,11 +118,13 @@ public class Inventory : MonoBehaviour
           currentWeight -= GetInventory[i].Key.ItemWeight * amountOf;
           GetInventory.Remove(GetInventory[i]);
         }
+
         else
         {
           currentWeight -= GetInventory[i].Key.ItemWeight * amountOf;
+
           GetInventory[i] =
-            new KeyValuePair<InventoryItems, int>(GetInventory[i].Key, GetInventory[i].Value - amountOf);
+              new KeyValuePair<InventoryItems, int>(GetInventory[i].Key, GetInventory[i].Value - amountOf);
         }
 
         return true;
@@ -182,7 +189,7 @@ public class Inventory : MonoBehaviour
 
 
     inventory.GetComponent<Image>().sprite =
-      acitveBackpack.GetComponent<BackpackHandler>().BackPack;
+        acitveBackpack.GetComponent<BackpackHandler>().BackPack;
     maxWeight = acitveBackpack.GetComponent<BackpackHandler>().MaxWeight;
 
     for (var i = 0; i < inventorySlots.Length; i++)
@@ -195,7 +202,7 @@ public class Inventory : MonoBehaviour
         {
           inventorySlots[i].transform.GetChild(0).GetComponent<Image>().sprite = GetInventory[i].Key.GetSprite;
           inventorySlots[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text =
-            GetInventory[i].Value.ToString();
+              GetInventory[i].Value.ToString();
         }
       }
     }
@@ -221,6 +228,7 @@ public class Inventory : MonoBehaviour
   void Start()
   {
     startSlotPanel();
+
     FoodPanelStart();
   }
 
@@ -263,6 +271,7 @@ public class Inventory : MonoBehaviour
   public bool AddFood(GameObject item)
   {
     var foodItems = new FoodItems(item.name);
+
     if (foodItems == null)
     {
       throw new UnassignedReferenceException("FoodItem equals null - Inventory.cs");
@@ -271,7 +280,9 @@ public class Inventory : MonoBehaviour
     if (GetFoodInventory.Count < foodSpace)
     {
       GetFoodInventory.Add(foodItems);
+
       Debug.Log(item.name);
+
       return true;
     }
 
@@ -282,10 +293,11 @@ public class Inventory : MonoBehaviour
   {
     for (var i = 0; i < GetFoodInventory.Count; i++)
     {
-      
+
       if (GetFoodInventory[i].Name == item.Name)
       {
         GetFoodInventory.Remove(GetFoodInventory[i]);
+
         return true;
       }
     }

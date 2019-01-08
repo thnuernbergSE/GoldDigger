@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Patrol : MonoBehaviour
 { 
-  public float SpitCooldown = 2f;
+  public float SpitCooldown = 2.0f;
 
   public float speed;
 
@@ -14,13 +12,9 @@ public class Patrol : MonoBehaviour
 
   public bool GetMovingRight => movingRight;
 
-
   public GameObject spiderattack;
 
   public bool canSpit;
-  void Start()
-  {
-  }
 
   void Update()
   {
@@ -28,8 +22,8 @@ public class Patrol : MonoBehaviour
 
     if (SpitCooldown <= 0  && canSpit)
     {
+      SpitCooldown = 5.0f;
 
-      SpitCooldown = 5f;
       Instantiate(spiderattack, transform.position, Quaternion.identity, transform);
     }
 

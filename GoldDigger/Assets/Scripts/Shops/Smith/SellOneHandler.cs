@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SellOneHandler : MonoBehaviour
 {
-
   [SerializeField] GameObject sellOneText;
 
   string itemName;
 
   Inventory inventory;
+
   GameObject item;
 
   InventoryItems inventoryItem;
@@ -22,7 +20,8 @@ public class SellOneHandler : MonoBehaviour
   Player player;
 
   // Use this for initialization
-  void Start () {
+  void Start()
+  {
     inventory = GameObject.Find("Player").GetComponent<Inventory>();
 
     item = gameObject.transform.parent.gameObject.GetComponent<ShopItem>().GetItem;
@@ -37,10 +36,12 @@ public class SellOneHandler : MonoBehaviour
     {
       throw new NullReferenceException("inventory is null - SellAllHandler.cs");
     }
+
     if (item == null)
     {
       throw new NullReferenceException("item is null - SellAllHandler.cs");
     }
+
     if (button == null)
     {
       throw new NullReferenceException("button is null - SellAllHandler.cs");

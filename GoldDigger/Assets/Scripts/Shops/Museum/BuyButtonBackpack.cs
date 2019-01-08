@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class BuyButtonBackpack : MonoBehaviour
 {
   bool alreadyBought = false;
+
   GameObject player;
+
   UpgradeHandlerBackpack upgradeHandler;
 
   void Start()
@@ -18,10 +18,11 @@ public class BuyButtonBackpack : MonoBehaviour
   void Update()
   {
     GetComponent<Button>().interactable = player.GetComponent<Player>().Money >=
-                                          upgradeHandler.Backpack.GetComponent<BackpackHandler>().Price && !alreadyBought;
+                                          upgradeHandler.Backpack.GetComponent<BackpackHandler>().Price &&
+                                          !alreadyBought;
   }
 
-	// Use this for initialization
+  // Use this for initialization
   public void OnClick()
   {
     player.GetComponent<Player>().RemoveMoney(upgradeHandler.Backpack.GetComponent<BackpackHandler>().Price);

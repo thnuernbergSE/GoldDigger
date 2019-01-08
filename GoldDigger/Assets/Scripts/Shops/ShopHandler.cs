@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ShopHandler : MonoBehaviour {
 
@@ -13,7 +10,6 @@ public class ShopHandler : MonoBehaviour {
   }
 
   // Update is called once per frame
-
   void OnTriggerEnter2D(Collider2D other)
   {
     thinkingCloud.SetActive(true);

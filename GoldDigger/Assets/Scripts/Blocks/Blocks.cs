@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 
-
 public class Blocks : MonoBehaviour
 {
   [SerializeField] string blockName;
@@ -37,7 +36,6 @@ public class Blocks : MonoBehaviour
 
     source = GameObject.Find("AudioPlayer").GetComponent<AudioSource>();
     
-
     breakObject = transform.GetChild(0).gameObject;
 
     fraction = (float)health / breakingSprites.Length;

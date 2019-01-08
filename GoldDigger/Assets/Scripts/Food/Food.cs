@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Food : MonoBehaviour
 {
@@ -23,10 +21,5 @@ public class Food : MonoBehaviour
   public int Cost => cost;
 
   public string Name => name;
-
- 
-
- 
-
 }
   

@@ -1,18 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class MuseumButtons : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class MuseumButtons : MonoBehaviour
+{
   public void CloseMuseumUI()
   {
     var museumUI = GameObject.Find("MuseumPopup");

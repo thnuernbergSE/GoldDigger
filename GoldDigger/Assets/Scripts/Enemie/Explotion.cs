@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Explotion: MonoBehaviour
+public class Explotion : MonoBehaviour
 {
   public GameObject explosionEffect;
 
@@ -16,9 +14,8 @@ public class Explotion: MonoBehaviour
   void explosion()
   {
     Instantiate(explosionEffect, transform.position, transform.rotation);
+
     Destroy(gameObject);
   }
-
-
 }
 

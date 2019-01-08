@@ -31,12 +31,12 @@ public class DepthArrowHandler : MonoBehaviour
 
     worldHeight = mapGenerator.GetWorldHeight;
     depthArrow = GameObject.Find("DepthArrow");
+
     if (depthArrow == null)
     {
       throw new NullReferenceException("No DepthArrow found! - DepthArrowHandler");
     }
   }
-
 
   // Update is called once per frame
   void Update()

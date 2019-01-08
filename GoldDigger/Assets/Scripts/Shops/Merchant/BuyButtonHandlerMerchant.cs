@@ -1,15 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.Audio.Google;
-using UnityEngine.Experimental.U2D;
 using UnityEngine.UI;
 
 public class BuyButtonHandlerMerchant : MonoBehaviour
 {
-
   List<InventoryItems> buyItemsList = new List<InventoryItems>();
 
   public List<InventoryItems> ItemsList => buyItemsList;
@@ -20,15 +14,13 @@ public class BuyButtonHandlerMerchant : MonoBehaviour
 
   int cost;
 
- 
-
   void Start()
-  { 
-    
+  {
     player = GameObject.Find("Player");
-    cost = transform.parent.gameObject.GetComponent<BuyHandler>().Cost;
-    food = transform.parent.gameObject.GetComponent<BuyHandler>().Food;
 
+    cost = transform.parent.gameObject.GetComponent<BuyHandler>().Cost;
+
+    food = transform.parent.gameObject.GetComponent<BuyHandler>().Food;
   }
 
   // Update is called once per frame
@@ -43,12 +35,9 @@ public class BuyButtonHandlerMerchant : MonoBehaviour
   {
     var inventory = player.GetComponent<Inventory>();
 
-
-
     if (inventory.AddFood(food) && player.GetComponent<Player>().RemoveMoney(cost))
     {
       Debug.Log("Food_Added-BuyhandlerMerchant.cs");
     }
-   
   }
 }

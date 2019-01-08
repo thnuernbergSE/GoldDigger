@@ -15,28 +15,32 @@ public class PlayerControl : MonoBehaviour
   bool openInventory;
 
   float animationTime;
+
   bool attackWithPickaxe;
+
   float coolDownTimer;
+
   int dmg;
+
   bool facingRight;
   bool isGrounded;
   bool isPickAnimationRunning;
   bool jump;
+
   Vector2 lookdirection;
+
   Animator myAnimator;
 
   Rigidbody2D myRigidbody2D;
 
   GameObject pivotPoint;
+
   int strength;
 
   GameObject tool;
   GameObject thinkingCloud;
 
-
   bool wallJumping;
-
-
 
   public float GetYPosition => transform.position.y;
 
@@ -46,14 +50,21 @@ public class PlayerControl : MonoBehaviour
   void Start()
   {
     facingRight = true;
+
     myRigidbody2D = GetComponent<Rigidbody2D>();
+
     myAnimator = GetComponent<Animator>();
+
     Inventory = GameObject.Find("Inventory");
+
     pivotPoint = GameObject.Find("Pivot");
+
     tool = GameObject.Find("Tool");
+
     thinkingCloud = GameObject.Find("thinkCloud");
 
     thinkingCloud.SetActive(false);
+
     if (pivotPoint == null)
     {
       throw new NullReferenceException("Pivot Point not found! - PlayerControl.cs");
@@ -68,6 +79,7 @@ public class PlayerControl : MonoBehaviour
   void Update()
   {
     coolDownTimerBug -= Time.deltaTime;
+
     HandleInput();
   }
 
@@ -108,10 +120,11 @@ public class PlayerControl : MonoBehaviour
     if (isGrounded && jump)
     {
       isGrounded = false;
+
       myRigidbody2D.AddForce(new Vector2(0, jumpForce));
+
       myAnimator.SetTrigger("jump");
     }
-
 
     myRigidbody2D.velocity = new Vector2(horizontal * movementSpeed, myRigidbody2D.velocity.y);
 
@@ -132,6 +145,7 @@ public class PlayerControl : MonoBehaviour
       {
         pivotPoint.transform.eulerAngles = new Vector3(0, 0, Mathf.LerpAngle(pivotMax, pivotMin, animationTime));
       }
+
       else
       {
         pivotPoint.transform.eulerAngles = new Vector3(0, 0, -Mathf.LerpAngle(pivotMax, pivotMin, animationTime));
@@ -140,8 +154,11 @@ public class PlayerControl : MonoBehaviour
       if (animationTime > 1)
       {
         attackWithPickaxe = false;
+
         isPickAnimationRunning = false;
+
         animationTime = 0f;
+
         pivotPoint.transform.eulerAngles = transform.localScale.x > 0 ? new Vector3(0, 0, 25) : new Vector3(0, 0, -19);
       }
     }
@@ -151,15 +168,17 @@ public class PlayerControl : MonoBehaviour
     if (attackWithPickaxe && isGrounded && coolDownTimer <= 0)
     {
       isPickAnimationRunning = true;
+
       HandleRaycast();
+
       coolDownTimer = coolDown;
-     
     }
   }
 
   void HandleInput()
   {
     Physics2D.queriesStartInColliders = false;
+
     var hit = Physics2D.Raycast(transform.position, Vector2.right * transform.localScale.x, 1);
 
     if (Input.GetKey(KeyCode.Mouse0))
@@ -178,6 +197,7 @@ public class PlayerControl : MonoBehaviour
       {
         openInventory = false;
       }
+
       else
       {
         openInventory = true;
@@ -187,11 +207,14 @@ public class PlayerControl : MonoBehaviour
     if (Input.GetKeyDown(KeyCode.Space) && !isGrounded && hit.collider != null)
     {
       GetComponent<Rigidbody2D>().velocity = new Vector2(movementSpeed * hit.normal.x, movementSpeed);
+
       SendMessage("UseStamina", 2);
     }
+
     else if (hit.collider != null && wallJumping)
     {
       wallJumping = false;
+
       SendMessage("UseStamina", 2);
     }
   }
@@ -201,6 +224,7 @@ public class PlayerControl : MonoBehaviour
     if (horizontal > 0 && !facingRight || horizontal < 0 && facingRight)
     {
       facingRight = !facingRight;
+
       var theScale = transform.localScale;
 
       theScale.x *= -1;
@@ -212,6 +236,7 @@ public class PlayerControl : MonoBehaviour
   void ResetValues()
   {
     attackWithPickaxe = false;
+
     jump = false;
   }
 
@@ -229,6 +254,7 @@ public class PlayerControl : MonoBehaviour
           {
             myAnimator.ResetTrigger("jump");
             myAnimator.SetBool("land", false);
+
             return true;
           }
         }
@@ -244,6 +270,7 @@ public class PlayerControl : MonoBehaviour
     {
       myAnimator.SetLayerWeight(1, 1);
     }
+
     else
     {
       myAnimator.SetLayerWeight(1, 0);
@@ -265,9 +292,10 @@ public class PlayerControl : MonoBehaviour
         hit.collider.SendMessage("BugTakesDamage");
         done = false;
       }
+
       if (hit.collider.gameObject.tag == "Blocks" && done)
       {
-        hit.collider.SendMessage("ReceiveDamage", new[] { strength, dmg });
+        hit.collider.SendMessage("ReceiveDamage", new[] {strength, dmg});
       }
     }
   }
@@ -275,15 +303,20 @@ public class PlayerControl : MonoBehaviour
   void HandlePickaxe()
   {
     var player = gameObject.GetComponent<Player>();
+
     var pickaxe = player.Pickaxe.GetComponent<Pickaxe>();
+
     tool.GetComponent<SpriteRenderer>().sprite = pickaxe.GetSprite;
-    strength = (int)pickaxe.Strength;
-    dmg = (int)pickaxe.Damage;
+
+    strength = (int) pickaxe.Strength;
+
+    dmg = (int) pickaxe.Damage;
   }
 
   Vector2 Lookdirection()
   {
     var lookdirection = new Vector2(0, 0);
+
     Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
     var direction = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
@@ -350,6 +383,7 @@ public class PlayerControl : MonoBehaviour
     {
       Inventory.SetActive(true);
     }
+
     else
     {
       Inventory.SetActive(false);
@@ -358,37 +392,38 @@ public class PlayerControl : MonoBehaviour
 
   const int fallDamage = 1;
 
-  [SerializeField]
-  float fallDamageDistance = 10f;
+  [SerializeField] float fallDamageDistance = 10.0f;
+
   bool canLoseDamage;
 
   void OnCollisionEnter2D(Collision2D other)
   {
-
     if (Mathf.Abs(other.relativeVelocity.y) > fallDamageDistance && canLoseDamage)
     {
       SendMessage("TakeDamage", fallDamage);
+
       canLoseDamage = false;
     }
 
     if (other.gameObject.tag.Equals("Enemy") && coolDownTimerBug <= 0)
     {
-      coolDownTimerBug = 1f;
-      SendMessage("TakeDamage",1);
+      coolDownTimerBug = 1.0f;
+
+      SendMessage("TakeDamage", 1);
     }
   }
 
-  [SerializeField]
-  float coolDownTimerBug = 1f;
+  [SerializeField] float coolDownTimerBug = 1.0f;
+
   void OnCollisionStay2D(Collision2D other)
   {
     canLoseDamage = true;
-    
+
     if (other.gameObject.tag.Equals("Enemy") && coolDownTimerBug <= 0)
     {
-      coolDownTimerBug = 1f;
+      coolDownTimerBug = 1.0f;
+
       SendMessage("TakeDamage", 1);
     }
-
   }
 }

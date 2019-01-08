@@ -1,55 +1,52 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-  [SerializeField]
-  int maxHealth;
+  [SerializeField] int maxHealth;
 
-  [SerializeField]
-  int maxStamina;
+  [SerializeField] int maxStamina;
 
-  [SerializeField]
-  int currentHealth;
+  [SerializeField] int currentHealth;
 
-  [SerializeField]
-  int currentStamina;
+  [SerializeField] int currentStamina = 100;
 
   int money;
 
   public int MaxHealth
   {
     get { return maxHealth; }
+
     set { currentHealth = Mathf.Min(value, MaxHealth); }
   }
+
   public int CurrentHealth
   {
     get { return currentHealth; }
+
     set { currentHealth = Mathf.Min(value, MaxHealth); }
   }
 
   public int MaxStamina
   {
     get { return maxStamina; }
+
     set { currentStamina = Mathf.Min(value, MaxStamina); }
   }
 
   public int CurrentStamina
   {
     get { return currentStamina; }
-    set
-    { currentStamina = Mathf.Min(value, MaxStamina); }
+
+    set { currentStamina = Mathf.Min(value, MaxStamina); }
   }
-
-
 
   public int Money => money;
 
   public bool AddMoney(int amount)
   {
     money += amount;
+
     return true;
   }
 
@@ -61,25 +58,22 @@ public class Player : MonoBehaviour
     }
 
     money -= amount;
+
     return true;
   }
 
   public GameObject Pickaxe
   {
     get { return mainTool; }
+
     set { mainTool = value; }
   }
 
   public float GetYPos => transform.position.y;
 
-  [SerializeField]
-  private GameObject mainTool;
+  [SerializeField] private GameObject mainTool;
 
   private Pickaxe pickScript;
-
-  void Start()
-  {
-  }
 
   // Update is called once per frame
   void Update()
@@ -92,9 +86,9 @@ public class Player : MonoBehaviour
 
   public bool AddStammina(int amount)
   {
-    
     currentStamina += amount;
     currentStamina = Mathf.Min(currentStamina, MaxStamina);
+
     return true;
   }
 
@@ -102,6 +96,7 @@ public class Player : MonoBehaviour
   {
     currentHealth += amout;
     currentHealth = Mathf.Min(currentHealth, MaxHealth);
+
     return true;
   }
 
@@ -109,16 +104,15 @@ public class Player : MonoBehaviour
   {
     currentHealth -= amout;
     currentHealth = Mathf.Max(currentHealth, 0);
+
     return true;
-    
   }
 
-  
   public bool UseStamina(int amount)
   {
     currentStamina -= amount;
     currentStamina = Mathf.Max(currentStamina, 0);
+
     return true;
   }
-
 }

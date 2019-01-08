@@ -1,19 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ExplotionHandler : MonoBehaviour {
-  int radius = 3;
+  const float radius = 3.0f;
 
   [SerializeField]
-  int explosionDamage = 1;
+  const float explosionDamage = 1.0f;
 
   [SerializeField]
-  int force = 700;
+  const int force = 700;
 
   float delay = 0.3f;
 
   GameObject player;
+
   // Use this for initialization
   void Start ()
   {
@@ -28,6 +27,7 @@ public class ExplotionHandler : MonoBehaviour {
 
       Destroy(nearbyObject.gameObject);
     }
+
     Vector2 vector =  player.transform.position - gameObject.transform.position;
     vector.Normalize();
 

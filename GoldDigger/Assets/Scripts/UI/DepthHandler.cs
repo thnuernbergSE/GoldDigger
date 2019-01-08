@@ -1,7 +1,6 @@
 ﻿using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class DepthHandler : MonoBehaviour
 {
@@ -13,7 +12,9 @@ public class DepthHandler : MonoBehaviour
   void Start()
   {
     text = GetComponent<TextMeshProUGUI>();
+
     playerControl = GameObject.Find("Player").GetComponent<PlayerControl>();
+
     if (playerControl == null)
     {
       throw new NullReferenceException("Player not found! - DepthHandler");
