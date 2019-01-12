@@ -208,14 +208,14 @@ public class PlayerControl : MonoBehaviour
     {
       GetComponent<Rigidbody2D>().velocity = new Vector2(movementSpeed * hit.normal.x, movementSpeed);
 
-      SendMessage("UseStamina", 2);
+      SendMessage("UseStamina", 1);
     }
 
     else if (hit.collider != null && wallJumping)
     {
       wallJumping = false;
 
-      SendMessage("UseStamina", 2);
+      SendMessage("UseStamina", 1);
     }
   }
 

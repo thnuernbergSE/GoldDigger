@@ -181,7 +181,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1248950800775622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.803, y: 2.509, z: 0}
+  m_LocalPosition: {x: 3.61, y: 2.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4972206910789220}
@@ -355,9 +355,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  maxStamina: 100
+  maxStamina: 200
   currentHealth: 5
-  currentStamina: 100
+  currentStamina: 200
   mainTool: {fileID: 1142869572198580, guid: c3516652a6e9db0438da00e50e765ad6, type: 2}
 --- !u!114 &114329633031725140
 MonoBehaviour:
@@ -496,7 +496,8 @@ MonoBehaviour:
   whatIsGround:
     serializedVersion: 2
     m_Bits: 4352
-  fallDamageDistance: 10
+  fallDamageDistance: 5
+  coolDownTimerBug: 1
 --- !u!114 &114691018300927666
 MonoBehaviour:
   m_ObjectHideFlags: 1

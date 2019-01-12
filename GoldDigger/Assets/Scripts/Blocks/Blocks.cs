@@ -81,7 +81,7 @@ public class Blocks : MonoBehaviour
 
       playSound();
 
-      GameObject.Find("Player").GetComponent<Player>().SendMessage("UseStamina",2);
+      GameObject.Find("Player").GetComponent<Player>().SendMessage("UseStamina",1);
 
       if (health < fraction * 3)
       {

@@ -26,7 +26,7 @@ public class BuyButtonHandlerMerchant : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    var allItem = !(player.GetComponent<Player>().Money <= cost);
+    var allItem = (player.GetComponent<Player>().Money >= cost);
 
     gameObject.GetComponent<Button>().interactable = allItem;
   }

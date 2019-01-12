@@ -53,5 +53,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Burger
   sprite: {fileID: 21300000, guid: a6ffdc0b1bbe18a4986e160e321afb00, type: 3}
-  energy: 20
+  energy: 50
   cost: 1
